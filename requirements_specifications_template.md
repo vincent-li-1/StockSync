@@ -23,7 +23,6 @@ Please view this file's source to see `<!--comments-->` with guidance on how you
 - Users can navigate around the application easily 
   - A universal nav bar allows users to navigate to the primary pages from any given page
     - Home page
-    - Actions page
     - Log page
   - Search results link to a page for every result's individual information page
     - Item page with information about a given item
