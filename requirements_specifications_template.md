@@ -20,40 +20,45 @@ Please view this file's source to see `<!--comments-->` with guidance on how you
 
 <!--This section lists the behavior that the users see. This information needs to be presented in a logical, organized fashion. It is most helpful if this section is organized in outline form: a bullet list of major topics (e.g., one for each kind of user, or each major piece of system functionality) each with some number of subtopics.-->
 
-Here is a user requirements sample from [Crookshanks](https://learning-oreilly-com.ezproxy.library.wisc.edu/library/view/practical-software-development/9781484206201/9781484206218_Ch02.xhtml):
+- Users can navigate around the application easily 
+  - A universal nav bar allows users to navigate to the primary pages from any given page
+    - Home page
+    - Actions page
+    - Log page
+  - Search results link to a page for every result's individual information page
+    - Item page with information about a given item
+    - Warehouse page with information about a given warehouse
+  - Users can see what their login/username is from any page in the web application
+    - Users can log out from anywhere in the application
+- Users can view the information pages for a given item or warehouse
+  - An information page for a given item or warehouse should show a log of all actions performed by all users on that item or warehouse
+  - An information page for a given item or warehouse should show all data for that given item or warehouse
+  - From a warehouse information page, the user should be able to see the inventory of the warehouse from any given day in the past or present
+- Users can search for items based on any filter or set of filters
+  - A search can filter only one data field or combine any number of data fields. An empty search should return all entries
+  - Within the search results, users can click on an item or warehouse and access the information page for that entry
+- Users can perform key actions
+  - Users can create new entries (items or warehouses)
+    - Entries with invalid information (mising fields or certain duplicates of unique fields) should fail with an error message
+  - Users can edit the data of existing entries through
+  - Users can move items from one warehouse to another or out of the inventory in case of a sale
+    - This can be done individually on the item level or in bulk on the warehouse level
+  - Users can delete existing entries entirely
+- Users can see a log of actions taken by all users on a given item, at a given warehouse, or across the network
+  - Actions can also be filtered by user(s), time, action type, or a combination of the above
 
-| ID   | Description                                                  | Priority | Status |
-| ---- | ------------------------------------------------------------ | -------- | ------ |
-| R11  | Users should not have to sign into the system; their current network login should be used for identification. | Med      | Done   |
-| R12  | The user should pick a project first; the tasks available are a derivative of the project. | High     | Open   |
-| R13  | A full-time employee should not be able to submit a time card with less than 40 hours per week recorded. | High     | Open   |
-| R14  | A contractor can submit any number of hours up to 60 without special approval. | Med      | Open   |
-| R15  | A team lead can see his/her team's time cards before they are submitted but cannot approve them until the user submits it. | High     | Open   |
-
-<div align="center"><small><i>Excerpt from Crookshanks Table 2-2 showing example user requirements for a timekeeping system</i></small></div>
-
-- You 
-  - Can
-    - Use
-- Bullet
-  - Points
-    - In
-    - Markdown
 
 ### Use Cases & User Stories
 
 <!--Use cases and user stories that support the user requirements in the previous section. The use cases should be based off user stories. Every major scenario should be represented by a use case, and every use case should say something not already illustrated by the other use cases. Diagrams (such as sequence charts) are encouraged. Ask the customer what are the most important use cases to implement by the deadline. You can have a total ordering, or mark use cases with “must have,” “useful,” or “optional.” For each use case you may list one or more concrete acceptance tests (concrete scenarios that the customer will try to see if the use case is implemented).-->
 
-Here is a sample user story from [Clean Agile](https://learning-oreilly-com.ezproxy.library.wisc.edu/library/view/clean-agile-back/9780135782002/ch03.xhtml#ch03lev1sec1) using a markdown block quote:
+> As a user, I can record shipments that occur between shipments or in and out of the network
 
-> As the driver of a car, in order to increase my velocity, I will press my foot harder on the accelerator pedal.
+> As a user, when I search for a given item, I can see total quantity, as well as a breakdown of where those quantities are
 
-1. You
-   1. Can
-      1. Also
-2. Use
-   1. Numbered
-      1. Lists
+> As a user, when I'm looking at a warehouse I can see what was at that warehouse at the start of any day in the past or present
+
+> As a user, I can see an audit trail of updates all other users have made to the data
 
 ### User Interface Requirements
 
