@@ -109,7 +109,7 @@ subgraph Database
 end
 
 A <-->B
-B <-->C
+B <-->|"ORM(Mybatis)"| C
 ```
 #### Database
 
