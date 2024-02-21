@@ -97,11 +97,11 @@ Here are some sample technology stacks that you can use for inspiration:
 ```mermaid
 flowchart RL
 subgraph Front End
-	A(Javascript: React)
+	A(Static JS, CSS, HTML)
 end
 	
 subgraph Back End
-	B(Python: Django with \nDjango Rest Framework)
+	B(Java: Spring Boot framework)
 end
 	
 subgraph Database
