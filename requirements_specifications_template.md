@@ -155,31 +155,51 @@ erDiagram
 
 ```mermaid
 ---
-title: Sample Class Diagram for Animal Program
+title: Class Diagram for Inventory Manager
 ---
 classDiagram
-    class Animal {
-        - String name
-        + Animal(String name)
-        + void setName(String name)
-        + String getName()
-        + void makeSound()
+    class Item {
+        - String itemName
+        - String itemType
+        - String itemSize
+        + Item(String itemName, int key, )
+        + Item getItem(String name, int key)
+        + String getItemType()
+        + void addItem()
+        + void deleteItem()
     }
-    class Dog {
-        + Dog(String name)
-        + void makeSound()
+    class Shirt {
+        + Shirt(String name)
+        + void getKey()
+        + void getName()
+        + void getPrice()
+        + void getSize()
     }
-    class Cat {
-        + Cat(String name)
-        + void makeSound()
+    class Pant {
+        + Pant(String name)
+        + void getKey()
+        + void getName()
+        + void getPrice()
+        + void getSize()
     }
-    class Bird {
-        + Bird(String name)
-        + void makeSound()
+    class Jacket {
+        + Jacket(String name)
+        + void getKey()
+        + void getName()
+        + void getPrice()
+        + void getSize()
     }
-    Animal <|-- Dog
-    Animal <|-- Cat
-    Animal <|-- Bird
+    class Shoe {
+        + Shoe(String name)
+        + void getKey()
+        + void getName()
+        + void getPrice()
+        + void getSize()
+    }
+    Item <|-- Shirt
+    Item <|-- Pant
+    Item <|-- Jacket
+    Item <|-- Shoe
 ```
 
 #### Flowchart
