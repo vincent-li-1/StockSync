@@ -203,7 +203,7 @@ classDiagram
         + void getPrice()
         + void getSize()
     }
-    Driver <|-- Shirt
+    Driver <|-- Item
     Item <|-- Shirt
     Item <|-- Pant
     Item <|-- Jacket
