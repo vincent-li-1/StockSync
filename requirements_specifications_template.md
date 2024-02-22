@@ -158,6 +158,13 @@ erDiagram
 title: Class Diagram for Inventory Manager
 ---
 classDiagram
+    class Driver {
+        - String target
+        - HttpServletRequest request
+        - HttpServletResponse response
+        + void Recieve(String target, HttpServletRequest request)
+        + void Send(String target, HttpServletResponse response)
+    }
     class Item {
         - String itemName
         - String itemType
@@ -196,6 +203,7 @@ classDiagram
         + void getPrice()
         + void getSize()
     }
+    Driver <|-- Shirt
     Item <|-- Shirt
     Item <|-- Pant
     Item <|-- Jacket
