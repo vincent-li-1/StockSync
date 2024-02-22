@@ -217,14 +217,14 @@ classDiagram
 title: Sample Program Flowchart
 ---
 graph TD;
-    Start([Start]) --> Input_Data[/Input Data/];
-    Input_Data --> Process_Data[Process Data];
-    Process_Data --> Validate_Data{Validate Data};
-    Validate_Data -->|Valid| Process_Valid_Data[Process Valid Data];
-    Validate_Data -->|Invalid| Error_Message[/Error Message/];
-    Process_Valid_Data --> Analyze_Data[Analyze Data];
-    Analyze_Data --> Generate_Output[Generate Output];
-    Generate_Output --> Display_Output[/Display Output/];
+    Start([Start]) --> Make_request[/Make Request/];
+    Make_request --> Recieve_Server_Request[/Recieve Server Request/];
+    Recieve_Server_Request --> Parse_Request[Parse Request];
+    Parse_Request --> Validate_Request{Validate_Request};
+    Validate_Request -->|Valid| Fetch_Requested_Item[Fetch Requested Item];
+    Validate_Request -->|Invalid| Error_Message[/Error Message/];
+    Fetch_Requested_Item --> Send_Response[Send_Response];
+    Send_Response --> Display_Output[/Display Output/];
     Display_Output --> End([End]);
     Error_Message --> End;
 ```
