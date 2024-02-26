@@ -45,6 +45,8 @@ Please view this file's source to see `<!--comments-->` with guidance on how you
   - Users can delete existing entries entirely
 - Users can see a log of actions taken by all users on a given item, at a given warehouse, or across the network
   - Actions can also be filtered by user(s), time, action type, or a combination of the above
+- Users can store at least 100 warehouses, 1,000 different users, and 10,000 products
+- Users should be able to load any webpage in "average" time on an "average" network - 3.21 seconds on a 60 mbps connection. In other words, no page should exceed 200 MB
 
 
 ### Use Cases & User Stories
@@ -118,35 +120,45 @@ B <-->|"ORM(Mybatis)"| C
 title: Sample Database ERD for an Order System
 ---
 erDiagram
-    Customer ||--o{ Order : "placed by"
-    Order ||--o{ OrderItem : "contains"
-    Product ||--o{ OrderItem : "included in"
+    Warehouse ||--o{ Shipment : "made by"
+    Item ||--o{ WarehouseXItem : ""
+    Warehouse ||--o{ WarehouseXItem : ""
+    Shipment ||--o{ ShipmentXItem : "included in"
 
-    Customer {
-        int customer_id PK
-        string name
-        string email
-        string phone
+    Warehouse {
+        int warehouse_id PK
+        string warehouse_name
+        string warehouse_address
     }
 
-    Order {
-        int order_id PK
-        int customer_id FK
+    Shipment {
+        int shipment_id PK
+        int warehouse_from_id FK
+        int warehouse_to_id FK
+        string shipment_type
         string order_date
         string status
     }
 
-    Product {
-        int product_id PK
-        string name
+    Item {
+        int item_id PK
+        string item_name
+        string item_size
+        string item_color
         string description
         decimal price
     }
 
-    OrderItem {
-        int order_item_id PK
-        int order_id FK
-        int product_id FK
+    WarehouseXItem {
+        int warehouse_id FK
+        int item_id FK
+        int quantity
+    }
+    
+    ShipmentXItem {
+        int shipment_item_id PK
+        int shipment_id FK
+        int item_id FK
         int quantity
     }
 ```
@@ -233,16 +245,28 @@ graph TD;
 
 ```mermaid
 ---
-title: Sample State Diagram For Coffee Application
+title: Sample State Diagram For Inventory Maneagment System
 ---
 stateDiagram
     [*] --> Ready
-    Ready --> Brewing : Start Brewing
-    Brewing --> Ready : Brew Complete
-    Brewing --> WaterLowError : Water Low
-    WaterLowError --> Ready : Refill Water
-    Brewing --> BeansLowError : Beans Low
-    BeansLowError --> Ready : Refill Beans
+    Ready --> Login : Login
+    Login --> Home : Success
+    Login --> Login : Failed
+    Home --> Search : SearchBar
+    Home --> AddItem : Add
+    AddItem --> Home : BackButton
+    Home --> DelItem : Del
+    Home --> EditItem : Edit
+    DelItem --> Home : BackButton
+    EditItem --> Home : BackButton
+    Search --> Search : SearchError
+    Search --> Home : BackButton
+    Search --> Item : SearchSuccess
+    Item --> Search : SearchDiff
+    Search --> Login : Logout
+    AddItem --> Login : Logout
+    DelItem --> Login : Logout
+    Item --> Login : Logout
 ```
 
 #### Sequence Diagram
@@ -250,23 +274,66 @@ stateDiagram
 ```mermaid
 sequenceDiagram
 
-participant ReactFrontend
-participant DjangoBackend
+participant JavascriptFrontend
+participant JavaBackend
 participant MySQLDatabase
 
-ReactFrontend ->> DjangoBackend: HTTP Request (e.g., GET /api/data)
-activate DjangoBackend
+JavascriptFrontend ->> JavaBackend: HTTP Request (e.g., GET /api/data)
+activate JavaBackend
 
-DjangoBackend ->> MySQLDatabase: Query (e.g., SELECT * FROM data_table)
+JavaBackend ->> MySQLDatabase: Query (e.g., SELECT * FROM data_table)
 activate MySQLDatabase
 
-MySQLDatabase -->> DjangoBackend: Result Set
+MySQLDatabase -->> JavaBackend: Result Set
 deactivate MySQLDatabase
 
-DjangoBackend -->> ReactFrontend: JSON Response
-deactivate DjangoBackend
+JavaBackend -->> JavascriptFrontend: JSON Response
+deactivate JavaBackend
 ```
 
 ### Standards & Conventions
 
-<!--Here you can document your coding standards and conventions. This includes decisions about naming, style guides, etc.-->
+# Coding Standards
+
+## 1. Limited Use of Globals
+- Define which types of data can be declared globally and which cannot.
+
+## 2. Standard Headers for Different Modules
+- **Name of the module**
+- **Date of module creation**
+- **Author of the module**
+- **Modification history**
+- **Synopsis**
+- **Functions supported**: List with input and output parameters.
+- **Global variables**: Accessed or modified by the module.
+
+## 3. Naming Conventions
+- **Local Variables**: Use camel case (e.g., `localData`).
+- **Global Variables**: Start with a capital letter (e.g., `GlobalData`).
+- **Constants**: Use all capital letters (e.g., `CONSDATA`).
+- **Functions**: Use camel case starting with a small letter.
+
+## 4. Indentation
+- Use spaces after commas between function arguments.
+- Indent nested blocks properly.
+- Start all braces on a new line.
+
+## 5. Error Return Values and Exception Handling Conventions
+- Functions should return 0 or 1 to indicate failure or success.
+
+## 6. General Coding Guidelines
+- Avoid complex coding styles.
+- Use meaningful names for identifiers.
+- Document the code properly with comments.
+- Keep functions short and focused.
+- Avoid using GOTO statements.
+
+## Advantages of Coding Guidelines
+- Increase software efficiency and reduce development time.
+- Help in early error detection to reduce costs.
+- Improve code readability and maintainability.
+- Reduce the hidden costs of software development.
+
+For more detailed information on coding standards and guidelines, refer to [GeeksforGeeks](https://www.geeksforgeeks.org/coding-standards-and-guidelines/).
+
+
