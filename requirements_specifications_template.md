@@ -12,7 +12,11 @@ This is a full stack inventory management web application. The app allows a cust
 
 ### Customer
 
-This product is designed for merchants specifically in the shoe industry. It is intended for use for companies of any size. This product and the requirements and specifications in this document also are specifically designed for customer Grayson Elias as a TA for CS506.
+This product is designed for merchants specifically in the shoe industry. It is intended for use for companies of any size. This product is specifically targeted for two user personas:
+
+Corporate manager: this person doesn't necessarily spend their time at any of the facilities that actually have significant physical stuff. They may not be aware of the fine details of how the individual facilities operate. They are concerned with summary statistics aggregated across all facilities, or possibly seeing which facilities are above or below thresholds for some metric.
+
+Facility manager: this person handles the details for a single facility. They know the ins and outs of their single facility, but basically nothing about other facilities. 
 
 ### User Requirements
 
@@ -45,6 +49,32 @@ This product is designed for merchants specifically in the shoe industry. It is 
   - Actions can also be filtered by user(s), time, action type, or a combination of the above
 - Users can store at least 100 warehouses, 1,000 different users, and 10,000 products
 - Users should be able to load any webpage in "average" time on an "average" network - 3.21 seconds on a 60 mbps connection. In other words, no page should exceed 200 MB
+
+User stories/requirements provided by the customer Daniel Semeda:
+
+As a corporate manager, I want to see a count of how many facilities I have.
+
+As a corporate manager, I want to see an aggregate of the inventory that has come in to and gone out from all facilities over an arbitrary time span.
+
+As a corporate manager, I want to create a new facility.
+
+As a corporate manager, I want to mark that a facility has ceased operation as of some date. I don't want that facility included in aggregates after that date.
+
+As a corporate manager, I want to see my facilities represented on a map.
+
+As a facility manager, I want to view what I have in my facility's inventory.
+
+As a facility manager, I want to view what I used to have in my facility's inventory at some time in the past, and what I will have in my inventory at some point in the future.
+
+As a facility manager, I want to record a shipment that has arrived at or left the facility, including the quantities of items in that shipment, and I want this to automatically update my inventory.
+
+As a facility manager, I want to record a scheduled shipment (a shipment whose date and/or time is in the future).
+
+As a facility manager, I want to see a list of shipments that contained a particular kind of item.
+
+As a facility manager, I want to create a process that takes some set of inputs (inventory items and perhaps other inputs like time, money, and/or energy) and produces some set of outputs (which might include waste items).
+
+
 
 
 ### Use Cases & User Stories
