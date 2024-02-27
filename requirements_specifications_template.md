@@ -89,26 +89,21 @@ As a facility manager, I want to create a process that takes some set of inputs 
 
 > As a user, I can see an audit trail of updates all other users have made to the data
 
-### User Interface Requirements
+<!--### User Interface Requirements-->
 
 <!--Describes any customer user interface requirements including graphical user interface requirements as well as data exchange format requirements. This also should include necessary reporting and other forms of human readable input and output. This should focus on how the feature or product and user interact to create the desired workflow. Describing your intended interface as “easy” or “intuitive” will get you nowhere unless it is accompanied by details.-->
 
 <!--NOTE: Please include illustrations or screenshots of what your user interface would look like -- even if they’re rough -- and interleave it with your description.-->
 
-Images can be included with `![alt_text](image_path)`
+<!--Images can be included with `![alt_text](image_path)`-->
 
-### Security Requirements
+<!--### Security Requirements-->
 
 <!--Discuss what security requirements are necessary and why. Are there privacy or confidentiality issues? Is your system vulnerable to denial-of-service attacks?-->
 
-### System Requirements
+<!--### System Requirements-->
 
 <!--List here all of the external entities, other than users, on which your system will depend. For example, if your system inter-operates with sendmail, or if you will depend on Apache for the web server, or if you must target both Unix and Windows, list those requirements here. List also memory requirements, performance/speed requirements, data capacity requirements, if applicable.-->
-
-| You    |    can    |    also |
-| ------ | :-------: | ------: |
-| change |    how    | columns |
-| are    | justified |         |
 
 ### Specification
 
@@ -118,11 +113,7 @@ Images can be included with `![alt_text](image_path)`
 
 <!--Included below are some sample diagrams, including some example tech stack diagrams.-->
 
-You can make headings at different levels by writing `# Heading` with the number of `#` corresponding to the heading level (e.g. `## h2`).
-
 #### Technology Stack
-
-Here are some sample technology stacks that you can use for inspiration:
 
 ```mermaid
 flowchart RL
