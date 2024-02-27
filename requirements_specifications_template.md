@@ -1,6 +1,6 @@
 # Requirements and Specification Document
 
-## TeamName
+## StockSync Squad
 
 <!--The name of your team.-->
 
@@ -8,13 +8,11 @@
 
 <!--A one paragraph summary of what the software will do.-->
 
-This is an example paragraph written in markdown. You can use *italics*, **bold**, and other formatting options. You can also <u>use inline html</u> to format your text. The example sections included in this document are not necessarily all the sections you will want, and it is possible that you won't use all the one's provided. It is your responsibility to create a document that adequately conveys all the information about your project specifications and requirements.
-
-Please view this file's source to see `<!--comments-->` with guidance on how you might use the different sections of this document. 
+This is a full stack inventory management web application. The app allows a customer to store data on what inventory is available across a network of warehouses. The user can manage and edit that inventory, moving it between warehouses, as well as in or out of the network. Information about the products and the warehouses themselves are also accessible from the app. The app also stores a full log of actions taken by users so there is a clear audit trail for every piece of inventory in the network.
 
 ### Customer
 
-<!--A brief description of the customer for this software, both in general (the population who might eventually use such a system) and specifically for this document (the customer(s) who informed this document). Every project will have a customer from the CS506 instructional staff. Requirements should not be derived simply from discussion among team members. Ideally your customer should not only talk to you about requirements but also be excited later in the semester to use the system.-->
+This product is designed for merchants specifically in the shoe industry. It is intended for use for companies of any size. This product and the requirements and specifications in this document also are specifically designed for customer Grayson Elias as a TA for CS506.
 
 ### User Requirements
 
