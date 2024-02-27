@@ -1,4 +1,4 @@
-#Security Requirements for StockSync Inventory Management System
+# Security Requirements for StockSync Inventory Management System
 
 ##1. Authentication and Authorization
 SR1.1: The system must implement secure authentication mechanisms for all users, requiring a username and a strong password. Multi-factor authentication (MFA) should be supported and encouraged for enhanced security.
