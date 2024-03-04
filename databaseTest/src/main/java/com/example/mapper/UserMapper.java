@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 
 public interface UserMapper {
-    @Select("SELECT * FROM new_schema.users")
+    @Select("SELECT * FROM StockSync.users")
     @Results({
             @Result(property = "userId", column = "users_PK"),
             @Result(property = "userName", column = "users_Name")
