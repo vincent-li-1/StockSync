@@ -14,4 +14,11 @@ public interface UserMapper {
             @Result(property = "userName", column = "users_Name")
     })
     List<User> findAll();
+
+    @Select("SELECT * FROM StockSync.users WHERE users_PK = #{id}")
+    @Results({
+            @Result(property = "userId", column = "users_PK"),
+            @Result(property = "userName", column = "users_Name")
+    })
+    List<User> findById(@Param("id") int id);
 }
