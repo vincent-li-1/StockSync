@@ -4,7 +4,7 @@ services:
     image: mysql/mysql-server:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: 123123
       MYSQL_DATABASE: StockSync
       MYSQL_ROOT_HOST: '%'
     volumes:
@@ -19,7 +19,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/StockSync
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_PASSWORD: 123123
     ports:
       - "8080:8080"
 volumes:
