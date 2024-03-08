@@ -29,8 +29,4 @@ public class UserController {
     public List<User> findById(@RequestParam(value = "id") int id){
         return userMapper.findById(id);
     }
-    @GetMapping("/hello")
-    public String helloWorld(){
-        return "hello world";
-    }
 }
