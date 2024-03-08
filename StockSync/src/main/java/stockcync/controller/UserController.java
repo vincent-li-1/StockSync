@@ -1,8 +1,7 @@
-package com.example.databaseTest;
+package stockcync.controller;
 
-import com.example.mapper.UserMapper;
-import com.example.model.User;
-import com.example.model.Warehouse;
+import stockcync.mapper.UserMapper;
+import stockcync.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +24,7 @@ public class UserController {
         userMapper.insertUser(newUser);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/usersById")
     public List<User> findById(@RequestParam(value = "id") int id){
         return userMapper.findById(id);

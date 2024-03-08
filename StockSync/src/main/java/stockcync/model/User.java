@@ -1,4 +1,4 @@
-package com.example.model;
+package stockcync.model;
 
 public class User {
     private Long userId; // Corresponds to the users_PK column in the database

@@ -1,6 +1,6 @@
-package com.example.mapper;
+package stockcync.mapper;
 
-import com.example.model.User;
+import stockcync.model.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

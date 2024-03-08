@@ -1,14 +1,13 @@
-package com.example;
+package stockcync;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DatabaseTestApplication {
+public class StockSyncApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DatabaseTestApplication.class, args);
+        SpringApplication.run(StockSyncApplication.class, args);
     }
 
 }
