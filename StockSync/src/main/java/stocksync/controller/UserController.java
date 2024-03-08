@@ -1,7 +1,7 @@
-package stockcync.controller;
+package stocksync.controller;
 
-import stockcync.mapper.UserMapper;
-import stockcync.model.User;
+import stocksync.mapper.UserMapper;
+import stocksync.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

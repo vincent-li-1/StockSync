@@ -1,4 +1,4 @@
-package stockcync.model;
+package stocksync.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

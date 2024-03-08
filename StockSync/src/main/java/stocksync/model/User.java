@@ -1,4 +1,4 @@
-package stockcync.model;
+package stocksync.model;
 
 public class User {
     private Long userId; // Corresponds to the users_PK column in the database

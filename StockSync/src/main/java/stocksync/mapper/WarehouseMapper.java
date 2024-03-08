@@ -1,6 +1,6 @@
-package stockcync.mapper;
+package stocksync.mapper;
 
-import stockcync.model.Warehouse;
+import stocksync.model.Warehouse;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
