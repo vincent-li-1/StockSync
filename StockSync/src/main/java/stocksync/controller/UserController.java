@@ -24,7 +24,6 @@ public class UserController {
         userMapper.insertUser(newUser);
         return ResponseEntity.ok().build();
     }
-
     @GetMapping("/usersById")
     public List<User> findById(@RequestParam(value = "id") int id){
         return userMapper.findById(id);
