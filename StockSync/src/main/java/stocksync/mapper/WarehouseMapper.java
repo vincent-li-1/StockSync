@@ -15,6 +15,6 @@ public interface WarehouseMapper {
     })
     List<Warehouse> findAll();
 
-    @Insert("INSERT INTO StockSync.Warehouse (warehouse_id,warehouse_name,warehouse_address) Values (#{newWh.id},#{newWh.name},#{newWh.address})")
+    @Insert("INSERT INTO StockSync.Warehouse (warehouse_id,warehouse_name,warehouse_address) Values (#{newWh.warehouseId},#{newWh.warehouseName},#{newWh.warehouseAddress})")
     void insertWarehouse(@Param("newWh") Warehouse newWh);
 }
