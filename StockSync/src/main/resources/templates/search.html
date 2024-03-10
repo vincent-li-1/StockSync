@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warehouse Page</title>
+    <title>Search Page</title>
     <link rel="stylesheet" type="text/css" media="all" 
           href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
     <div class="container">
         <h1>StockSync Squad</h1>
-        <input type="text" id="searchInput" placeholder="Search for an item or warehouse...">
-        <button onclick="searchItem()">Search</button>
-        <div id="results">
-          <ul>
-            <li th:each="warehouse: ${warehouses}" th:text="${warehouse.warehouseName}"></li>
-          </ul>
-        </div>
+        <input type="text" id="searchinput" placeholder="Search for an item or warehouse...">
+        <a href="/warehouseSearchResults?page=1">
+          <button>Search</button>
+        </a>
     </div>
     <script src="script.js"></script>
 </body>

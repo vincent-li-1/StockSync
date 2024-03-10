@@ -16,8 +16,10 @@ public class WarehouseService implements IWarehouseService {
     public void createWarehouse(Warehouse newWh) {
         this.whMapper.insertWarehouse(newWh);
     }
-    public List<Warehouse> getWarehouses() {
-        return whMapper.findAll();
+    public List<Warehouse> getWarehouses(int page) {
+        int limit = 25;
+        int offset = limit * (page - 1);
+        return whMapper.find(limit, offset);
     }
     
 }
