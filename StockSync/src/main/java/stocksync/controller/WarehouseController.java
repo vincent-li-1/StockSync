@@ -26,7 +26,7 @@ public class WarehouseController {
         this.warehouseService = warehouseService;
     }
 
-    @RequestMapping("/warehouse")
+    @GetMapping("/warehouse")
     public String getWarehouses(Model model) {
         model.addAttribute("warehouses", this.warehouseService.getWarehouses());
         return "warehouse";

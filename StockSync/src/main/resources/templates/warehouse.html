@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-
-<html xmlns:th="http://www.thymeleaf.org">
-
-  <head>
-    <title>StockSync Warehouses</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <!-- <link rel="stylesheet" type="text/css" media="all" 
-          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" /> -->
-  </head>
-
-  <body>
-  
-    <p>Welcome to warehouses. Warehouses are:</p>
-    <ul>
-      <li th:each="warehouse: ${warehouses}" th:text="${warehouse.warehouseName}"></li>
-    </ul>
-  
-  </body>
-
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Page</title>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div class="container">
+        <h1>StockSync Squad</h1>
+        <input type="text" id="searchInput" placeholder="Search for an item or warehouse...">
+        <button onclick="searchItem()">Search</button>
+        <div id="results">
+          <ul>
+            <li th:each="warehouse: ${warehouses}" th:text="${warehouse.warehouseName}"></li>
+          </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
 </html>
