@@ -22,4 +22,12 @@ public class WarehouseService implements IWarehouseService {
         return whMapper.find(limit, offset);
     }
     
+    public int[] getPagesArray() {
+        int numPages = whMapper.getTotalNumPages();
+        int[] pagesArray = new int[numPages];
+        for (int i = 1; i <= numPages; i++) {
+            pagesArray[i-1] = i;
+        }
+        return pagesArray;
+    }
 }

@@ -29,6 +29,9 @@
                 </tr>
             </table>
         </div>
+        <ul th:each="page : ${pagesArray}">
+            <li><a th:href="@{warehouseSearchResults(page=${page})}" th:text="${page}"></a></li>
+        </ul>
     </div>
     <script src="script.js"></script>
 </body>

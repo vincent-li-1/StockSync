@@ -17,4 +17,7 @@ public interface WarehouseMapper {
 
     @Insert("INSERT INTO StockSync.Warehouse (warehouse_id,warehouse_name,warehouse_address) Values (#{newWh.warehouseId},#{newWh.warehouseName},#{newWh.warehouseAddress})")
     void insertWarehouse(@Param("newWh") Warehouse newWh);
+
+    @Select("SELECT COUNT(*) FROM StockSync.Warehouse")
+    int getTotalNumPages();
 }

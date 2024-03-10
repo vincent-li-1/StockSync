@@ -29,6 +29,7 @@ public class WarehouseController {
     @GetMapping("/warehouseSearchResults")
     public String getAllWarehouses(Model model, @RequestParam(value = "page") int page) {
         model.addAttribute("warehouses", this.warehouseService.getWarehouses(page));
+        model.addAttribute("pagesArray", this.warehouseService.getPagesArray());
         return "warehouseSearchResults";
     }
 
