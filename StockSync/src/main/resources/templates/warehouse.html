@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>StockSync Warehouses</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- <link rel="stylesheet" type="text/css" media="all" 
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" /> -->
+  </head>
+
+  <body>
+  
+    <p>Welcome to warehouses. Warehouses are:</p>
+    <ul>
+      <li th:each="warehouse: ${warehouses}" th:text="${warehouse.warehouseName}"></li>
+    </ul>
+  
+  </body>
+
+</html>
