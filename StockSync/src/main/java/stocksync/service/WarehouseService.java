@@ -16,6 +16,7 @@ public class WarehouseService implements IWarehouseService {
     public void createWarehouse(Warehouse newWh) {
         this.whMapper.insertWarehouse(newWh);
     }
+
     public List<Warehouse> getWarehouses(int page) {
         int limit = 25;
         int offset = limit * (page - 1);
@@ -23,7 +24,7 @@ public class WarehouseService implements IWarehouseService {
     }
     
     public int[] getPagesArray() {
-        int numPages = whMapper.getTotalNumPages();
+        int numPages = whMapper.getTotalNumEntries()/25 + 1;
         int[] pagesArray = new int[numPages];
         for (int i = 1; i <= numPages; i++) {
             pagesArray[i-1] = i;

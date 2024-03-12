@@ -19,5 +19,5 @@ public interface WarehouseMapper {
     void insertWarehouse(@Param("newWh") Warehouse newWh);
 
     @Select("SELECT COUNT(*) FROM StockSync.Warehouse")
-    int getTotalNumPages();
+    int getTotalNumEntries();
 }
