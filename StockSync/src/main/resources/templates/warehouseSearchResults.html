@@ -29,7 +29,7 @@
                 </tr>
             </table>
         </div>
-        <ul th:each="page : ${pagesArray}">
+        <ul class="pagination" th:each="page : ${pagesArray}">
             <li><a th:href="@{warehouseSearchResults(page=${page})}" th:text="${page}"></a></li>
         </ul>
     </div>
