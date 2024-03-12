@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
 
 import java.util.List;
 
@@ -34,9 +35,9 @@ public class WarehouseController {
         return "warehouseSearchResults";
     }
 
-    @PostMapping("/insertWarehouse")
-    public ResponseEntity<?> insertWarehouse(@RequestBody Warehouse newWh){
+    @PostMapping(value = "/insertWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String insertWarehouse(@ModelAttribute Warehouse newWh){
         this.warehouseService.createWarehouse(newWh);
-        return ResponseEntity.ok().build();
+        return "redirect:/warehouseSearchResults?page=1";
     }
 }
