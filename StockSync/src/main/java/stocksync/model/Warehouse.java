@@ -6,7 +6,7 @@ public class Warehouse {
     private int warehouseId;
     private String warehouseName;
     private String warehouseAddress;
-    private double lng, lat;
+    private double warehouseLong, warehouseLat;
 
     public int getWarehouseId() {
         return warehouseId;
@@ -32,19 +32,19 @@ public class Warehouse {
         this.warehouseAddress = warehouseAddress;
     }
 
-    public double getLong() {
-    	return lng;
+    public double getWarehouseLong() {
+    	return warehouseLong;
     }
 
-    public double getLat() {
-    	return lat;
+    public double getWarehouseLat() {
+    	return warehouseLat;
     }
 
-    public void setLong(double lng) {
-    	this.lng = lng;
+    public void setWarehouseLong(double warehouseLong) {
+    	this.warehouseLong = warehouseLong;
     }
 
-    public void setLat(double lat) {
-    	this.lat = lat;
+    public void setWarehouseLat(double warehouseLat) {
+    	this.warehouseLat = warehouseLat;
     }
 }

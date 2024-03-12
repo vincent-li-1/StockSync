@@ -11,9 +11,9 @@ public interface WarehouseMapper {
     @Results({
             @Result(property = "warehouseId", column = "warehouse_id"),
             @Result(property = "warehouseName",column = "warehouse_name"),
-            @Result(property = "warehouseAddress",column = "warehouse_address")
-	    @Result(property = "warehouseLong", column = "warehouse_long")
-	    @Result(property = "warehouseLat", column = "warehouse_lat')
+            @Result(property = "warehouseAddress",column = "warehouse_address"),
+	        @Result(property = "warehouseLong", column = "warehouse_long"),
+	        @Result(property = "warehouseLat", column = "warehouse_lat")
     })
     List<Warehouse> find(int limit, int offset);
 
