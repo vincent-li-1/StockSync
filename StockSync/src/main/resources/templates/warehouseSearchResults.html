@@ -24,8 +24,8 @@
                 <tr th:each="warehouse : ${warehouses}">
                     <td th:text="${warehouse.warehouseName}"></td>
                     <td th:text="${warehouse.warehouseAddress}"></td>
-                    <td>Placeholder Longitude</td>
-                    <td>Placeholder Latitude</td>
+                    <td th:text="${warehouse.warehouseLong}"></td>
+                    <td th:text="${warehouse.warehouseLat}"></td>
                 </tr>
             </table>
         </div>
