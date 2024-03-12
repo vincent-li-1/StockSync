@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>StockSync Squad</h1>
+        <h1>StockSync</h1>
         <div id="results">
             <a href="/search">
                 <button>Back to search</button>
@@ -29,8 +29,10 @@
                 </tr>
             </table>
         </div>
-        <ul class="pagination" th:each="page : ${pagesArray}">
-            <li><a th:href="@{warehouseSearchResults(page=${page})}" th:text="${page}"></a></li>
+        <ul class="pagination">
+            <li th:each="page : ${pagesArray}">
+                <a th:href="@{warehouseSearchResults(page=${page})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
+            </li>
         </ul>
     </div>
     <script src="script.js"></script>

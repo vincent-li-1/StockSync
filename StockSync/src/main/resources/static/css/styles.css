@@ -81,8 +81,9 @@ tr:hover {
 }
 /* Active page link styling */
 .pagination a.active {
-    background-color: #45a049; 
+    background-color: #c1ffc4; 
     border: none;
+    color: black;
 }
 /* Pagination link hover effect */
 .pagination a:hover:not(.active) {
