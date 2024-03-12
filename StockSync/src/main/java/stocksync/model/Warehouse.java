@@ -6,6 +6,7 @@ public class Warehouse {
     private int warehouseId;
     private String warehouseName;
     private String warehouseAddress;
+    private double lng, lat;
 
     public int getWarehouseId() {
         return warehouseId;
@@ -29,5 +30,21 @@ public class Warehouse {
 
     public void setWarehouseAddress(String warehouseAddress) {
         this.warehouseAddress = warehouseAddress;
+    }
+
+    public double getLong() {
+    	return lng;
+    }
+
+    public double getLat() {
+    	return lat;
+    }
+
+    public void setLong(double lng) {
+    	this.lng = lng;
+    }
+
+    public void setLat(double lat) {
+    	this.lat = lat;
     }
 }
