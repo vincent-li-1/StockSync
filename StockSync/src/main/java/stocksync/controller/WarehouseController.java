@@ -7,12 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,10 +21,16 @@ public class WarehouseController {
         this.warehouseService = warehouseService;
     }
 
-    @GetMapping("/warehouse")
-    public String getWarehouses(Model model) {
-        model.addAttribute("warehouses", this.warehouseService.getWarehouses());
-        return "warehouse";
+    @GetMapping("/search")
+    public String getSearchPage() {
+        return "search";
+    }
+
+    @GetMapping("/warehouseSearchResults")
+    public String getAllWarehouses(Model model, @RequestParam(value = "page") int page) {
+        model.addAttribute("warehouses", this.warehouseService.getWarehouses(page));
+        model.addAttribute("pagesArray", this.warehouseService.getPagesArray());
+        return "warehouseSearchResults";
     }
 
     @PostMapping("/insertWarehouse")
