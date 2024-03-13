@@ -10,19 +10,24 @@
 <body>
     <div class="container">
         <h1>StockSync</h1>
-        <input type="text" id="searchinput" placeholder="Search for an item or warehouse...">
+        <input type="text" id="searchinput" placeholder="Search for an item...">
         <a href="/warehouseSearchResults?page=1">
           <button>Search</button>
         </a>
+        <div style="margin-top: 50px;"></div>
         <form id="addWarehouseForm" action="/insertWarehouse" method="POST">
-            <label for="warehouseName">Warehouse Name:</label>
+            <label for="warehouseName"></label>
             <input type="text" id="warehouseName" name="warehouseName" placeholder="Enter warehouse name">
-            <label for="warehouseAddress">Warehouse Address:</label>
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseAddress"></label>
             <input type="text" id="warehouseAddress" name="warehouseAddress" placeholder="Enter warehouse address">
-            <label for="warehouseLong">Warehouse Longitude:</label>
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseLong"></label>
             <input type="text" id="warehouseLong" name="warehouseLong" placeholder="Enter warehouse longitude">
-            <label for="warehouseLat">Warehouse Latitude:</label>
-            <input type="text" id="warehouseLat" name="warehouseLat" placeholder="Enter warehouse latitude">           
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseLat"></label>
+            <input type="text" id="warehouseLat" name="warehouseLat" placeholder="Enter warehouse latitude">  
+            <div style="margin-top: 10px;"></div>         
             <button type="submit">Add Warehouse</button>
         </form>
     </div>
