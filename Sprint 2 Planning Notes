@@ -1,0 +1,21 @@
+**Sprint 2 Planning Notes:**
+
+**Things to do better:**
+1. more comments/docmentation
+    - Sprintboot does a ton for us, still important to understand
+2. report personal progress better (slack)
+3. write more tests, plan better to complete tasks first that other tasks depend on
+    - comments on issues
+4. meet once more during the week
+
+**Must Dos:**
+- Skeleton of CI/CD testing pipeline
+- Unit tests
+- At least one added working feature in walking skeleton
+    - Demonstrable feature that involves integration of front-end with back-end
+- At least one functional front-end screen with full implementation of the visual design
+- All DB tables created (per ERD or other design doc)
+
+**Notes:**
+- CI/CD pipelining skeleton by end of sprint, someone should understand this well (High priority)
+- tables, shoes table should be created, action log and shipment log needs to be initialized as well
