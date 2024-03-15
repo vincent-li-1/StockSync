@@ -24,7 +24,7 @@ public class WarehouseService implements IWarehouseService {
     }
     
     public int[] getPagesArray(int currentPage) {
-        int numPages = whMapper.getTotalNumEntries()/10 + 1;
+        int numPages = (int) Math.ceil((double) whMapper.getTotalNumEntries()/10);
         // Only display number of pages if there are less than 5 pages
         if (numPages < 5) {
             int[] pagesArray = new int[numPages];
