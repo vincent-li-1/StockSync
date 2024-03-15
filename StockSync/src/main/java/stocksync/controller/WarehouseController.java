@@ -35,6 +35,12 @@ public class WarehouseController {
         return "warehouseSearchResults";
     }
 
+    @GetMapping("/addWarehouse")
+    public String getAddWarehousePage(Model model) {
+        model.addAttribute("isWarehouse", true);
+        return "addEntity";
+    }
+
     @PostMapping(value = "/insertWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String insertWarehouse(@ModelAttribute Warehouse newWh){
         this.warehouseService.createWarehouse(newWh);
