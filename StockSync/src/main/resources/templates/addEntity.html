@@ -10,6 +10,10 @@
 <body>
     <div class="container">
         <h1>StockSync</h1>
+        <a href="/search">
+            <button>Back to search</button>
+        </a>
+        <div style="margin-top: 20px;"></div>
         <form th:if="${isWarehouse}" id="addWarehouseForm" action="/insertWarehouse" method="POST" class="warehouse-form">
             <label for="warehouseName"></label>
             <input type="text" id="warehouseName" name="warehouseName" placeholder="Enter warehouse name">

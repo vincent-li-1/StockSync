@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 
 import java.util.List;
+import java.lang.Math;
 
 @Controller
 public class WarehouseController {
@@ -29,9 +30,18 @@ public class WarehouseController {
 
     @GetMapping("/warehouseSearchResults")
     public String getAllWarehouses(Model model, @RequestParam(value = "page") int page) {
+
+        int totalNumEntries = this.warehouseService.getTotalNumEntries();
+
         model.addAttribute("warehouses", this.warehouseService.getWarehouses(page));
         model.addAttribute("pagesArray", this.warehouseService.getPagesArray(page));
+        model.addAttribute("totalNumEntries", totalNumEntries);
         model.addAttribute("currentPage", page);
+
+        // Compute what number the first warehouse listed on the page is of the total list
+        model.addAttribute("pageStartingNum", (page - 1) * 10 + 1);
+        // Last warehouse on page is either multiple of 10 or the last entry
+        model.addAttribute("pageEndingNum", Math.min(page * 10, totalNumEntries));
         return "warehouseSearchResults";
     }
 
