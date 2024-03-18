@@ -13,7 +13,7 @@
         <div id="results">
             <a href="/search">
                 <button>Back to search</button>
-              </a>
+            </a>
             <table>
                 <tr>
                     <th>Warehouse Name</th>
@@ -34,6 +34,7 @@
                 <a th:href="@{warehouseSearchResults(page=${page})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
             </li>
         </ul>
+        <span th:text="|Showing ${pageStartingNum} - ${pageEndingNum} of ${totalNumEntries} total warehouses|"></span>
     </div>
     <script src="script.js"></script>
 </body>

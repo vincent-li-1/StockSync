@@ -22,9 +22,17 @@ public class WarehouseService implements IWarehouseService {
         int offset = limit * (page - 1);
         return whMapper.find(limit, offset);
     }
+
+    public int getTotalNumEntries() {
+        return this.whMapper.getTotalNumEntries();
+    }
     
+    // Get an array of 5 page numbers to display across the bottom
+    // depending on what current page the user is on. The user's page
+    // should be "centered" between the 5 options, unless there are no
+    // other options in either direction.
     public int[] getPagesArray(int currentPage) {
-        int numPages = (int) Math.ceil((double) whMapper.getTotalNumEntries()/10);
+        int numPages = (int) Math.ceil((double) this.getTotalNumEntries()/10);
         // Only display number of pages if there are less than 5 pages
         if (numPages < 5) {
             int[] pagesArray = new int[numPages];
