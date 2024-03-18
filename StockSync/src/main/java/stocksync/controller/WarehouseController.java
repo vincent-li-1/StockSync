@@ -7,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
 
 import java.util.List;
 
@@ -26,15 +22,22 @@ public class WarehouseController {
         this.warehouseService = warehouseService;
     }
 
-    @GetMapping("/warehouse")
-    public String getWarehouses(Model model) {
-        model.addAttribute("warehouses", this.warehouseService.getWarehouses());
-        return "warehouse";
+    @GetMapping("/search")
+    public String getSearchPage() {
+        return "search";
     }
 
-    @PostMapping("/insertWarehouse")
-    public ResponseEntity<?> insertWarehouse(@RequestBody Warehouse newWh){
+    @GetMapping("/warehouseSearchResults")
+    public String getAllWarehouses(Model model, @RequestParam(value = "page") int page) {
+        model.addAttribute("warehouses", this.warehouseService.getWarehouses(page));
+        model.addAttribute("pagesArray", this.warehouseService.getPagesArray(page));
+        model.addAttribute("currentPage", page);
+        return "warehouseSearchResults";
+    }
+
+    @PostMapping(value = "/insertWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String insertWarehouse(@ModelAttribute Warehouse newWh){
         this.warehouseService.createWarehouse(newWh);
-        return ResponseEntity.ok().build();
+        return "redirect:/warehouseSearchResults?page=1";
     }
 }
