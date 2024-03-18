@@ -127,6 +127,30 @@ SR7.1: Adhere to secure coding practices and guidelines throughout the developme
 
 <!--Included below are some sample diagrams, including some example tech stack diagrams.-->
 
+Item specificationShoe
+
+##### ID (Primary Key): A unique identifier for each shoe entry.
+* Datatype: INT or BIGINT
+* Properties: Auto-increment, Not Null, Primary Key
+* Description: an integer that uniquely identifies each record. It should auto-increment
+
+##### Name: The name of the shoe.
+* Datatype: VARCHAR
+* Length: Up to 255 for VARCHAR
+* Properties: Not Null
+* Description: A string that holds the name of the shoe. 
+
+##### Size:  The size of the shoe
+* Datatype: DECIMAL
+* Properties: Not Null 
+* Description: standard numerical sizes,
+
+##### Price: The price of the shoe
+* Datatype: FLOAT
+* Properties: Not Null 
+* Description: Up to two decimal places
+
+
 #### Technology Stack
 
 ```mermaid
