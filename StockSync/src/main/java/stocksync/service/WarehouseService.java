@@ -61,4 +61,12 @@ public class WarehouseService implements IWarehouseService {
         }
         return pagesArray;
     }
+
+    public void deleteWarehouse(Warehouse deleteWh) {
+        this.whMapper.deleteWarehoues(deleteWh);
+    }
+
+    public void updateWarehouse(Warehouse updateWh) {
+        this.whMapper.updateWarehouse(updateWh);
+    }
 }
