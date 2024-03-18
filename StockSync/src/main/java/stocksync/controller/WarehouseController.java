@@ -56,4 +56,16 @@ public class WarehouseController {
         this.warehouseService.createWarehouse(newWh);
         return "redirect:/warehouseSearchResults?page=1";
     }
+
+    @PostMapping(value = "/deleteWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String deleteWarehouse(@ModelAttribute Warehouse deleteWh){
+        this.warehouseService.deleteWarehouse(deleteWh);
+        return "redirect:/warehouseSearchResults?page=1";
+    }
+
+    @PostMapping(value = "/updateWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String updateWarehouse(@ModelAttribute Warehouse updateWh){
+        this.warehouseService.updateWarehouse(updateWh);
+        return "redirect:/warehouseSearchResults?page=1";
+    }
 }

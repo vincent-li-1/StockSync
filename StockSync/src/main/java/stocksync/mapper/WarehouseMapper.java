@@ -22,4 +22,10 @@ public interface WarehouseMapper {
 
     @Select("SELECT COUNT(*) FROM StockSync.Warehouse")
     int getTotalNumEntries();
+
+    @Delete("DELETE FROM StockSync.Warehouse WHERE warehouse_id = #{deleteWh.warehouseId}")
+    void deleteWarehoues(@Param("deleteWh") Warehouse deleteWh);
+
+    @Update("UPDATE StockSync.Warehouse SET warehouse_name = #{updateWh.warehouseName}, warehouse_address = #{updateWh.warehouseAddress}, warehouse_long = #{updateWh.warehouseLong}, warehouse_lat = #{updateWh.warehouseLat} WHERE (warehouse_id = #{updateWh.warehouseId})")
+    void updateWarehouse(@Param("updateWh") Warehouse updateWh);
 }
