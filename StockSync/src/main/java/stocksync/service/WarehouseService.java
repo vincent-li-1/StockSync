@@ -63,7 +63,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     public void deleteWarehouse(Warehouse deleteWh) {
-        this.whMapper.deleteWarehoues(deleteWh);
+        this.whMapper.deleteWarehouse(deleteWh);
     }
 
     public void updateWarehouse(Warehouse updateWh) {
