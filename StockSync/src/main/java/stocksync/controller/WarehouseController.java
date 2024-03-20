@@ -57,6 +57,7 @@ public class WarehouseController {
         return "redirect:/warehouseSearchResults?page=1";
     }
 
+
     @PostMapping(value = "/deleteWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String deleteWarehouse(@ModelAttribute Warehouse deleteWh){
         this.warehouseService.deleteWarehouse(deleteWh);
