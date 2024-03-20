@@ -1,13 +1,13 @@
 image: gradle:jdk17
 
 stages:
-  - deploy
+  - build
 
 before_script:
   - chmod +x ./build_and_deploy.sh
 
-deploy:
-  stage: deploy
+build:
+  stage: build
   script:
     - ./build_and_deploy.sh
   rules:
