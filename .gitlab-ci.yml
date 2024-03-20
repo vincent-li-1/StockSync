@@ -1,5 +1,4 @@
 image: gradle:jdk17
-
 stages:
   - build
 
@@ -8,6 +7,7 @@ before_script:
 
 build:
   stage: build
+  image: docker:latest
   script:
     - ./gradlew build
     - docker build . -t stocksync/stocksync
