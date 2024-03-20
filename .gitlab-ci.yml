@@ -4,11 +4,13 @@ stages:
   - build
 
 before_script:
-  - chmod +x ./build_and_deploy.sh
+  - cd Stocksync
 
 build:
   stage: build
   script:
-    - ./build_and_deploy.sh
+    - ./gradlew build
+    - docker build . -t stocksync/stocksync
+    - docker compose -f SqlDocker.yml -p stocksync up -d
   rules:
     - if: '$CI_COMMIT_BRANCH == "jr/pipeline"'
