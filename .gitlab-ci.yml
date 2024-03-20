@@ -7,10 +7,16 @@ before_script:
 
 build:
   stage: build
-  image: docker:latest
   script:
     - ./gradlew build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "jr/pipeline"'
+
+docker:
+  image: docker:latest
+  stage: build
+  script:
     - docker build . -t stocksync/stocksync
     - docker compose -f SqlDocker.yml -p stocksync up -d
   rules:
-    - if: '$CI_COMMIT_BRANCH == "jr/pipeline"'
+  - if: '$CI_COMMIT_BRANCH == "jr/pipeline"'
