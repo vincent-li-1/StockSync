@@ -4,8 +4,8 @@ stages:
   - build
 
 before_script:
-  - chmod +x ./build_and_deploy.sh
   - ls
+  - chmod +x ./build_and_deploy.sh
 
 build:
   stage: build
