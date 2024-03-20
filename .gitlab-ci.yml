@@ -8,6 +8,9 @@ before_script:
 
 build:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - ./gradlew build
     - docker build . -t stocksync/stocksync
