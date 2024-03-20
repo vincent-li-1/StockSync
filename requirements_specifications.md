@@ -89,6 +89,92 @@ As a facility manager, I want to create a process that takes some set of inputs 
 
 > As a user, I can see an audit trail of updates all other users have made to the data
 
+
+### Item specification for Shoe
+
+##### ID (Primary Key): A unique identifier for each shoe entry.
+* Datatype: INT or BIGINT
+* Properties: Auto-increment, Not Null, Primary Key
+* Description: an integer that uniquely identifies each record. It should auto-increment
+
+##### Name: The name of the shoe.
+* Datatype: VARCHAR
+* Length: Up to 255 for VARCHAR
+* Properties: Not Null
+* Description: A string that holds the name of the shoe. 
+
+##### Size:  The size of the shoe
+* Datatype: DECIMAL
+* Properties: Not Null 
+* Description: standard numerical sizes,
+
+##### Price: The price of the shoe
+* Datatype: FLOAT
+* Properties: Not Null 
+* Description: Up to two decimal places
+
+
+### Shipment Requirements
+#### Core Functionalities
+* **Recording Arrived or Departed Shipments**:
+    * The system should allow the facility manager to record details of shipments arriving at or leaving the facility.
+        * Each shipment record should include: Date and time of arrival/departure
+        * List of items
+        * Quantities of each item
+    * The inventory should automatically update based on these records, increasing or decreasing item quantities.
+* **Recording Scheduled Shipments**:
+    * The system should specify their expected arrival or departure date and time.
+    * Scheduled shipments should include the expected list of items and their quantities.
+* **Tracking Shipments by Item**:
+    * The system should allow querying the history of shipments containing a particular item.
+    * The query should return a list of shipments, including dates, and quantities of the item.
+
+### Action Table Requirements
+
+
+* **Log Details of Incoming Shipments (ACT01)**
+    * Responsible Role: Facility Manager
+    * Expected Outcome: All details of incoming shipments are recorded, and the inventory is updated accordingly.
+    * 
+* **Log Details of Outgoing Shipments (ACT02)**
+    * Responsible Role: Facility Manager
+    * Expected Outcome: All details of outgoing shipments are recorded, and the inventory is adjusted to reflect these changes.
+
+* **Schedule Future Shipments (ACT03)**
+    * Responsible Role: Facility Manager
+    * Expected Outcome: The system allows for the scheduling of future shipments, with all relevant details included.
+
+* **Search and List Shipments Containing a Specific Item (ACT04)**
+    * Responsible Role: Facility Manager/User
+    * Expected Outcome: Users can search for and list all shipments (past and scheduled) containing a specific item.
+
+* **Record Processes Affecting Inventory (ACT05)**
+    * Responsible Role: Facility Manager
+    * Expected Outcome: All processes that affect inventory (inputs, outputs) are recorded, showing their impact.
+
+* **Record Ad-hoc Shipments (ACT06)**
+    * Responsible Role: User
+    * Expected Outcome: Unplanned shipments are logged in the system with an immediate update to the inventory.
+
+* **Search and Display Item Inventory Details (ACT07)**
+    * Responsible Role: User
+    * Expected Outcome: Users can access detailed information on item inventory, including location and quantity.
+
+* **View Historical Inventory Status of a Warehouse (ACT08)**
+    * Responsible Role: User
+    * Expected Outcome: Users can view the inventory status of any warehouse for any specified past or current date.
+
+* **Access Audit Trail (ACT09)**
+    * Responsible Role: User
+    * Expected Outcome: Users can access a detailed log of all changes made within the system.
+
+* **Manually Update Inventory Levels (ACT10)**
+    * Responsible Role: Facility Manager/User
+    * Expected Outcome: Users have the ability to manually adjust inventory levels, with all changes logged.
+* **Generate and View Inventory and Shipment Reports (ACT11)**
+    * Responsible Role: Facility Manager/User
+    * Expected Outcome: Users can generate detailed reports on inventory and shipments for analysis and decision-making.
+
 <!--### User Interface Requirements-->
 
 <!--Describes any customer user interface requirements including graphical user interface requirements as well as data exchange format requirements. This also should include necessary reporting and other forms of human readable input and output. This should focus on how the feature or product and user interact to create the desired workflow. Describing your intended interface as “easy” or “intuitive” will get you nowhere unless it is accompanied by details.-->

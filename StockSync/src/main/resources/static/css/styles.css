@@ -140,3 +140,44 @@ tr:hover {
     background-color: #0056b3; /* Darker blue on hover */
     color: white; 
 }
+
+/* Navigation bar styling */
+.navbar {
+    background: linear-gradient(to right, #007bff, #0056b3); /* Gradient background */
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    padding: 9px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+/* Navigation link styling */
+.navbar a {
+    color: white;
+    text-align: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+}
+
+/* Navigation link hover effect */
+.navbar a:hover {
+    background-color: #004080; /* Darker blue on hover */
+    transform: scale(1.05); /* Scale the link on hover */
+}
+
+/* Navigation link underline */
+.navbar a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+/* Navigation link hover effect for underline */
+.navbar a:hover::after {
+    width: 100%;
+}

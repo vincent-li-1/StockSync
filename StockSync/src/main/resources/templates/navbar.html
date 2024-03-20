@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Navigation Bar</title>
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div th:fragment="navbar">
+        <nav class="navbar">
+            <a th:href="@{/search}">Search</a>
+            <a th:href="@{/addWarehouse}">Add Warehouse</a>
+            <a th:href="@{/warehouseSearchResults(page=1)}">All Warehouses</a>
+        </nav>
+    </div>
+</body>
+</html>

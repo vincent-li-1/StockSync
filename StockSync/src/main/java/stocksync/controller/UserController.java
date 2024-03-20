@@ -2,6 +2,8 @@ package stocksync.controller;
 
 import stocksync.mapper.UserMapper;
 import stocksync.model.User;
+
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +21,17 @@ public class UserController {
     public List<User> findAll(){
         return userMapper.findAll();
     }
-    @PostMapping("/insertUser")
-    public ResponseEntity<?> insertUser(@RequestBody User newUser){
+    @PostMapping(value="/insertUser", consumes = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> insertUser(@RequestBody User newUser) {
         userMapper.insertUser(newUser);
         return ResponseEntity.ok().build();
     }
     @GetMapping("/usersById")
     public List<User> findById(@RequestParam(value = "id") int id){
         return userMapper.findById(id);
+    }
+    @GetMapping("/hi")
+    public String hi(){
+        return "HELLO WORLD!";
     }
 }
