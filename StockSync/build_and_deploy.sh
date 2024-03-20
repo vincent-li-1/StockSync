@@ -2,6 +2,7 @@
 # build-and-deploy.sh
 
 # Step 1: Build the project with Gradle
+cd StockSync
 ./gradlew build
 
 # Step 2: Build and start Docker containers
