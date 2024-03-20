@@ -16,6 +16,8 @@ build:
 docker:
   image: docker:latest
   stage: docker
+  services:
+    - docker:dind
   script:
     - docker build . -t stocksync/stocksync
     - docker compose -f SqlDocker.yml -p stocksync up -d
