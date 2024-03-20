@@ -6,7 +6,7 @@ stages:
 before_script:
   - chmod +x ./StockSync/build_and_deploy.sh
 
-build:
+builds:
   stage: build
   script:
     - ./StockSync/build_and_deploy.sh
