@@ -17,10 +17,33 @@ public class WarehouseService implements IWarehouseService {
         this.whMapper.insertWarehouse(newWh);
     }
 
-    public List<Warehouse> getWarehouses(int page) {
+    public List<Warehouse> getWarehouses(int page, String sortBy, String sortMethod) {
         int limit = 10;
         int offset = limit * (page - 1);
-        return whMapper.find(limit, offset);
+        // Get the right table column name for sortBy
+        String sortByAsColumnName;
+        switch (sortBy) {
+            case "name": 
+                sortByAsColumnName = "warehouse_name";
+                break;
+            case "address": 
+                sortByAsColumnName = "warehouse_address";
+                break;
+            case "longitude": 
+                sortByAsColumnName = "warehouse_long";
+                break;
+            case "latitude": 
+                sortByAsColumnName = "warehouse_lat";
+                break;
+            default: 
+                sortByAsColumnName = "warehouse_id";
+                break;
+        }
+        // Set a default for sortMethod
+        if (!sortMethod.equals("desc")) {
+            sortMethod = "asc";
+        }
+        return whMapper.find(limit, offset, sortByAsColumnName, sortMethod);
     }
 
     public int getTotalNumEntries() {
