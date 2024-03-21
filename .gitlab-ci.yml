@@ -13,8 +13,6 @@ build:
   artifacts:
     paths:
       - StockSync/build/libs/
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "jr/pipeline"'
 
 docker:
   image: docker:latest
@@ -26,5 +24,3 @@ docker:
   script:
     - docker build . -t stocksync/stocksync
     - docker compose -f SqlDocker.yml -p stocksync up -d
-  rules:
-  - if: '$CI_COMMIT_BRANCH == "jr/pipeline"'
