@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.lang.Math;
 
 @Controller
@@ -29,14 +30,25 @@ public class WarehouseController {
     }
 
     @GetMapping("/warehouseSearchResults")
-    public String getAllWarehouses(Model model, @RequestParam(value = "page") int page) {
+    public String getAllWarehouses(Model model,
+                    @RequestParam(value = "page") int page,
+                    @RequestParam(value = "sortBy") Optional<String> sortBy,
+                    @RequestParam(value = "sortMethod") Optional<String> sortMethod) {
 
         int totalNumEntries = this.warehouseService.getTotalNumEntries();
 
-        model.addAttribute("warehouses", this.warehouseService.getWarehouses(page));
+        // Make sure string params exist for warehouse service get method
+        String sortByExist = sortBy.isPresent() ? sortBy.get() : "";
+        String sortMethodExist = sortMethod.isPresent() ? sortMethod.get() : "";
+
+        model.addAttribute("warehouses", this.warehouseService.getWarehouses(page, sortByExist, sortMethodExist));
         model.addAttribute("pagesArray", this.warehouseService.getPagesArray(page));
         model.addAttribute("totalNumEntries", totalNumEntries);
         model.addAttribute("currentPage", page);
+
+        // Pass sort params back to frontend for page links to use
+        model.addAttribute("sortBy", sortByExist);
+        model.addAttribute("sortMethod", sortMethodExist);
 
         // Compute what number the first warehouse listed on the page is of the total list
         model.addAttribute("pageStartingNum", (page - 1) * 10 + 1);
