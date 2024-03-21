@@ -1,0 +1,26 @@
+image: gradle:jdk17
+stages:
+  - build
+  - docker
+
+before_script:
+  - cd StockSync
+
+build:
+  stage: build
+  script:
+    - ./gradlew build
+  artifacts:
+    paths:
+      - StockSync/build/libs/
+
+docker:
+  image: docker:latest
+  stage: docker
+  services:
+    - docker:dind
+  dependencies:
+    - build
+  script:
+    - docker build . -t stocksync/stocksync
+    - docker compose -f SqlDocker.yml -p stocksync up -d
