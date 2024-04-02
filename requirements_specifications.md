@@ -14,43 +14,38 @@ This is a full stack inventory management web application. The app allows a cust
 
 This product is designed for merchants specifically in the shoe industry. It is intended for use for companies of any size. This product is specifically targeted for two user personas:
 
-Corporate manager: this person doesn't necessarily spend their time at any of the facilities that actually have significant physical stuff. They may not be aware of the fine details of how the individual facilities operate. They are concerned with summary statistics aggregated across all facilities, or possibly seeing which facilities are above or below thresholds for some metric.
+**Corporate manager**: this person doesn't necessarily spend their time at any of the facilities that actually have significant physical stuff. They may not be aware of the fine details of how the individual facilities operate. They are concerned with summary statistics aggregated across all facilities, or possibly seeing which facilities are above or below thresholds for some metric.
 
-Facility manager: this person handles the details for a single facility. They know the ins and outs of their single facility, but basically nothing about other facilities. 
+**Facility manager**: this person handles the details for a single facility. They know the ins and outs of their single facility, but basically nothing about other facilities. 
 
 ### User Requirements
 
 <!--This section lists the behavior that the users see. This information needs to be presented in a logical, organized fashion. It is most helpful if this section is organized in outline form: a bullet list of major topics (e.g., one for each kind of user, or each major piece of system functionality) each with some number of subtopics.-->
 
-- Users can navigate around the application easily 
-  - A universal nav bar allows users to navigate to the primary pages from any given page
-    - Home page
-    - Log page
-  - Search results link to a page for every result's individual information page
-    - Item page with information about a given item
-    - Warehouse page with information about a given warehouse
-  - Users can see what their login/username is from any page in the web application
-    - Users can log out from anywhere in the application
-- Users can view the information pages for a given item or warehouse
-  - An information page for a given item or warehouse should show a log of all actions performed by all users on that item or warehouse
+- **Navigation:**
+  - The application must provide a universal navigation bar present on all pages for quick access to Home, Log, Item Information, and Warehouse Information pages.
+  - User identification and logout options must be accessible from any location within the application.
+- **Information Accessibility:**
   - An information page for a given item or warehouse should show all data for that given item or warehouse
-  - From a warehouse information page, the user should be able to see the inventory of the warehouse from any given day in the past or present
-- Users can search for items based on any filter or set of filters
-  - A search can filter only one data field or combine any number of data fields. An empty search should return all entries
-  - Within the search results, users can click on an item or warehouse and access the information page for that entry
-- Users can perform key actions
-  - Users can create new entries (items or warehouses)
-    - Entries with invalid information (mising fields or certain duplicates of unique fields) should fail with an error message
-  - Users can edit the data of existing entries through
-  - Users can move items from one warehouse to another or out of the inventory in case of a sale
-    - This can be done individually on the item level or in bulk on the warehouse level
-  - Users can delete existing entries entirely
-- Users can see a log of actions taken by all users on a given item, at a given warehouse, or across the network
-  - Actions can also be filtered by user(s), time, action type, or a combination of the above
-- Users can store at least 100 warehouses, 1,000 different users, and 10,000 products
-- Users should be able to load any webpage in "average" time on an "average" network - 3.21 seconds on a 60 mbps connection. In other words, no page should exceed 200 MB
+  - Warehouse pages should enable users to view both historical and present inventory data
+- **Search Functionality:**
+  - Users must be able to perform searches with multiple filters, accessing detailed pages for items or warehouses from the result. An empty search should return all entries
+  - Within the search results, users should click on an item or warehouse and access the information page for that entry
+- **Data Management:**
+  - Thes system must allow the creation, editing, movement, and deletion of inventory entries with appropriate validation and feedback mechanism
+    - Entries with invalid information (missing fields or certain duplicates of unique fields) should fail with an error message
+    - Users should edit the data of existing entries
+    - Users should move items from one warehouse to another or out of the inventory in case of a sale
+    - This should be done individually on the item level or in bulk on the warehouse level
+    - Users should delete existing entries entirely
+- **Action Loggin and Audit Trails:**
+  - A complete log of user actions must be maintained and accessible
+    - Actions should also be filtered by user(s), time, action type, or a combination of the above
+- **Performance Requirment**
+    - Users should store at least 100 warehouses, 1,000 different users, and 10,000 products
+    - Users should be able to load any webpage in "average" time on an "average" network - 3.21 seconds on a 60 mbps connection. In other words, no page should exceed 200 MB
 
-User stories/requirements provided by the customer Daniel Semeda:
+### User stories/requirements provided by the customer Daniel Semeda: ###
 
 As a corporate manager, I want to see a count of how many facilities I have.
 
@@ -83,11 +78,11 @@ As a facility manager, I want to create a process that takes some set of inputs 
 
 > As a user, I can record shipments that occur between shipments or in and out of the network
 
-> As a user, when I search for a given item, I can see total quantity, as well as a breakdown of where those quantities are
+> As a user, when I search for a given item, I should see total quantity, as well as a breakdown of where those quantities are
 
-> As a user, when I'm looking at a warehouse I can see what was at that warehouse at the start of any day in the past or present
+> As a user, when I'm looking at a warehouse I shall see what was at that warehouse at the start of any day in the past or present
 
-> As a user, I can see an audit trail of updates all other users have made to the data
+> As a user, I should see an audit trail of updates all other users have made to the data
 
 
 ### Item specification for Shoe
@@ -158,15 +153,15 @@ As a facility manager, I want to create a process that takes some set of inputs 
 
 * **Search and Display Item Inventory Details (ACT07)**
     * Responsible Role: User
-    * Expected Outcome: Users can access detailed information on item inventory, including location and quantity.
+    * Expected Outcome: Users should access detailed information on item inventory, including location and quantity.
 
 * **View Historical Inventory Status of a Warehouse (ACT08)**
     * Responsible Role: User
-    * Expected Outcome: Users can view the inventory status of any warehouse for any specified past or current date.
+    * Expected Outcome: Users should view the inventory status of any warehouse for any specified past or current date.
 
 * **Access Audit Trail (ACT09)**
     * Responsible Role: User
-    * Expected Outcome: Users can access a detailed log of all changes made within the system.
+    * Expected Outcome: Users should access a detailed log of all changes made within the system.
 
 * **Manually Update Inventory Levels (ACT10)**
     * Responsible Role: Facility Manager/User
