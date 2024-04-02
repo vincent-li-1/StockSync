@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface WarehouseMapper {
     // Use $ for string substitution in MyBatis query
-    @Select("SELECT * FROM StockSync.Warehouse ORDER BY ${sortByAsColumnName} ${sortMethod} LIMIT #{limit} OFFSET #{offset}")
+    @Select("SELECT * FROM StockSync.Warehouse WHERE ${searchKeyAsColumnName} LIKE '${searchValueWithWildcard}' ORDER BY ${sortByAsColumnName} ${sortMethod} LIMIT #{limit} OFFSET #{offset}")
     @Results({
             @Result(property = "warehouseId", column = "warehouse_id"),
             @Result(property = "warehouseName",column = "warehouse_name"),
@@ -16,7 +16,24 @@ public interface WarehouseMapper {
 	        @Result(property = "warehouseLong", column = "warehouse_long"),
 	        @Result(property = "warehouseLat", column = "warehouse_lat")
     })
-    List<Warehouse> find(@Param("limit") int limit, 
+    List<Warehouse> findBySearch(@Param("limit") int limit, 
+                            @Param("offset") int offset, 
+                            @Param("sortByAsColumnName") String sortByAsColumnName, 
+                            @Param("sortMethod") String sortMethod,
+                            @Param("searchKeyAsColumnName") String searchKeyAsColumnName,
+                            @Param("searchValueWithWildcard") String searchValueWithWildcard);
+
+
+    // Use $ for string substitution in MyBatis query
+    @Select("SELECT * FROM StockSync.Warehouse ORDER BY ${sortByAsColumnName} ${sortMethod} LIMIT #{limit} OFFSET #{offset}")
+    @Results({
+            @Result(property = "warehouseId", column = "warehouse_id"),
+            @Result(property = "warehouseName",column = "warehouse_name"),
+            @Result(property = "warehouseAddress",column = "warehouse_address"),
+            @Result(property = "warehouseLong", column = "warehouse_long"),
+            @Result(property = "warehouseLat", column = "warehouse_lat")
+    })
+    List<Warehouse> findAll(@Param("limit") int limit, 
                         @Param("offset") int offset, 
                         @Param("sortByAsColumnName") String sortByAsColumnName, 
                         @Param("sortMethod") String sortMethod);
@@ -26,6 +43,10 @@ public interface WarehouseMapper {
 
     @Select("SELECT COUNT(*) FROM StockSync.Warehouse")
     int getTotalNumEntries();
+
+    @Select("SELECT COUNT(*) FROM StockSync.Warehouse WHERE ${searchKeyAsColumnName} LIKE '${searchValueWithWildcard}'")
+    int getSearchNumEntries(@Param("searchKeyAsColumnName") String searchKeyAsColumnName,
+                        @Param("searchValueWithWildcard") String searchValueWithWildcard);
 
     @Delete("DELETE FROM StockSync.Warehouse WHERE warehouse_id = #{deleteWh.warehouseId}")
     void deleteWarehouse(@Param("deleteWh") Warehouse deleteWh);

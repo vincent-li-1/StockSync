@@ -11,7 +11,15 @@
     <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
     <div class="container">
         <h1>StockSync</h1>
-            <input type="text" id="searchinput" placeholder="Search for an item...">
+            <label for="searchKey">Search By:</label>
+            <select id="searchKey" name="searchKey">
+                <option></option>
+                <option value="name">Name</option>
+                <option value="address">Address</option>
+                <option value="longitude">Longitude</option>
+                <option value="latitude">Latitude</option>
+            </select>
+            <input type="text" id="searchinput" placeholder="Search for...">
             <label for="sortBy">Sort By:</label>
             <select id="sortBy" name="sortBy">
                 <option></option>

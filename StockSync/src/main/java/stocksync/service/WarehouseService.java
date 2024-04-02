@@ -17,46 +17,57 @@ public class WarehouseService implements IWarehouseService {
         this.whMapper.insertWarehouse(newWh);
     }
 
-    public List<Warehouse> getWarehouses(int page, String sortBy, String sortMethod) {
+    private String convertKeyToSqlColumn(String stringToConvert) {
+        switch (stringToConvert) {
+            case "name": 
+                return "warehouse_name";
+            case "address": 
+                return "warehouse_address";
+            case "longitude": 
+                return "warehouse_long";
+            case "latitude": 
+                return "warehouse_lat";
+            default: 
+                return "warehouse_id";
+        }
+    }
+
+    public List<Warehouse> getWarehouses(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
         int limit = 10;
         int offset = limit * (page - 1);
         // Get the right table column name for sortBy
-        String sortByAsColumnName;
-        switch (sortBy) {
-            case "name": 
-                sortByAsColumnName = "warehouse_name";
-                break;
-            case "address": 
-                sortByAsColumnName = "warehouse_address";
-                break;
-            case "longitude": 
-                sortByAsColumnName = "warehouse_long";
-                break;
-            case "latitude": 
-                sortByAsColumnName = "warehouse_lat";
-                break;
-            default: 
-                sortByAsColumnName = "warehouse_id";
-                break;
-        }
+        String sortByAsColumnName = convertKeyToSqlColumn(sortBy);
         // Set a default for sortMethod
         if (!sortMethod.equals("desc")) {
             sortMethod = "asc";
         }
-        return whMapper.find(limit, offset, sortByAsColumnName, sortMethod);
+        // If no search key/value, get all
+        if (searchKey.equals("") || searchValue.equals("")) {
+            return whMapper.findAll(limit, offset, sortByAsColumnName, sortMethod);
+        }
+        String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
+        // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
+        String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
+        return whMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
     }
 
-    public int getTotalNumEntries() {
-        return this.whMapper.getTotalNumEntries();
+    public int getTotalNumEntries(String searchKey, String searchValue) {
+        if (searchKey.equals("") || searchValue.equals("")) {
+            return whMapper.getTotalNumEntries();
+        }
+        String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
+        // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
+        String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
+        return whMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
     }
     
     // Get an array of 5 page numbers to display across the bottom
     // depending on what current page the user is on. The user's page
     // should be "centered" between the 5 options, unless there are no
     // other options in either direction.
-    public int[] getPagesArray(int currentPage) {
-        int numPages = (int) Math.ceil((double) this.getTotalNumEntries()/10);
-        // Only display number of pages if there are less than 5 pages
+    public int[] getPagesArray(int currentPage, int totalEntries) {
+        int numPages = (int) Math.ceil((double) totalEntries/10);
+        // Display all of pages if there are less than 5 pages
         if (numPages < 5) {
             int[] pagesArray = new int[numPages];
             for (int i = 1; i <= numPages; i++) {

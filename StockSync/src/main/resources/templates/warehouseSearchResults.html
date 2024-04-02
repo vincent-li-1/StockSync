@@ -32,7 +32,7 @@
         </div>
         <ul class="pagination">
             <li th:each="page : ${pagesArray}">
-                <a th:href="@{warehouseSearchResults(page=${page},sortBy=${sortBy},sortMethod=${sortMethod})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
+                <a th:href="@{warehouseSearchResults(page=${page},sortBy=${sortBy},sortMethod=${sortMethod},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
             </li>
         </ul>
         <span th:text="|Showing ${pageStartingNum} - ${pageEndingNum} of ${totalNumEntries} total warehouses|"></span>
