@@ -32,6 +32,13 @@ public class WarehouseServiceTests {
      * Set up test environment:
      *
      * mockMapper: a mock mapper class used for testing
+     * 
+     * mockWh: a mock warehouse class used for testing
+     * 
+     * otherWh: a mock warehouse class that should not be invoked during testing
+     * 
+     * inject mock mapper into service being tested
+     * 
      */
     @Mock
     private WarehouseMapper mockMapper;
@@ -45,6 +52,11 @@ public class WarehouseServiceTests {
     @Mock
     private Warehouse otherWh;
 
+    /**
+     * Test if the createWarehouse method in the service calls the corresponding method 
+     * in the mapper with only the provided warehouse parameter.
+     * @throws Exception if the test failed
+     */
     @Test
     public void testCreateWarehouse() throws Exception {
         warehouseService.createWarehouse(mockWh);
@@ -52,16 +64,26 @@ public class WarehouseServiceTests {
         verify(mockMapper).insertWarehouse(mockWh);
     }
 
+    /**
+     * Test get warehouse from the service calls the corresponding
+     * methods in the mapper based on a variety of parameters.
+     * @throws Exception if the test failed
+     */
     @Test
     public void testGetWarehouses() throws Exception {
-        warehouseService.getWarehouses(1, "name", "desc");
-        warehouseService.getWarehouses(2, "longitude", "asc");
-        warehouseService.getWarehouses(3, "someOther", "someOther");
-        verify(mockMapper).find(10, 0, "warehouse_name", "desc");
-        verify(mockMapper).find(10, 10, "warehouse_long", "asc");
-        verify(mockMapper).find(10, 20, "warehouse_id", "asc");
+        warehouseService.getWarehouses(1, "name", "desc", "address", "search term");
+        warehouseService.getWarehouses(2, "longitude", "asc", "longitude", "search longitude");
+        warehouseService.getWarehouses(3, "someOther", "someOther", "", "");
+        verify(mockMapper).findBySearch(10, 0, "warehouse_name", "desc", "warehouse_address", "%search term%");
+        verify(mockMapper).findBySearch(10, 10, "warehouse_long", "asc", "warehouse_long", "search longitude");
+        verify(mockMapper).findAll(10, 20, "warehouse_id", "asc");
     }
 
+    /**
+     * Test if the delete warehouse method in the service calls the corresponding method 
+     * in the mapper with only the provided warehouse parameter.
+     * @throws Exception if the test failed
+     */
     @Test
     public void testDeleteWarehouse() throws Exception {
         warehouseService.deleteWarehouse(mockWh);
@@ -69,6 +91,11 @@ public class WarehouseServiceTests {
         verify(mockMapper).deleteWarehouse(mockWh);
     }
 
+    /**
+     * Test if the update warehouse method in the service calls the corresponding method 
+     * in the mapper with only the provided warehouse parameter.
+     * @throws Exception if the test failed
+     */
     @Test
     public void testUpdateWarehouse() throws Exception {
         warehouseService.updateWarehouse(mockWh);
@@ -83,38 +110,49 @@ public class WarehouseServiceTests {
     @Test
     public void testGetTotalNumEntries() throws Exception {
         when(mockMapper.getTotalNumEntries()).thenReturn(55);
-        assertEquals(warehouseService.getTotalNumEntries(), 55);
+        assertEquals(warehouseService.getTotalNumEntries("", ""), 55);
     }
 
+    /**
+     * Test if the get total num entries with search params returns the right number
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void testGetSearchNumEntries() throws Exception {
+        when(mockMapper.getSearchNumEntries("warehouse_address", "%test%")).thenReturn(123);
+        assertEquals(warehouseService.getTotalNumEntries("address", "test"), 123);
+    }
+
+
+    /**
+     * Test various scenarios of getting pages array depending on which page
+     * the call is from and how many total entries are expected
+     */
     @Test
     public void testGetPagesArrayFor40Entries() throws Exception {
-        when(mockMapper.getTotalNumEntries()).thenReturn(40);
         int[] pagesArray = new int[] {1, 2, 3, 4};
-        assertArrayEquals(warehouseService.getPagesArray(1), pagesArray);
+        assertArrayEquals(warehouseService.getPagesArray(1, 40), pagesArray);
     }
 
     @Test
     public void testGetPagesArrayOnFirstTwoPages() throws Exception {
-        when(mockMapper.getTotalNumEntries()).thenReturn(100);
         int[] pagesArray = new int[] {1, 2, 3, 4, 5};
-        assertArrayEquals(warehouseService.getPagesArray(1), pagesArray);
-        assertArrayEquals(warehouseService.getPagesArray(2), pagesArray);
+        assertArrayEquals(warehouseService.getPagesArray(1, 100), pagesArray);
+        assertArrayEquals(warehouseService.getPagesArray(2, 100), pagesArray);
     }
 
     @Test
     public void testGetPagesArrayOnLastTwoPages() throws Exception {
-        when(mockMapper.getTotalNumEntries()).thenReturn(100);
         int[] pagesArray = new int[] {6, 7, 8, 9, 10};
-        assertArrayEquals(warehouseService.getPagesArray(10), pagesArray);
-        assertArrayEquals(warehouseService.getPagesArray(9), pagesArray);
+        assertArrayEquals(warehouseService.getPagesArray(10, 100), pagesArray);
+        assertArrayEquals(warehouseService.getPagesArray(9, 100), pagesArray);
     }
 
     @Test
         public void testGetPagesArrayInMiddlePage() throws Exception {
-            when(mockMapper.getTotalNumEntries()).thenReturn(100);
             int[] pagesArray1 = new int[] {4, 5, 6, 7, 8};
             int[] pagesArray2 = new int[] {2, 3, 4, 5, 6};
-            assertArrayEquals(warehouseService.getPagesArray(6), pagesArray1);
-            assertArrayEquals(warehouseService.getPagesArray(4), pagesArray2);
+            assertArrayEquals(warehouseService.getPagesArray(6, 100), pagesArray1);
+            assertArrayEquals(warehouseService.getPagesArray(4, 100), pagesArray2);
         }
 }
