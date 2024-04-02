@@ -130,7 +130,7 @@ tr:hover {
 
 /* Active page link styling */
 .pagination a.active {
-    background-color: #c1ffc4; 
+    background-color: #c4e0ff; 
     border: none;
     color: black;
 }
