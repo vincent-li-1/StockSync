@@ -17,6 +17,7 @@ public class WarehouseService implements IWarehouseService {
         this.whMapper.insertWarehouse(newWh);
     }
 
+    // Helper method to convert human-friendly attribute names to SQL query column names
     private String convertKeyToSqlColumn(String stringToConvert) {
         switch (stringToConvert) {
             case "name": 
@@ -31,40 +32,77 @@ public class WarehouseService implements IWarehouseService {
                 return "warehouse_id";
         }
     }
-
+    /**
+     * Method to get a paginated list of warehouses based on sorting and search parameters
+     * @param page is the current page to get
+     * @param sortBy is the column/attribute that the request wants to results sorted by
+     * @param sortMethod is the method, ascending or descending, to sort results by
+     * @param searchKey is the column/attribute that the request wants to search by
+     * @param searchValue is the value that the request wants to search for
+     * @return List of warehouse objects
+     */
     public List<Warehouse> getWarehouses(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
+        // Limit is hardcoded to be 10 per page, offset is calculated based off that limit. This is the only line that needs
+        // to be changed to change limit per page.
         int limit = 10;
         int offset = limit * (page - 1);
+
         // Get the right table column name for sortBy
         String sortByAsColumnName = convertKeyToSqlColumn(sortBy);
+
         // Set a default for sortMethod
         if (!sortMethod.equals("desc")) {
             sortMethod = "asc";
         }
+
         // If no search key/value, get all
         if (searchKey.equals("") || searchValue.equals("")) {
             return whMapper.findAll(limit, offset, sortByAsColumnName, sortMethod);
         }
+
+        // Get the right table column name for searchKey
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
+
         // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
+
+        // Convert searchValue to have search wildcard if the search is by name or address (we don't want wildcards for long/lat)
         String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
+
         return whMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
     }
 
+
+    /**
+     * Method to get a count of the total number of entries for a get request
+     * @param searchKey is the column/attribute that the get is searched by
+     * @param searchValue is the value that the get searched for
+     * @return number of entries based on the parameters (if any)
+     */
     public int getTotalNumEntries(String searchKey, String searchValue) {
+        // Get total number of all entries if there are no search params
         if (searchKey.equals("") || searchValue.equals("")) {
             return whMapper.getTotalNumEntries();
         }
+
+        // Get the right table column name for searchKey
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
         // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
+
+         // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
         String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
+        
         return whMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
     }
-    
-    // Get an array of 5 page numbers to display across the bottom
-    // depending on what current page the user is on. The user's page
-    // should be "centered" between the 5 options, unless there are no
-    // other options in either direction.
+
+    /**
+     * Method to get an array of the 5 page numbers to display across the bottom
+     * of the page depending on which current page the user is on. The user's page
+     * should be "centered" between the 5 options, unless there are fewer than 2 other
+     * options in either direction
+     * @param currentPage that the user is on
+     * @param totalEntries that the given search yielded
+     * @return array of integers representing page numbers
+     */
     public int[] getPagesArray(int currentPage, int totalEntries) {
         int numPages = (int) Math.ceil((double) totalEntries/10);
         // Display all of pages if there are less than 5 pages

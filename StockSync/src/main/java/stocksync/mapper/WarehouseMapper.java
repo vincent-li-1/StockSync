@@ -7,7 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface WarehouseMapper {
-    // Use $ for string substitution in MyBatis query
+    // Get method to use when there are search params provided
+    // Use $ for string substitution in MyBatis query. Search value string needs to be wrapped in ''
     @Select("SELECT * FROM StockSync.Warehouse WHERE ${searchKeyAsColumnName} LIKE '${searchValueWithWildcard}' ORDER BY ${sortByAsColumnName} ${sortMethod} LIMIT #{limit} OFFSET #{offset}")
     @Results({
             @Result(property = "warehouseId", column = "warehouse_id"),
@@ -24,6 +25,7 @@ public interface WarehouseMapper {
                             @Param("searchValueWithWildcard") String searchValueWithWildcard);
 
 
+    // Get method to use when there are no search params
     // Use $ for string substitution in MyBatis query
     @Select("SELECT * FROM StockSync.Warehouse ORDER BY ${sortByAsColumnName} ${sortMethod} LIMIT #{limit} OFFSET #{offset}")
     @Results({

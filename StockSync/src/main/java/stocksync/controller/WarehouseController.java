@@ -60,8 +60,10 @@ public class WarehouseController {
 
         // Compute what number the first warehouse listed on the page is of the total list
         model.addAttribute("pageStartingNum", (page - 1) * 10 + 1);
+
         // Last warehouse on page is either multiple of 10 or the last entry
         model.addAttribute("pageEndingNum", Math.min(page * 10, totalNumEntries));
+        
         return "warehouseSearchResults";
     }
 

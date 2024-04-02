@@ -32,6 +32,13 @@ public class WarehouseServiceTests {
      * Set up test environment:
      *
      * mockMapper: a mock mapper class used for testing
+     * 
+     * mockWh: a mock warehouse class used for testing
+     * 
+     * otherWh: a mock warehouse class that should not be invoked during testing
+     * 
+     * inject mock mapper into service being tested
+     * 
      */
     @Mock
     private WarehouseMapper mockMapper;
@@ -45,6 +52,11 @@ public class WarehouseServiceTests {
     @Mock
     private Warehouse otherWh;
 
+    /**
+     * Test if the createWarehouse method in the service calls the corresponding method 
+     * in the mapper with only the provided warehouse parameter.
+     * @throws Exception if the test failed
+     */
     @Test
     public void testCreateWarehouse() throws Exception {
         warehouseService.createWarehouse(mockWh);
@@ -52,6 +64,11 @@ public class WarehouseServiceTests {
         verify(mockMapper).insertWarehouse(mockWh);
     }
 
+    /**
+     * Test get warehouse from the service calls the corresponding
+     * methods in the mapper based on a variety of parameters.
+     * @throws Exception if the test failed
+     */
     @Test
     public void testGetWarehouses() throws Exception {
         warehouseService.getWarehouses(1, "name", "desc", "address", "search term");
@@ -62,6 +79,11 @@ public class WarehouseServiceTests {
         verify(mockMapper).findAll(10, 20, "warehouse_id", "asc");
     }
 
+    /**
+     * Test if the delete warehouse method in the service calls the corresponding method 
+     * in the mapper with only the provided warehouse parameter.
+     * @throws Exception if the test failed
+     */
     @Test
     public void testDeleteWarehouse() throws Exception {
         warehouseService.deleteWarehouse(mockWh);
@@ -69,6 +91,11 @@ public class WarehouseServiceTests {
         verify(mockMapper).deleteWarehouse(mockWh);
     }
 
+    /**
+     * Test if the update warehouse method in the service calls the corresponding method 
+     * in the mapper with only the provided warehouse parameter.
+     * @throws Exception if the test failed
+     */
     @Test
     public void testUpdateWarehouse() throws Exception {
         warehouseService.updateWarehouse(mockWh);
@@ -86,12 +113,21 @@ public class WarehouseServiceTests {
         assertEquals(warehouseService.getTotalNumEntries("", ""), 55);
     }
 
+    /**
+     * Test if the get total num entries with search params returns the right number
+     * @throws Exception if the test failed
+     */
     @Test
     public void testGetSearchNumEntries() throws Exception {
         when(mockMapper.getSearchNumEntries("warehouse_address", "%test%")).thenReturn(123);
         assertEquals(warehouseService.getTotalNumEntries("address", "test"), 123);
     }
 
+
+    /**
+     * Test various scenarios of getting pages array depending on which page
+     * the call is from and how many total entries are expected
+     */
     @Test
     public void testGetPagesArrayFor40Entries() throws Exception {
         int[] pagesArray = new int[] {1, 2, 3, 4};
