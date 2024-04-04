@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warehouse Search Results</title>
-    <link rel="stylesheet" type="text/css" media="all" 
-          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
     <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
@@ -15,30 +14,26 @@
             <a href="/search">
                 <button>Back to search</button>
             </a>
+            <form id="deleteForm" action="/deleteSelectedWarehouses" method="post">
+                <button type="submit" id="deleteSelected">Delete Selected</button> <!-- Add delete button -->
+                <input type="hidden" name="selectedIds" id="selectedIds">
+            </form>
             <table>
                 <tr>
+                    <th>Select</th> <!-- Add new column for checkboxes -->
                     <th>Warehouse Name</th>
                     <th>Warehouse Address</th>
                     <th>Warehouse Longitude</th>
                     <th>Warehouse Latitude</th>
                 </tr>
                 <tr th:each="warehouse : ${warehouses}">
+                    <td>
+                        <input type="checkbox" class="warehouseCheckbox" value="${warehouse.id}">
+                    </td>
                     <td th:text="${warehouse.warehouseName}"></td>
                     <td th:text="${warehouse.warehouseAddress}"></td>
                     <td th:text="${warehouse.warehouseLong}"></td>
                     <td th:text="${warehouse.warehouseLat}"></td>
-                    <td>
-                        <form th:action="@{/editWarehouse}" method="post">
-                            <input type="hidden" name="id" th:value="${warehouse.id}" />
-                            <button type="submit">Edit</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form th:action="@{/deleteWarehouse}" method="post">
-                            <input type="hidden" name="id" th:value="${warehouse.id}" />
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
                 </tr>                
             </table>
         </div>
