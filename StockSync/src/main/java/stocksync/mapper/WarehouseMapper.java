@@ -53,6 +53,9 @@ public interface WarehouseMapper {
     @Delete("DELETE FROM StockSync.Warehouse WHERE warehouse_id = #{deleteWh.warehouseId}")
     void deleteWarehouse(@Param("deleteWh") Warehouse deleteWh);
 
+    @Delete("DELETE FROM StockSync.Warehouse WHERE warehouse_id = #{warehouseId}")
+    void deleteWarehouseButton(@Param("warehouseId") int warehouesId);
+
     @Update("UPDATE StockSync.Warehouse SET warehouse_name = #{updateWh.warehouseName}, warehouse_address = #{updateWh.warehouseAddress}, warehouse_long = #{updateWh.warehouseLong}, warehouse_lat = #{updateWh.warehouseLat} WHERE (warehouse_id = #{updateWh.warehouseId})")
     void updateWarehouse(@Param("updateWh") Warehouse updateWh);
 }
