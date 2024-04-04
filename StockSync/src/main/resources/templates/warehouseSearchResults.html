@@ -27,12 +27,24 @@
                     <td th:text="${warehouse.warehouseAddress}"></td>
                     <td th:text="${warehouse.warehouseLong}"></td>
                     <td th:text="${warehouse.warehouseLat}"></td>
-                </tr>
+                    <td>
+                        <form th:action="@{/editWarehouse}" method="post">
+                            <input type="hidden" name="id" th:value="${warehouse.id}" />
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/deleteWarehouse}" method="post">
+                            <input type="hidden" name="id" th:value="${warehouse.id}" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>                
             </table>
         </div>
         <ul class="pagination">
             <li th:each="page : ${pagesArray}">
-                <a th:href="@{warehouseSearchResults(page=${page},sortBy=${sortBy},sortMethod=${sortMethod})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
+                <a th:href="@{warehouseSearchResults(page=${page},sortBy=${sortBy},sortMethod=${sortMethod},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
             </li>
         </ul>
         <span th:text="|Showing ${pageStartingNum} - ${pageEndingNum} of ${totalNumEntries} total warehouses|"></span>

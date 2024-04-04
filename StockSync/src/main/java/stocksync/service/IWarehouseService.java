@@ -5,5 +5,5 @@ import stocksync.model.Warehouse;
 
 public interface IWarehouseService {
     public abstract void createWarehouse(Warehouse newWh);
-    public abstract List<Warehouse> getWarehouses(int page, String sortBy, String sortMethod);
+    public abstract List<Warehouse> getWarehouses(int page, String sortBy, String sortMethod, String searchKey, String searchValue);
 }

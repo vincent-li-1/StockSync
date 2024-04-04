@@ -34,16 +34,20 @@ public class WarehouseController {
     public String getAllWarehouses(Model model,
                     @RequestParam(value = "page") int page,
                     @RequestParam(value = "sortBy") Optional<String> sortBy,
-                    @RequestParam(value = "sortMethod") Optional<String> sortMethod) {
-
-        int totalNumEntries = this.warehouseService.getTotalNumEntries();
+                    @RequestParam(value = "sortMethod") Optional<String> sortMethod,
+                    @RequestParam(value = "searchKey") Optional<String> searchKey,
+                    @RequestParam(value = "searchValue") Optional<String> searchValue) {
 
         // Make sure string params exist for warehouse service get method
         String sortByExist = sortBy.isPresent() ? sortBy.get() : "";
         String sortMethodExist = sortMethod.isPresent() ? sortMethod.get() : "";
+        String searchKeyExist = searchKey.isPresent() ? searchKey.get() : "";
+        String searchValueExist = searchValue.isPresent() ? searchValue.get() : "";
 
-        model.addAttribute("warehouses", this.warehouseService.getWarehouses(page, sortByExist, sortMethodExist));
-        model.addAttribute("pagesArray", this.warehouseService.getPagesArray(page));
+        int totalNumEntries = this.warehouseService.getTotalNumEntries(searchKeyExist, searchValueExist);
+
+        model.addAttribute("warehouses", this.warehouseService.getWarehouses(page, sortByExist, sortMethodExist, searchKeyExist, searchValueExist));
+        model.addAttribute("pagesArray", this.warehouseService.getPagesArray(page, totalNumEntries));
         model.addAttribute("totalNumEntries", totalNumEntries);
         model.addAttribute("currentPage", page);
 
@@ -51,10 +55,16 @@ public class WarehouseController {
         model.addAttribute("sortBy", sortByExist);
         model.addAttribute("sortMethod", sortMethodExist);
 
+        // Pass search params back to frontend for page links to use
+        model.addAttribute("searchKey", searchKeyExist);
+        model.addAttribute("searchValue", searchValueExist);
+
         // Compute what number the first warehouse listed on the page is of the total list
         model.addAttribute("pageStartingNum", (page - 1) * 10 + 1);
+
         // Last warehouse on page is either multiple of 10 or the last entry
         model.addAttribute("pageEndingNum", Math.min(page * 10, totalNumEntries));
+        
         return "warehouseSearchResults";
     }
 
