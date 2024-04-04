@@ -36,6 +36,12 @@
                     <td th:text="${warehouse.warehouseAddress}"></td>
                     <td th:text="${warehouse.warehouseLong}"></td>
                     <td th:text="${warehouse.warehouseLat}"></td>
+                    <td>
+                        <form th:action="@{/updateWarehouse}" method="post">
+                            <input type="hidden" name="id" th:value="${warehouse}" />
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
                 </tr>                
             </table>
         </div>
