@@ -86,7 +86,11 @@ public class WarehouseService implements IWarehouseService {
     }
 
     public void deleteWarehouse(Warehouse deleteWh) {
-        this.whMapper.deleteWarehoues(deleteWh);
+        this.whMapper.deleteWarehouse(deleteWh);
+    }
+    //delete a Warehouse with a given warehouse id
+    public void deleteWarehouseButton(int warehouseId) {
+        this.whMapper.deleteWarehouseButton(warehouseId);
     }
 
     public void updateWarehouse(Warehouse updateWh) {

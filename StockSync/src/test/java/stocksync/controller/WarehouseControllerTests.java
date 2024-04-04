@@ -7,8 +7,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.*;
 import stocksync.service.WarehouseService;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;;
 /**
  * Test class for controllers.
@@ -36,5 +39,20 @@ public class WarehouseControllerTests {
                     .andExpect(status().isOk())
                     .andExpect(view().name("search"));
     }
+    /**
+     * Test if the deleteWarehouseButton method redirects to the correct URL after deletion.
+     * @throws Exception if the test fails
+     */
+    @Test
+    public void deleteWarehouseButtonTest() throws Exception {
+        int testWarehouseId = 1;
 
+        // Perform DELETE request and expect redirection
+        mockMvc.perform(delete("/deleteWarehouse/{warehouseId}", testWarehouseId))
+                .andExpect(status().is3xxRedirection()) // Expect a redirect status
+                .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
+
+        // Verify that the service method was called with the correct warehouseId
+        verify(mockService).deleteWarehouseButton(eq(testWarehouseId));
+    }
 }
