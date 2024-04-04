@@ -14,20 +14,22 @@
             <a href="/search">
                 <button>Back to search</button>
             </a>
+            <!-- Form for deleting selected warehouses -->
             <form id="deleteForm" action="/deleteSelectedWarehouses" method="post">
                 <button type="submit" id="deleteSelected">Delete Selected</button> <!-- Add delete button -->
+                <!-- Hidden input field to store selected warehouse IDs -->
                 <input type="hidden" name="selectedIds" id="selectedIds">
             </form>
             <table>
                 <tr>
-                    <th>Select</th> <!-- Add new column for checkboxes -->
+                    <th>Select</th> <!-- Header for checkboxes column -->
                     <th>Warehouse Name</th>
                     <th>Warehouse Address</th>
                     <th>Warehouse Longitude</th>
                     <th>Warehouse Latitude</th>
                 </tr>
                 <tr th:each="warehouse : ${warehouses}">
-                    <td>
+                    <td> <!-- Add checkbox for each warehouse-->
                         <input type="checkbox" class="warehouseCheckbox" value="${warehouse.id}">
                     </td>
                     <td th:text="${warehouse.warehouseName}"></td>
