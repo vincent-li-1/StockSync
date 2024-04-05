@@ -1,15 +1,26 @@
 image: gradle:jdk17
 stages:
+  - test
   - build
   - docker
 
 before_script:
   - cd StockSync
 
+WarehouseServiceTest:
+  stage: test
+  script:
+    - ./gradlew test --tests WarehouseServiceTests
+
+WarehouseControllerTest:
+  stage: test
+  script:
+    - ./gradlew test --tests WarehouseControllerTests
+
 build:
   stage: build
   script:
-    - ./gradlew build
+    - ./gradlew build -x test
   artifacts:
     paths:
       - StockSync/build/libs/
