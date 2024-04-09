@@ -32,6 +32,9 @@ function handleDeleteSelected() {
     }
     // set the value of hidden input field with selected warehouse IDs
     document.getElementById('selectedIds').value = selectedIds.join(',');
+
+    //use fetch to handle api requests here and get rid of form in html
+
     // submit the form for deletion
     document.getElementById('deleteForm').submit();
 }
