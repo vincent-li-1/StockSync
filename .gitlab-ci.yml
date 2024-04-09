@@ -17,6 +17,16 @@ WarehouseControllerTest:
   script:
     - ./gradlew test --tests WarehouseControllerTests
 
+ItemServiceTest:
+  stage: test
+  script:
+    - ./gradlew test --tests ItemServiceTests
+
+ItemControllerTest:
+  stage: test
+  script:
+    - ./gradlew test --tests ItemControllerTests
+
 build:
   stage: build
   script:
