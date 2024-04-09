@@ -3,6 +3,8 @@ package stocksync.service;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ import org.mockito.InjectMocks;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
 
@@ -149,10 +151,87 @@ public class WarehouseServiceTests {
     }
 
     @Test
-        public void testGetPagesArrayInMiddlePage() throws Exception {
-            int[] pagesArray1 = new int[] {4, 5, 6, 7, 8};
-            int[] pagesArray2 = new int[] {2, 3, 4, 5, 6};
-            assertArrayEquals(warehouseService.getPagesArray(6, 100), pagesArray1);
-            assertArrayEquals(warehouseService.getPagesArray(4, 100), pagesArray2);
-        }
+    public void testGetPagesArrayInMiddlePage() throws Exception {
+        int[] pagesArray1 = new int[] {4, 5, 6, 7, 8};
+        int[] pagesArray2 = new int[] {2, 3, 4, 5, 6};
+        assertArrayEquals(warehouseService.getPagesArray(6, 100), pagesArray1);
+        assertArrayEquals(warehouseService.getPagesArray(4, 100), pagesArray2);
+    }
+
+    /**
+     * Test if creating a warehouse with an out of bounds longitude throws the expected error
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void invalidLongitudeCreateWarehouse() throws Exception {
+        when(mockWh.getWarehouseLong()).thenReturn(181.0);
+        when(otherWh.getWarehouseLong()).thenReturn(-200.0);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            warehouseService.createWarehouse(mockWh);
+        });
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            warehouseService.createWarehouse(otherWh);
+        });
+        String expectedMessage = "Longitude out of bounds. Must be between -180 and 180";
+        assertTrue(exception.getMessage().contains(expectedMessage));
+        assertTrue(exception2.getMessage().contains(expectedMessage));
+    }
+
+    /**
+     * Test if creating a warehouse with an out of bounds latitude throws the expected error
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void invalidLatitudeCreateWarehouse() throws Exception {
+        when(mockWh.getWarehouseLat()).thenReturn(181.0);
+        when(otherWh.getWarehouseLat()).thenReturn(-200.0);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            warehouseService.createWarehouse(mockWh);
+        });
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            warehouseService.createWarehouse(otherWh);
+        });
+        String expectedMessage = "Latitude out of bounds. Must be between -180 and 180";
+        assertTrue(exception.getMessage().contains(expectedMessage));
+        assertTrue(exception2.getMessage().contains(expectedMessage));
+    }
+
+    /**
+     * Test if updating a warehouse with an out of bounds longitude throws the expected error
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void invalidLongitudeUpdateWarehouse() throws Exception {
+        when(mockWh.getWarehouseLong()).thenReturn(181.0);
+        when(otherWh.getWarehouseLong()).thenReturn(-200.0);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            warehouseService.updateWarehouse(mockWh);
+        });
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            warehouseService.updateWarehouse(otherWh);
+        });
+        String expectedMessage = "Longitude out of bounds. Must be between -180 and 180";
+        assertTrue(exception.getMessage().contains(expectedMessage));
+        assertTrue(exception2.getMessage().contains(expectedMessage));
+    }
+
+    /**
+     * Test if updating a warehouse with an out of bounds latitude throws the expected error
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void invalidLatitudeUpdateWarehouse() throws Exception {
+        when(mockWh.getWarehouseLat()).thenReturn(181.0);
+        when(otherWh.getWarehouseLat()).thenReturn(-200.0);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            warehouseService.updateWarehouse(mockWh);
+        });
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            warehouseService.updateWarehouse(otherWh);
+        });
+        String expectedMessage = "Latitude out of bounds. Must be between -180 and 180";
+        assertTrue(exception.getMessage().contains(expectedMessage));
+        assertTrue(exception2.getMessage().contains(expectedMessage));
+    }
 }
+
