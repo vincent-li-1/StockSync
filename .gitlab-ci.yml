@@ -1,18 +1,41 @@
 image: gradle:jdk17
+
 stages:
+  - test
   - build
+  - test  # Define a test stage
   - docker
 
 before_script:
   - cd StockSync
 
+WarehouseServiceTest:
+  stage: test
+  script:
+    - ./gradlew test --tests WarehouseServiceTests
+
+WarehouseControllerTest:
+  stage: test
+  script:
+    - ./gradlew test --tests WarehouseControllerTests
+
 build:
   stage: build
   script:
-    - ./gradlew build
+    - ./gradlew build -x test
   artifacts:
     paths:
       - StockSync/build/libs/
+
+test:  # Define the test job
+  stage: test
+  script:
+    - ./gradlew test  # Run all unit tests
+    # If you want to run only the WarehouseControllerTests, use the following line instead:
+    # - ./gradlew test --tests stocksync.controller.WarehouseControllerTests
+  artifacts:
+    reports:
+      junit: StockSync/build/test-results/test/**/TEST-*.xml  # Adjust path if necessary
 
 docker:
   image: docker:latest
