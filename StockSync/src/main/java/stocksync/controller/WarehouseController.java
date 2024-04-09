@@ -75,9 +75,18 @@ public class WarehouseController {
     }
 
     @PostMapping(value = "/insertWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String insertWarehouse(@ModelAttribute Warehouse newWh){
-        this.warehouseService.createWarehouse(newWh);
-        return "redirect:/warehouseSearchResults?page=1";
+    public ResponseEntity<String> insertWarehouse(@ModelAttribute Warehouse newWh){
+        try {
+            this.warehouseService.createWarehouse(newWh);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Location", "/warehouseSearchResults?page=1");
+            return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(
+                e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+
     }
 
     /**
@@ -103,10 +112,15 @@ public class WarehouseController {
     }
 
     @PostMapping(value = "/updateWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String updateWarehouse(@ModelAttribute Warehouse updateWh){
-        this.warehouseService.updateWarehouse(updateWh);
-        return "redirect:/warehouseSearchResults?page=1";
+    public ResponseEntity<String> updateWarehouse(@ModelAttribute Warehouse updateWh) {
+        try {
+                this.warehouseService.updateWarehouse(updateWh);
+                            HttpHeaders headers = new HttpHeaders();
+            headers.add("Location", "/warehouseSearchResults?page=1");
+            return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(
+                e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
-
-
 }

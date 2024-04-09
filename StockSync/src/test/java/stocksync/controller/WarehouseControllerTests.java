@@ -42,6 +42,26 @@ public class WarehouseControllerTests {
         testWH.setWarehouseName("testName");
         return testWH;
     }
+
+    private Warehouse invalidLatWarehouse() {
+        Warehouse testWH = new Warehouse();
+        testWH.setWarehouseId(1);
+        testWH.setWarehouseAddress("testAddress");
+        testWH.setWarehouseLat(200);
+        testWH.setWarehouseLong(1);
+        testWH.setWarehouseName("testName");
+        return testWH;
+    }
+
+    private Warehouse invalidLongWarehouse() {
+        Warehouse testWH = new Warehouse();
+        testWH.setWarehouseId(1);
+        testWH.setWarehouseAddress("testAddress");
+        testWH.setWarehouseLat(1);
+        testWH.setWarehouseLong(-200);
+        testWH.setWarehouseName("testName");
+        return testWH;
+    }
     /**
      * Test if the search endpoint return the correct template to render.
      * @throws Exception if the test failed
@@ -89,18 +109,4 @@ public class WarehouseControllerTests {
                 .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
 
     }
-//    @Test
-//    public void updateWarehouseCorrectTest() throws Exception {
-//        Warehouse testWarehouse = setupWarehouse();
-//        MockHttpServletRequestBuilder request = post("/updateWarehouse")
-//                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                .param("warehouseId",String.valueOf(testWarehouse.getWarehouseId()))
-//                .param("warehouseName","newName")
-//                .param("warehouseAddress","newAddress")
-//                .param("warehouseLong","1.1")
-//                .param("warehouseLat","1.2");
-//
-//        mockMvc.perform(request);
-//        verify(mockService).updateWarehouse(refEq(testWarehouse));
-//    }
 }
