@@ -98,7 +98,7 @@ public class ItemServiceTests {
      */
     @Test
     public void testUpdateWarehouse() throws Exception {
-        itemSerbive.updateItem(mockIt);
+        itemService.updateItem(mockIt);
         verify(mockMapper, never()).updateItem(otherIt);
         verify(mockMapper).updateItem(mockIt);
     }
