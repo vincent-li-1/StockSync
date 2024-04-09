@@ -22,7 +22,7 @@ WarehouseControllerTest:
 IntegrationTest:  
   stage: integrationTest
   script:
-    - ./gradlew test --tests SearchPageIntegrationTests# Run all unit tests
+    - ./gradlew test --tests SearchPageIntegrationTests
 
 build:
   stage: build
