@@ -13,7 +13,13 @@ public class WarehouseService implements IWarehouseService {
     public WarehouseService(WarehouseMapper whMapper){
         this.whMapper = whMapper;
     }
-    public void createWarehouse(Warehouse newWh) {
+    public void createWarehouse(Warehouse newWh) throws IllegalArgumentException {
+        if (Math.abs(newWh.getWarehouseLong()) > 180) {
+            throw new IllegalArgumentException("Longitude out of bounds. Must be between -180 and 180");
+        }
+        if (Math.abs(newWh.getWarehouseLat()) > 180) {
+            throw new IllegalArgumentException("Latitude out of bounds. Must be between -180 and 180");
+        }
         this.whMapper.insertWarehouse(newWh);
     }
 
@@ -142,8 +148,18 @@ public class WarehouseService implements IWarehouseService {
         whMapper.deleteWarehouseButton(warehouseId);
     }
 
-    public void updateWarehouse(Warehouse updateWh) {
+    public void updateWarehouse(Warehouse updateWh) throws IllegalArgumentException {
 //        Warehouse test = updateWh;
-        whMapper.updateWarehouse(updateWh);
+        if (Math.abs(updateWh.getWarehouseLong()) > 180) {
+            throw new IllegalArgumentException("Longitude out of bounds. Must be between -180 and 180");
+        }
+        if (Math.abs(updateWh.getWarehouseLat()) > 180) {
+            throw new IllegalArgumentException("Latitude out of bounds. Must be between -180 and 180");
+        }
+        try {
+            whMapper.updateWarehouse(updateWh);
+        } catch(Exception e) {
+            throw e;
+        }
     }
 }
