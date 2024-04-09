@@ -46,12 +46,12 @@ public class SearchPageIntegrationTests {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK); // or HttpStatus.FOUND if it's a redirect
     
         // Follow the redirect and check the final destination's content
-        if (response.getStatusCode() == HttpStatus.FOUND) {
-            String redirectedUrl = response.getHeaders().getLocation().toString();
-            ResponseEntity<String> responseAfterRedirect = restTemplate.getForEntity(redirectedUrl, String.class);
-            assertThat(responseAfterRedirect.getStatusCode()).isEqualTo(HttpStatus.OK);
-            assertThat(responseAfterRedirect.getBody()).contains("Enter warehouse name");
-        }
+
+            // String redirectedUrl = response.getHeaders().getLocation().toString();
+            // ResponseEntity<String> responseAfterRedirect = restTemplate.getForEntity(redirectedUrl, String.class);
+            // assertThat(responseAfterRedirect.getStatusCode()).isEqualTo(HttpStatus.OK);
+            // assertThat(responseAfterRedirect.getBody()).contains("Enter warehouse name");
+        
     }
 
 }
