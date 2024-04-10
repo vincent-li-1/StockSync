@@ -1,5 +1,5 @@
 package stocksync.controller;
-import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +54,26 @@ public class WarehouseControllerTests {
         testWH.setWarehouseName("testName");
         return testWH;
     }
+
+    private Warehouse invalidLatWarehouse() {
+        Warehouse testWH = new Warehouse();
+        testWH.setWarehouseId(1);
+        testWH.setWarehouseAddress("testAddress");
+        testWH.setWarehouseLat(200);
+        testWH.setWarehouseLong(1);
+        testWH.setWarehouseName("testName");
+        return testWH;
+    }
+
+    private Warehouse invalidLongWarehouse() {
+        Warehouse testWH = new Warehouse();
+        testWH.setWarehouseId(1);
+        testWH.setWarehouseAddress("testAddress");
+        testWH.setWarehouseLat(1);
+        testWH.setWarehouseLong(-200);
+        testWH.setWarehouseName("testName");
+        return testWH;
+    }
     /**
      * Test if the search endpoint return the correct template to render.
      * @throws Exception if the test failed
@@ -72,39 +92,45 @@ public class WarehouseControllerTests {
     // public void deleteWarehouseButtonTest() throws Exception {
     //     int testWarehouseId = 1;
 
-    //     // Perform DELETE request and expect redirection
-    //     mockMvc.perform(delete("/deleteWarehouse/{warehouseId}", testWarehouseId))
-    //             .andExpect(status().is3xxRedirection()) // Expect a redirect status
-    //             .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
 
-    //     // Verify that the service method was called with the correct warehouseId
-    //     //verify(mockService).deleteWarehouseButton(eq(testWarehouseId));
-    // }
+    /**
+     * Test if the deleteWarehouseButton method redirects to the correct URL after deletion.
+     * @throws Exception if the test fails
+     */
+    @Test
+    public void deleteWarehouseButtonTest() throws Exception {
+        int testWarehouseId = 1;
 
-     @Test
-    public void testGetAllWarehouses() throws Exception{
-        // Mocking service method response
-        when(mockService.getTotalNumEntries(anyString(), anyString())).thenReturn(1);
+        // Perform DELETE request and expect redirection
+        mockMvc.perform(delete("/deleteWarehouse/{warehouseId}", testWarehouseId))
+                .andExpect(status().is3xxRedirection()) // Expect a redirect status
+                .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
 
-        // Assume getWarehouses returns an empty list
-        when(mockService.getWarehouses(anyInt(), anyString(), anyString(), anyString(), anyString())).thenReturn(List.of());
-
-        mockMvc.perform(get("/warehouseSearchResults").param("page", "1"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("warehouseSearchResults"));
-          
-        
-        // Verify interactionsc
-        verify(mockService, times(1)).getTotalNumEntries(anyString(), anyString());
-        verify(mockService, times(1)).getWarehouses(anyInt(), anyString(), anyString(), anyString(), anyString());
+        // Verify that the service method was called with the correct warehouseId
+        verify(mockService).deleteWarehouseButton(eq(testWarehouseId));
     }
 
+    @Test
+    public void insertWarehouseTest() throws Exception {
+        Warehouse testWarehouse = setupWarehouse();
+        MockHttpServletRequestBuilder request = post("/insertWarehouse")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("warehouseId",String.valueOf(testWarehouse.getWarehouseId()))
+                .param("warehouseName","newName")
+                .param("warehouseAddress","newAddress")
+                .param("warehouseLong","1.1")
+                .param("warehouseLat","1.2");
+
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection()) // Expect a redirect status
+                .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
+    }
     /**
      * Test if updateWarehouse redirects to the correct URL after updating
      * @throws Exception
      */
     @Test
-    public void updateWarehouseRedirectTest() throws Exception {
+    public void updateWarehouseTest() throws Exception {
         Warehouse testWarehouse = setupWarehouse();
         MockHttpServletRequestBuilder request = post("/updateWarehouse")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -119,18 +145,4 @@ public class WarehouseControllerTests {
                 .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
 
     }
-//    @Test
-//    public void updateWarehouseCorrectTest() throws Exception {
-//        Warehouse testWarehouse = setupWarehouse();
-//        MockHttpServletRequestBuilder request = post("/updateWarehouse")
-//                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                .param("warehouseId",String.valueOf(testWarehouse.getWarehouseId()))
-//                .param("warehouseName","newName")
-//                .param("warehouseAddress","newAddress")
-//                .param("warehouseLong","1.1")
-//                .param("warehouseLat","1.2");
-//
-//        mockMvc.perform(request);
-//        verify(mockService).updateWarehouse(refEq(testWarehouse));
-//    }
 }

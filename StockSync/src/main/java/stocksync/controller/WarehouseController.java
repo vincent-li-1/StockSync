@@ -1,5 +1,6 @@
 package stocksync.controller;
 
+import org.apache.ibatis.annotations.Delete;
 import stocksync.mapper.WarehouseMapper;
 import stocksync.model.Warehouse;
 import stocksync.service.WarehouseService;
@@ -74,21 +75,52 @@ public class WarehouseController {
     }
 
     @PostMapping(value = "/insertWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String insertWarehouse(@ModelAttribute Warehouse newWh){
-        this.warehouseService.createWarehouse(newWh);
-        return "redirect:/warehouseSearchResults?page=1";
+    public ResponseEntity<String> insertWarehouse(@ModelAttribute Warehouse newWh){
+        try {
+            this.warehouseService.createWarehouse(newWh);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Location", "/warehouseSearchResults?page=1");
+            return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(
+                e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+
     }
 
-
+    /**
+     * Delete a warehouse with POST request and a form
+     * @param deleteWh warehouse object that needs to be deleted
+     * @return url back to the search page
+     */
     @PostMapping(value = "/deleteWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String deleteWarehouse(@ModelAttribute Warehouse deleteWh){
         this.warehouseService.deleteWarehouse(deleteWh);
         return "redirect:/warehouseSearchResults?page=1";
     }
 
-    @PostMapping(value = "/updateWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String updateWarehouse(@ModelAttribute Warehouse updateWh){
-        this.warehouseService.updateWarehouse(updateWh);
+    /**
+     * Delete a warehouse with DELETE request trigger by a button in the frontend
+     * @param warehouseId id of the warehouse to delete
+     * @return url back to the search page
+     */
+    @DeleteMapping("/deleteWarehouse/{warehouseId}")
+    public String deleteWarehouseButton(@PathVariable("warehouseId") int warehouseId){
+        this.warehouseService.deleteWarehouseButton(warehouseId);
         return "redirect:/warehouseSearchResults?page=1";
+    }
+
+    @PostMapping(value = "/updateWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<String> updateWarehouse(@ModelAttribute Warehouse updateWh) {
+        try {
+                this.warehouseService.updateWarehouse(updateWh);
+                            HttpHeaders headers = new HttpHeaders();
+            headers.add("Location", "/warehouseSearchResults?page=1");
+            return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(
+                e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

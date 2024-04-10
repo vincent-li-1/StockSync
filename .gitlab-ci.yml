@@ -1,9 +1,9 @@
 image: gradle:jdk17
 
 stages:
-  - build
-  - unitTest  # Define a test stage
+  - unitTest  
   - integrationTest
+  - build
   - docker
 
 before_script:
@@ -18,6 +18,16 @@ WarehouseControllerTest:
   stage: unitTest
   script:
     - ./gradlew test --tests WarehouseControllerTests
+
+ItemControllerTest:
+  stage: unitTest
+  script:
+    - ./gradlew test --tests ItemControllerTests
+
+ItemServiceTest:
+  stage: unitTest
+  script:
+    - ./gradlew test --tests ItemServiceTests
 
 IntegrationTest:  
   stage: integrationTest

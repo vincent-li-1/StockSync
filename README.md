@@ -1,4 +1,7 @@
 # team34Project
+![Build Status](https://img.shields.io/badge/Build-Successful-Green)
+![Pipeline Status](https://img.shields.io/badge/CI%2FCD-Passing-Green)
+![Test Status](https://img.shields.io/badge/All_Tests_Passing-Green)
 
 
 

@@ -8,6 +8,15 @@ public class Warehouse {
     private String warehouseAddress;
     private double warehouseLong, warehouseLat;
 
+    @Override
+    public boolean equals(Object otherObject){
+        //check for null and compare types
+        if (otherObject == null || this.getClass() != otherObject.getClass()) return false;
+
+        //compare the warehouseId
+        Warehouse otherWarehouse = (Warehouse) otherObject;
+        return otherWarehouse.getWarehouseId() == this.getWarehouseId();
+    }
     public int getWarehouseId() {
         return warehouseId;
     }
