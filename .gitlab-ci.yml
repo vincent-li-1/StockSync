@@ -1,6 +1,8 @@
 image: gradle:jdk17
+
 stages:
-  - test
+  - unitTest  
+  - integrationTest
   - build
   - docker
 
@@ -8,24 +10,29 @@ before_script:
   - cd StockSync
 
 WarehouseServiceTest:
-  stage: test
+  stage: unitTest
   script:
     - ./gradlew test --tests WarehouseServiceTests
 
 WarehouseControllerTest:
-  stage: test
+  stage: unitTest
   script:
     - ./gradlew test --tests WarehouseControllerTests
 
+ItemControllerTest:
+  stage: unitTest
+  script:
+    - ./gradlew test --tests ItemControllerTests
+
 ItemServiceTest:
-  stage: test
+  stage: unitTest
   script:
     - ./gradlew test --tests ItemServiceTests
 
-ItemControllerTest:
-  stage: test
+IntegrationTest:  
+  stage: integrationTest
   script:
-    - ./gradlew test --tests ItemControllerTests
+    - ./gradlew test --tests SearchPageIntegrationTests
 
 build:
   stage: build
@@ -34,6 +41,8 @@ build:
   artifacts:
     paths:
       - StockSync/build/libs/
+
+
 
 docker:
   image: docker:latest

@@ -17,6 +17,18 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+import stocksync.service.WarehouseService;
+import stocksync.controller.WarehouseController;
+
+import org.junit.jupiter.api.Test;
 /**
  * Test class for controllers.
  */
@@ -72,6 +84,13 @@ public class WarehouseControllerTests {
                     .andExpect(status().isOk())
                     .andExpect(view().name("search"));
     }
+    /**
+     * Test if the deleteWarehouseButton method redirects to the correct URL after deletion.
+     * @throws Exception if the test fails
+     */
+    // @Test
+    // public void deleteWarehouseButtonTest() throws Exception {
+    //     int testWarehouseId = 1;
 
 
     /**
