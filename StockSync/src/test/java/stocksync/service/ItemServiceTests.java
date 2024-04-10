@@ -54,7 +54,7 @@ public class ItemServiceTests {
 
     /**
      * Test if the createItem method in the service calls the corresponding method
-     * in the mapper with only the provided warehouse parameter.
+     * in the mapper with only the provided item parameter.
      * @throws Exception if the test failed
      */
     @Test
