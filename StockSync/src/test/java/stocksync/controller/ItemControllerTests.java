@@ -32,7 +32,7 @@ public class ItemControllerTests {
      */
     @Test
     public void searchTest() throws Exception {
-        this.mockMvc.perform(get("/search"))
+        this.mockMvc.perform(get("/searchItem"))
                     .andExpect(status().isOk())
                     .andExpect(view().name("search"));
     }

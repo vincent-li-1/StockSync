@@ -31,13 +31,13 @@ public class ItemService implements IItemService {
         }
     }
     /**
-     * Method to get a paginated list of warehouses based on sorting and search parameters
+     * Method to get a paginated list of items based on sorting and search parameters
      * @param page is the current page to get
      * @param sortBy is the column/attribute that the request wants to results sorted by
      * @param sortMethod is the method, ascending or descending, to sort results by
      * @param searchKey is the column/attribute that the request wants to search by
      * @param searchValue is the value that the request wants to search for
-     * @return List of warehouse objects
+     * @return List of item objects
      */
     public List<Item> getItems(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
         // Limit is hardcoded to be 10 per page, offset is calculated based off that limit. This is the only line that needs
@@ -61,7 +61,6 @@ public class ItemService implements IItemService {
         // Get the right table column name for searchKey
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
 
-        // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
 
         // Convert searchValue to have search wildcard if the search is by name or address (we don't want wildcards for long/lat)
         String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
@@ -84,7 +83,6 @@ public class ItemService implements IItemService {
 
         // Get the right table column name for searchKey
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
-        // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
 
          // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
         String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("size") || searchKey.equals("price")) ? "%" + searchValue + "%" : searchValue;

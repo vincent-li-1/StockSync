@@ -24,7 +24,7 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchItem")
     public String getSearchPage() {
         return "search";
     }
