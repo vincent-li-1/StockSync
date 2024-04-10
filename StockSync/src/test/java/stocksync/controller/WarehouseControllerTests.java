@@ -32,7 +32,7 @@ public class WarehouseControllerTests {
     private MockMvc mockMvc;
     @MockBean
     private WarehouseService mockService;
-
+    //setting up a standard test warehouse object
     public Warehouse setupWarehouse(){
         Warehouse testWH = new Warehouse();
         testWH.setWarehouseId(1);
@@ -90,7 +90,10 @@ public class WarehouseControllerTests {
         // Verify that the service method was called with the correct warehouseId
         verify(mockService).deleteWarehouseButton(eq(testWarehouseId));
     }
-
+    /**
+     * Test if the insertWarehouse endpoint return the correct template to render.
+     * @throws Exception if the test failed
+     */
     @Test
     public void insertWarehouseTest() throws Exception {
         Warehouse testWarehouse = setupWarehouse();
