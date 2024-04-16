@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Add new ' + (${isWarehouse} ? 'warehouse')"></title>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div class="container">
+        <h1>StockSync</h1>
+        <a href="/search">
+            <button>Back to search</button>
+        </a>
+        <div style="margin-top: 20px;"></div>
+        <form th:if="${isWarehouse}" id="addWarehouseForm" action="/updatetWarehouse" method="POST" class="warehouse-form">
+            <label for="warehouseName"></label>
+            <input type="text" id="warehouseName" name="warehouseName" placeholder="Enter warehouse name">
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseAddress"></label>
+            <input type="text" id="warehouseAddress" name="warehouseAddress" placeholder="Enter warehouse address">
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseLong"></label>
+            <input type="text" id="warehouseLong" name="warehouseLong" placeholder="Enter warehouse longitude">
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseLat"></label>
+            <input type="text" id="warehouseLat" name="warehouseLat" placeholder="Enter warehouse latitude">  
+            <div style="margin-top: 10px;"></div>         
+            <button type="submit">Edit Warehouse</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
