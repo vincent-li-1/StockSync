@@ -30,11 +30,19 @@ function handleDeleteSelected() {
             selectedIds.push(checkboxes[i].value);
         }
     }
-    // set the value of hidden input field with selected warehouse IDs
-    document.getElementById('selectedIds').value = selectedIds.join(',');
 
-    //use fetch to handle api requests here and get rid of form in html
-
-    // submit the form for deletion
-    document.getElementById('deleteForm').submit();
+    const response = await fetch('/deleteWarehouse', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(selectedIds)
+    });
+//    // set the value of hidden input field with selected warehouse IDs
+//    document.getElementById('selectedIds').value = selectedIds.join(',');
+//
+//    //use fetch to handle api requests here and get rid of form in html
+//
+//    // submit the form for deletion
+//    document.getElementById('deleteForm').submit();
 }
