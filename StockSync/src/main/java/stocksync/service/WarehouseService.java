@@ -144,8 +144,10 @@ public class WarehouseService implements IWarehouseService {
         whMapper.deleteWarehouse(deleteWh);
     }
     //delete a Warehouse with a given warehouse id
-    public void deleteWarehouseButton(int warehouseId) {
-        whMapper.deleteWarehouseButton(warehouseId);
+    public void deleteWarehouseButton(List<Integer> warehouseIdList) {
+        for (int warehouseId : warehouseIdList) {
+            whMapper.deleteWarehouseButton(warehouseId);
+        }
     }
 
     public void updateWarehouse(Warehouse updateWh) throws IllegalArgumentException {

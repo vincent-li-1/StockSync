@@ -29,6 +29,9 @@ import stocksync.service.WarehouseService;
 import stocksync.controller.WarehouseController;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 /**
  * Test class for controllers.
  */
@@ -99,7 +102,7 @@ public class WarehouseControllerTests {
      */
     @Test
     public void deleteWarehouseButtonTest() throws Exception {
-        int testWarehouseId = 1;
+        List<Integer> testWarehouseIdList =[1,2,3];
 
         // Perform DELETE request and expect redirection
         mockMvc.perform(delete("/deleteWarehouse/{warehouseId}", testWarehouseId))
