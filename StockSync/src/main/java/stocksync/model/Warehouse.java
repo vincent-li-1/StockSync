@@ -7,7 +7,9 @@ public class Warehouse {
     private String warehouseName;
     private String warehouseAddress;
     private double warehouseLong, warehouseLat;
-
+    /**
+    *   override the equals method, return true if the otherObject is a warehouse object with the same warehouseId
+    */
     @Override
     public boolean equals(Object otherObject){
         //check for null and compare types

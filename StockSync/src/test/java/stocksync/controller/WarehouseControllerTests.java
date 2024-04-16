@@ -17,6 +17,18 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+import stocksync.service.WarehouseService;
+import stocksync.controller.WarehouseController;
+
+import org.junit.jupiter.api.Test;
 /**
  * Test class for controllers.
  */
@@ -32,13 +44,33 @@ public class WarehouseControllerTests {
     private MockMvc mockMvc;
     @MockBean
     private WarehouseService mockService;
-
+    //setting up a standard test warehouse object
     public Warehouse setupWarehouse(){
         Warehouse testWH = new Warehouse();
         testWH.setWarehouseId(1);
         testWH.setWarehouseAddress("testAddress");
         testWH.setWarehouseLat(1);
         testWH.setWarehouseLong(1);
+        testWH.setWarehouseName("testName");
+        return testWH;
+    }
+
+    private Warehouse invalidLatWarehouse() {
+        Warehouse testWH = new Warehouse();
+        testWH.setWarehouseId(1);
+        testWH.setWarehouseAddress("testAddress");
+        testWH.setWarehouseLat(200);
+        testWH.setWarehouseLong(1);
+        testWH.setWarehouseName("testName");
+        return testWH;
+    }
+
+    private Warehouse invalidLongWarehouse() {
+        Warehouse testWH = new Warehouse();
+        testWH.setWarehouseId(1);
+        testWH.setWarehouseAddress("testAddress");
+        testWH.setWarehouseLat(1);
+        testWH.setWarehouseLong(-200);
         testWH.setWarehouseName("testName");
         return testWH;
     }
@@ -56,8 +88,17 @@ public class WarehouseControllerTests {
      * Test if the deleteWarehouseButton method redirects to the correct URL after deletion.
      * @throws Exception if the test fails
      */
+    // @Test
+    // public void deleteWarehouseButtonTest() throws Exception {
+    //     int testWarehouseId = 1;
+
+
+    /**
+     * Test if the deleteWarehouseButton method redirects to the correct URL after deletion.
+     * @throws Exception if the test fails
+     */
     @Test
-    public void deleteWarehouseButtonRedirectTest() throws Exception {
+    public void deleteWarehouseButtonTest() throws Exception {
         int testWarehouseId = 1;
 
         // Perform DELETE request and expect redirection
@@ -68,13 +109,31 @@ public class WarehouseControllerTests {
         // Verify that the service method was called with the correct warehouseId
         verify(mockService).deleteWarehouseButton(eq(testWarehouseId));
     }
+    /**
+     * Test if the insertWarehouse endpoint return the correct template to render.
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void insertWarehouseTest() throws Exception {
+        Warehouse testWarehouse = setupWarehouse();
+        MockHttpServletRequestBuilder request = post("/insertWarehouse")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("warehouseId",String.valueOf(testWarehouse.getWarehouseId()))
+                .param("warehouseName","newName")
+                .param("warehouseAddress","newAddress")
+                .param("warehouseLong","1.1")
+                .param("warehouseLat","1.2");
 
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection()) // Expect a redirect status
+                .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
+    }
     /**
      * Test if updateWarehouse redirects to the correct URL after updating
      * @throws Exception
      */
     @Test
-    public void updateWarehouseRedirectTest() throws Exception {
+    public void updateWarehouseTest() throws Exception {
         Warehouse testWarehouse = setupWarehouse();
         MockHttpServletRequestBuilder request = post("/updateWarehouse")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -89,18 +148,4 @@ public class WarehouseControllerTests {
                 .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
 
     }
-//    @Test
-//    public void updateWarehouseCorrectTest() throws Exception {
-//        Warehouse testWarehouse = setupWarehouse();
-//        MockHttpServletRequestBuilder request = post("/updateWarehouse")
-//                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                .param("warehouseId",String.valueOf(testWarehouse.getWarehouseId()))
-//                .param("warehouseName","newName")
-//                .param("warehouseAddress","newAddress")
-//                .param("warehouseLong","1.1")
-//                .param("warehouseLat","1.2");
-//
-//        mockMvc.perform(request);
-//        verify(mockService).updateWarehouse(refEq(testWarehouse));
-//    }
 }
