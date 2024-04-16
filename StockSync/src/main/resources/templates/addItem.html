@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Add new ' + (${isItem} ? 'item')"></title>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div class="container">
+        <h1>StockSync</h1>
+        <a href="/searchItem">
+            <button>Back to search</button>
+        </a>
+        <div style="margin-top: 20px;"></div>
+        <form th:if="${isItem}" id="addItemForm" action="/insertItem" method="POST" class="item-form">
+            <label for="itemName"></label>
+            <input type="text" id="itemName" name="itemName" placeholder="Enter item name">
+            <div style="margin-top: 10px;"></div>
+            <label for="itemSize"></label>
+            <input type="text" id="itemSize" name="itemSize" placeholder="Enter item size">
+            <div style="margin-top: 10px;"></div>
+            <label for="itemPrice"></label>
+            <input type="text" id="itemPrice" name="itemPrice" placeholder="Enter item price">
+            <div style="margin-top: 10px;"></div>        
+            <button type="submit item">Add Item</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
