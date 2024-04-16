@@ -42,7 +42,7 @@ public class ShipmentService {
      * @param searchValue is the value that the request wants to search for
      * @return List of shipment objects
      */
-    public List<Shipment> getWarehouses(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
+    public List<Shipment> getShipments(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
         // Limit is hardcoded to be 10 per page, offset is calculated based off that limit. This is the only line that needs
         // to be changed to change limit per page.
         int limit = 10;
@@ -132,8 +132,10 @@ public class ShipmentService {
         return pagesArray;
     }
 
-    public void deleteShipment(int shipmentId) {
-        shipmentMapper.deleteShipment(shipmentId);
+    public void deleteShipment(List<Integer> shipmentIdList) {
+        for (int shipmentId : shipmentIdList) {
+            shipmentMapper.deleteShipment(shipmentId);
+        }
     }
 
     public void updateShipment(Shipment updateShipment) {
