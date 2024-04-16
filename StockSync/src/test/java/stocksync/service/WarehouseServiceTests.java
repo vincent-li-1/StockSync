@@ -158,6 +158,23 @@ public class WarehouseServiceTests {
         assertArrayEquals(warehouseService.getPagesArray(4, 100), pagesArray2);
     }
 
+
+    /**
+     * Test if getting the number of total pages with and without search terms returns the expected number
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void testGetTotalNumPages() throws Exception {
+        when(mockMapper.getTotalNumEntries()).thenReturn(55);
+        assertEquals(warehouseService.getTotalNumPages("",""), 6);
+    }
+
+    @Test
+    public void testGetTotalNumPagesWithSearch() throws Exception {
+        when(mockMapper.getSearchNumEntries("warehouse_address", "%test%")).thenReturn(123);
+        assertEquals(warehouseService.getTotalNumPages("address", "test"), 13);
+    }
+
     /**
      * Test if creating a warehouse with an out of bounds longitude throws the expected error
      * @throws Exception if the test failed
