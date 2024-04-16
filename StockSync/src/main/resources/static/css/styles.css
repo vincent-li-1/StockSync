@@ -181,3 +181,7 @@ tr:hover {
 .navbar a:hover::after {
     width: 100%;
 }
+
+.pagination span {
+    margin: 0 5px;
+}
