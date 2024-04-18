@@ -15,6 +15,10 @@ function handleSearchSubmit() {
     location.href = `/warehouseSearchResults?page=1&sortBy=${sortBy}&sortMethod=${sortMethod}&searchKey=${searchKey}&searchValue=${searchValue}`
 }
 
+function handleEditSubmit() {
+    
+}
+
 /*
 * function to handle deletion of all selected warehouses
 */

@@ -37,10 +37,10 @@
                     <td th:text="${warehouse.warehouseLong}"></td>
                     <td th:text="${warehouse.warehouseLat}"></td>
                     <td>
-                        <form th:action="@{/updateWarehouse}" method="post">
-                            <input type="hidden" name="id" th:value="${warehouse}" />
+                        <form th:action="@{/editEntity}" method="get">
+                            <input type="hidden" name="id" th:value="${warehouse.id}" />
                             <button type="submit">Edit</button>
-                        </form>
+                        </form>                        
                     </td>
                 </tr>                
             </table>
