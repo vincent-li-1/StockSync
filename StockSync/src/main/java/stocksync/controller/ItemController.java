@@ -68,8 +68,8 @@ public class ItemController {
 
     @GetMapping("/addItem")
     public String getAddItemPage(Model model) {
-        model.addAttribute("isItem", true);
-        return "addEntity";
+        //model.addAttribute("isItem", true);
+        return "addItem";
     }
 
     @PostMapping(value = "/insertItem", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
