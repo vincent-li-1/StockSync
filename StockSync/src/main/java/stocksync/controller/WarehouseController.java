@@ -45,11 +45,13 @@ public class WarehouseController {
         String searchValueExist = searchValue.isPresent() ? searchValue.get() : "";
 
         int totalNumEntries = this.warehouseService.getTotalNumEntries(searchKeyExist, searchValueExist);
+        int totalNumPages = this.warehouseService.getTotalNumPages(searchKeyExist, searchValueExist);
 
         model.addAttribute("warehouses", this.warehouseService.getWarehouses(page, sortByExist, sortMethodExist, searchKeyExist, searchValueExist));
         model.addAttribute("pagesArray", this.warehouseService.getPagesArray(page, totalNumEntries));
         model.addAttribute("totalNumEntries", totalNumEntries);
         model.addAttribute("currentPage", page);
+        model.addAttribute("totalNumPages", totalNumPages);
 
         // Pass sort params back to frontend for page links to use
         model.addAttribute("sortBy", sortByExist);
