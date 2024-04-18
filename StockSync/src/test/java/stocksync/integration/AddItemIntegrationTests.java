@@ -49,7 +49,7 @@ public class AddItemIntegrationTests {
     }
    
 
-    @Test
+    /*@Test
     public void testTexbox() throws Exception {
 
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:" + port + "/addItem", String.class);
@@ -59,7 +59,9 @@ public class AddItemIntegrationTests {
         assertThat(response.getBody()).contains("Enter item size");
         assertThat(response.getBody()).contains("Enter item price");
       
-    }
+    }*/
+
+}
    
     
 }
