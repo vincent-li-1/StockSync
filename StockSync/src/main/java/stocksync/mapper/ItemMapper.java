@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface ItemMapper {
-    @Select("SELECT * FROM StockSync.Item LIMIT #{limit} OFFSET #{offset}")
+    @Select("SELECT * FROM StockSync.Item WHERE ${searchKeyAsColumnName} LIKE '${searchValueWithWildcard}' ORDER BY ${sortByAsColumnName} ${sortMethod} LIMIT #{limit} OFFSET #{offset}")
     @Results({
             @Result(property = "itemId", column = "item_id"),
             @Result(property = "itemName",column = "item_name"),

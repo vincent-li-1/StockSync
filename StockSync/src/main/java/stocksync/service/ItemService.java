@@ -62,8 +62,8 @@ public class ItemService implements IItemService {
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
 
 
-        // Convert searchValue to have search wildcard if the search is by name or address (we don't want wildcards for long/lat)
-        String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
+        // Convert searchValue to have search wildcard if the search is by name (we don't want wildcards for size or price)
+        String searchValueWithWildcard = (searchKey.equals("name") ? "%" + searchValue + "%" : searchValue);
 
         return itMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
     }
