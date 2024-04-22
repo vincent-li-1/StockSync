@@ -25,6 +25,7 @@
                     <td th:text="${item.itemName}"></td>
                     <td th:text="${item.itemSize}"></td>
                     <td th:text="${item.itemPrice}"></td>
+                    <td>
                         <form th:action="@{/editItem}" method="post">
                             <input type="hidden" name="id" th:value="${item.itemId}" />
                             <button type="submit">Edit</button>
