@@ -30,7 +30,6 @@ function handleDeleteSelected() {
             selectedIds.push(checkboxes[i].value);
         }
     }
-
     const response = await fetch('/deleteWarehouse', {
         method: 'POST',
         headers: {
@@ -46,3 +45,4 @@ function handleDeleteSelected() {
 //    // submit the form for deletion
 //    document.getElementById('deleteForm').submit();
 }
+
