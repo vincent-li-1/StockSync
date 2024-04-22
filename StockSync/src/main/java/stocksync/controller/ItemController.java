@@ -26,7 +26,7 @@ public class ItemController {
 
     @GetMapping("/searchItem")
     public String getSearchPage() {
-        return "search";
+        return "searchItem";
     }
 
     @GetMapping("/itemSearchResults")

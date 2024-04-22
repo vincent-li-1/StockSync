@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Search Results</title>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div class="container">
+        <h1>StockSync</h1>
+        <div id="results">
+            <a href="/searchItems">
+                <button>Back to search</button>
+            </a>
+            <table>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Item Size</th>
+                    <th>Item Price</th>
+                </tr>
+                <tr th:each="item : ${items}">
+                    <td th:text="${item.itemName}"></td>
+                    <td th:text="${item.itemSize}"></td>
+                    <td th:text="${item.itemPrice}"></td>
+                        <form th:action="@{/editItem}" method="post">
+                            <input type="hidden" name="id" th:value="${item.itemId}" />
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/deleteItem}" method="post">
+                            <input type="hidden" name="id" th:value="${item.itemId}" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>                
+            </table>
+        </div>
+        <ul class="pagination">
+        <span>Jump to:</span>
+            <li th:each="page : ${pagesArray}">
+                <a th:href="@{itemSearchResults(page=${page},sortBy=${sortBy},sortMethod=${sortMethod},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
+            </li>
+            <span th:text="|of ${totalNumPages}|"></span>
+        </ul>
+        <span th:text="|Showing ${pageStartingNum} - ${pageEndingNum} of ${totalNumEntries} total items|"></span>
+    <script src="script.js"></script>
+</body>
+</html>

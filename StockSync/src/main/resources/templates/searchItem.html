@@ -11,23 +11,23 @@
     <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
     <div class="container">
         <h1>StockSync</h1>
-            <label for="searchKey">Search By:</label>
-            <select id="searchKey" name="searchKey">
+            <label for="itemSearchKey">Search By:</label>
+            <select id="itemSearchKey" name="itemSearchKey">
                 <option></option>
                 <option value="name">Name</option>
                 <option value="size">Size</option>
                 <option value="price">Price</option>
             </select>
-            <input type="text" id="searchinput" placeholder="Search for...">
-            <label for="sortBy">Sort By:</label>
-            <select id="sortBy" name="sortBy">
+            <input type="text" id="itemSearchInput" placeholder="Search for...">
+            <label for="itemSortBy">Sort By:</label>
+            <select id="sortBy" name="itemSortBy">
                 <option></option>
                 <option value="name">Name</option>
                 <option value="size">Size</option>
                 <option value="price">Price</option>
             </select>
-            <label for="sortMethod"></label>
-            <select id="sortMethod" name="sortMethod">
+            <label for="itemSortMethod"></label>
+            <select id="itemSortMethod" name="itemSortMethod">
                 <option value="asc">Asc</option>
                 <option value="desc">Desc</option>
             </select>
