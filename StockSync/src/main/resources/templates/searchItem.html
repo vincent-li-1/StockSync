@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Item Page</title>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div class="container">
+        <h1>StockSync</h1>
+            <label for="searchKey">Search By:</label>
+            <select id="searchKey" name="searchKey">
+                <option></option>
+                <option value="name">Name</option>
+                <option value="size">Size</option>
+                <option value="price">Price</option>
+            </select>
+            <input type="text" id="searchinput" placeholder="Search for...">
+            <label for="sortBy">Sort By:</label>
+            <select id="sortBy" name="sortBy">
+                <option></option>
+                <option value="name">Name</option>
+                <option value="size">Size</option>
+                <option value="price">Price</option>
+            </select>
+            <label for="sortMethod"></label>
+            <select id="sortMethod" name="sortMethod">
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+            </select>
+            <button id="searchItemSubmit">Search</button>
+        
+        <div style="margin-top: 25px;"></div>
+        <a href="/addItem">
+            <button>Add Item</button>
+        </a>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

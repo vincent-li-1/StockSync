@@ -34,6 +34,11 @@ IntegrationTest:
   script:
     - ./gradlew test --tests SearchPageIntegrationTests
 
+AddItemIntegrationTest:
+  stage: integrationTest
+  script:
+    - ./gradlew test --tests AddItemIntegrationTests
+
 build:
   stage: build
   script:
