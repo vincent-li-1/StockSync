@@ -1,6 +1,9 @@
 const searchSubmitButton = document.querySelector("#searchSubmit");
+const searchItemSubmitButton = document.querySelector("#searchItemSubmit");
 
 searchSubmitButton && searchSubmitButton.addEventListener('click', handleSearchSubmit);
+
+searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
 
 // get reference to the delete selected button
 const deleteSelectedButton = document.querySelector("#deleteSelected");
@@ -41,4 +44,12 @@ function handleDeleteSelected() {
 
     // submit the form for deletion
     document.getElementById('deleteForm').submit();
+}
+
+function handleSearchItemSubmit() {
+    const searchValue = document.querySelector("#itemSearchInput").value;
+    const searchKey = document.querySelector("#itemSearchKey").value;
+    const sortBy = document.querySelector("#itemSortBy").value;
+    const sortMethod = document.querySelector("#itemSortMethod").value;
+    location.href = `/itemSearchResults?page=1&sortBy=${sortBy}&sortMethod=${sortMethod}&searchKey=${searchKey}&searchValue=${searchValue}`
 }

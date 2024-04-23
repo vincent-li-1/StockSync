@@ -69,14 +69,15 @@ public class ItemServiceTests {
      * methods in the mapper based on a variety of parameters.
      * @throws Exception if the test failed
      */
-    //@Test
-    //public void testGetItems() throws Exception {
-    //    itemService.getItems(1, "name", "desc", "size", "search term");
-    //    itemService.getItems(2, "price", "asc", "price", "search longitude");
-    //    verify(mockMapper).findBySearch(10, 0, "item_name", "desc", "item_name", "%search name");
-    //    verify(mockMapper).findBySearch(10, 10, "item_price", "asc", "item_price", "search price");
-    //    verify(mockMapper).findAll(10, 20, "item_id", "asc");
-    //}
+    @Test
+    public void testGetItems() throws Exception {
+       itemService.getItems(1, "size", "desc", "name", "search term");
+       itemService.getItems(2, "price", "asc", "price", "search price");
+       itemService.getItems(3, "someOther", "someOther", "", "");
+       verify(mockMapper).findBySearch(10, 0, "item_size", "desc", "item_name", "%search term%");
+       verify(mockMapper).findBySearch(10, 10, "item_price", "asc", "item_price", "search price");
+       verify(mockMapper).findAll(10, 20, "item_id", "asc");
+    }
 
     /**
      * Test if the delete item method in the service calls the corresponding method
@@ -118,8 +119,8 @@ public class ItemServiceTests {
      */
     @Test
     public void testGetSearchNumEntries() throws Exception {
-        when(mockMapper.getSearchNumEntries("item_price", "%test%")).thenReturn(123);
-        assertEquals(itemService.getTotalNumEntries("price", "test"), 123);
+        when(mockMapper.getSearchNumEntries("item_name", "%test%")).thenReturn(123);
+        assertEquals(itemService.getTotalNumEntries("name", "test"), 123);
     }
 
 
