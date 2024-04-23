@@ -43,6 +43,16 @@ h1 {
     border-radius: 20px; /* Rounded corners */
 }
 
+/* Styling for search submit item button */
+#searchItemSubmit {
+    padding: 8px 20px;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px; /* Rounded corners */
+}
+
 /* Basic button styling */
 button {
     padding: 8px 20px;
@@ -72,6 +82,23 @@ button:hover {
 
 /* Warehouse form button styling */
 .warehouse-form button {
+    margin-top: 20px;
+}
+
+/* Item form section */
+.item-section {
+    margin-top: 40px;
+}
+
+/* Styling for item form inputs */
+.item-form input[type="text"] {
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Item form button styling */
+.item-form button {
     margin-top: 20px;
 }
 
@@ -180,4 +207,8 @@ tr:hover {
 /* Navigation link hover effect for underline */
 .navbar a:hover::after {
     width: 100%;
+}
+
+.pagination span {
+    margin: 0 5px;
 }

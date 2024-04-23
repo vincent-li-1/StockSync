@@ -1,4 +1,5 @@
 const searchSubmitButton = document.querySelector("#searchSubmit");
+const searchItemSubmitButton = document.querySelector("#searchItemSubmit");
 
 searchSubmitButton && searchSubmitButton.addEventListener('click', handleSearchSubmit);
 
@@ -6,6 +7,7 @@ searchSubmitButton && searchSubmitButton.addEventListener('click', handleSearchS
 const deleteSelectedButton = document.querySelector("#deleteSelected");
 // attach event listener to the delete selected button
 deleteSelectedButton && deleteSelectedButton.addEventListener('click', handleDeleteSelected);
+searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
 
 function handleSearchSubmit() {
     const searchValue = document.querySelector("#searchinput").value;
@@ -52,12 +54,13 @@ function handleDeleteSelected() {
           .catch(error => {
               console.error('Network error:', error);
           });
-//    // set the value of hidden input field with selected warehouse IDs
-//    document.getElementById('selectedIds').value = selectedIds.join(',');
-//
-//    //use fetch to handle api requests here and get rid of form in html
-//
-//    // submit the form for deletion
-//    document.getElementById('deleteForm').submit();
+
 }
 
+function handleSearchItemSubmit() {
+    const searchValue = document.querySelector("#itemSearchInput").value;
+    const searchKey = document.querySelector("#itemSearchKey").value;
+    const sortBy = document.querySelector("#itemSortBy").value;
+    const sortMethod = document.querySelector("#itemSortMethod").value;
+    location.href = `/itemSearchResults?page=1&sortBy=${sortBy}&sortMethod=${sortMethod}&searchKey=${searchKey}&searchValue=${searchValue}`
+}
