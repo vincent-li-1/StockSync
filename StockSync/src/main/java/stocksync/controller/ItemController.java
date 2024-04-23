@@ -26,7 +26,7 @@ public class ItemController {
 
     @GetMapping("/searchItem")
     public String getSearchPage() {
-        return "search";
+        return "searchItem";
     }
 
     @GetMapping("/itemSearchResults")
@@ -44,11 +44,13 @@ public class ItemController {
         String searchValueExist = searchValue.isPresent() ? searchValue.get() : "";
 
         int totalNumEntries = this.itemService.getTotalNumEntries(searchKeyExist, searchValueExist);
+        int totalNumPages = this.itemService.getTotalNumPages(searchKeyExist, searchValueExist);
 
         model.addAttribute("items", this.itemService.getItems(page, sortByExist, sortMethodExist, searchKeyExist, searchValueExist));
         model.addAttribute("pagesArray", this.itemService.getPagesArray(page, totalNumEntries));
         model.addAttribute("totalNumEntries", totalNumEntries);
         model.addAttribute("currentPage", page);
+        model.addAttribute("totalNumPages", totalNumPages);
 
         // Pass sort params back to frontend for page links to use
         model.addAttribute("sortBy", sortByExist);
