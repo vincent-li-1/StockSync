@@ -29,6 +29,16 @@ ItemServiceTest:
   script:
     - ./gradlew test --tests ItemServiceTests
 
+ShipmentControllerTest:
+  stage: unitTest
+  script:
+    - ./gradlew test --tests ShipmentControllerTests
+
+ShipmentServiceTest:
+  stage: unitTest
+  script:
+    - ./gradlew test --tests ShipmentServiceTests
+
 IntegrationTest:  
   stage: integrationTest
   script:
