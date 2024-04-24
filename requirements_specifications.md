@@ -177,24 +177,7 @@ As a facility manager, I want to create a process that takes some set of inputs 
 <!--NOTE: Please include illustrations or screenshots of what your user interface would look like -- even if they’re rough -- and interleave it with your description.-->
 
 <!--Images can be included with `![alt_text](image_path)`-->
-# Security Requirements for StockSync Inventory Management System
 
-## 1. Authentication and Authorization
-SR1.1: The system must implement secure authentication mechanisms for all users, requiring a username and a strong password. Security will be managed by tools explored in class (OAuth).
-## 2. Data Encryption
-SR2.1: All sensitive data, including personal user information, must be encrypted at rest using industry-standard encryption algorithms.
-## 4. Audit Logging and Monitoring
-SR4.1: All user actions and system changes must be logged with sufficient detail, including timestamps, user identifiers, and the nature of the action. Logs must be stored securely and reviewed regularly for suspicious activity.
-## 5. Privacy Compliance
-SR5.1: Ensure the system complies with applicable data protection and privacy laws, such as GDPR or CCPA, including mechanisms for data access requests, data correction, and data deletion by users.
-## 6. Session Management
-SR6.1: Securely manage user sessions, implementing timeout policies and protecting session tokens against hijacking. Use secure, HTTPOnly cookies for session management.
-## 7. Secure Development Practices
-SR7.1: Adhere to secure coding practices and guidelines throughout the development process. Conduct code reviews with a security focus to identify and fix security flaws.
-
-<!--### Security Requirements-->
-
-<!--Discuss what security requirements are necessary and why. Are there privacy or confidentiality issues? Is your system vulnerable to denial-of-service attacks?-->
 
 <!--### System Requirements-->
 
@@ -409,33 +392,20 @@ deactivate JavaBackend
 
 # Coding Standards
 
-## 1. Limited Use of Globals
-- Define which types of data can be declared globally and which cannot.
 
-## 2. Standard Headers for Different Modules
-- **Name of the module**
-- **Date of module creation**
-- **Author of the module**
-- **Modification history**
-- **Synopsis**
-- **Functions supported**: List with input and output parameters.
-- **Global variables**: Accessed or modified by the module.
-
-## 3. Naming Conventions
+## 1. Naming Conventions
 - **Local Variables**: Use camel case (e.g., `localData`).
 - **Global Variables**: Start with a capital letter (e.g., `GlobalData`).
-- **Constants**: Use all capital letters (e.g., `CONSDATA`).
-- **Functions**: Use camel case starting with a small letter.
+- **Constants**: Use all capital letters (e.g., `PI`).
+- **Functions**: Use camel case (e.g., `getShipmentDate`).
 
-## 4. Indentation
+## 2. Indentation
 - Use spaces after commas between function arguments.
 - Indent nested blocks properly.
 - Start all braces on a new line.
 
-## 5. Error Return Values and Exception Handling Conventions
-- Functions should return 0 or 1 to indicate failure or success.
 
-## 6. General Coding Guidelines
+## 3. General Coding Guidelines
 - Avoid complex coding styles.
 - Use meaningful names for identifiers.
 - Document the code properly with comments.
