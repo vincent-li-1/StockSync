@@ -62,7 +62,7 @@ public class WarehouseItemControllerTests {
                 .param("warehouseItemId",String.valueOf(testWarehouseItem.getWarehouseItemId()))
                 .param("warehouseId",String.valueOf(testWarehouseItem.getWarehouseId()))
                 .param("itemId",String.valueOf(testWarehouseItem.getItemId()))
-                .param("quantity",5);
+                .param("quantity","5");
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection()) // Expect a redirect status
@@ -80,7 +80,7 @@ public class WarehouseItemControllerTests {
                 .param("warehouseItemId",String.valueOf(testWarehouseItem.getWarehouseItemId()))
                 .param("warehouseId",String.valueOf(testWarehouseItem.getWarehouseId()))
                 .param("itemId",String.valueOf(testWarehouseItem.getItemId()))
-                .param("quantity",6);
+                .param("quantity","6");
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection()) // Expect a redirect status
