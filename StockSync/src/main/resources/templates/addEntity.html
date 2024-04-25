@@ -15,7 +15,7 @@
             <button>Back to search</button>
         </a>
         <div style="margin-top: 20px;"></div>
-        <form th:if="${isWarehouse}" id="addWarehouseForm" action="/updatetWarehouse" method="POST" class="warehouse-form">
+        <form th:if="${isWarehouse}" id="addWarehouseForm" action="/insertWarehouse" method="POST" class="warehouse-form">
             <label for="warehouseName"></label>
             <input type="text" id="warehouseName" name="warehouseName" placeholder="Enter warehouse name">
             <div style="margin-top: 10px;"></div>
