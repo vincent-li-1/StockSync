@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="'Add new ' + (${isWarehouse} ? 'warehouse')"></title>
+    <title th:text="'Edit ' + (${isWarehouse} ? 'warehouse')"></title>
     <link rel="stylesheet" type="text/css" media="all" 
           href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
@@ -15,7 +15,7 @@
             <button>Back to search</button>
         </a>
         <div style="margin-top: 20px;"></div>
-        <form th:if="${isWarehouse}" id="addWarehouseForm" action="/updateWarehouse" method="POST" class="warehouse-form">
+        <form th:if="${isWarehouse}" id="editWarehouseForm" action="/updateWarehouse" method="POST" class="warehouse-form">
             <label for="warehouseName"></label>
             <input type="text" id="warehouseName" name="warehouseName" placeholder="Enter warehouse name">
             <div style="margin-top: 10px;"></div>
