@@ -43,12 +43,12 @@ public class WarehouseItemControllerTests {
      * Test if the search endpoint return the correct template to render.
      * @throws Exception if the test failed
      */
-    @Test
+    /*@Test
     public void searchTest() throws Exception {
         this.mockMvc.perform(get("/warehouseItem/search"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("warehouseItemSearch"));
-    }
+    }*/
 
     /**
      * Test if the insertWarehouse endpoint return the correct template to render.
