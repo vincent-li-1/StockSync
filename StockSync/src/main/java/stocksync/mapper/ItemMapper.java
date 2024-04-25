@@ -44,8 +44,8 @@ public interface ItemMapper {
     int getSearchNumEntries(@Param("searchKeyAsColumnName") String searchKeyAsColumnName,
                         @Param("searchValueWithWildcard") String searchValueWithWildcard);
 
-    @Delete("DELETE FROM StockSync.Item WHERE item_id = #{deleteIt.itemId}")
-    void deleteItem(@Param("deleteIt") Item deleteIt);
+    @Delete("DELETE FROM StockSync.Item WHERE item_id = #{itemId}")
+    void deleteItem(@Param("itemId") int itemId);
 
     @Update("UPDATE StockSync.Item SET item_name = #{updateIt.itemName}, item_size = #{updateIt.itemSize}, item_price = #{updateIt.itemPrice} WHERE (item_id = #{updateIt.itemId})")
     void updateItem(@Param("updateIt") Item updateIt);
