@@ -1,16 +1,31 @@
-<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warehouse Search Results</title>
-    <link rel="stylesheet" type="text/css" media="all" 
-          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+    <title>Warehouse Information</title>
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
     <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
     <div class="container">
-        <h1>StockSync</h1>
-       
-    <script src="script.js"></script>
+        <h1 th:text="${warehouse.warehouseName}">Warehouse Information</h1> <!-- Dynamic title with warehouse name -->
+        <div>
+            <h2>Warehouse Details</h2>
+        </div>
+        
+        <div>
+            <h2>Actions</h2>
+            <!-- Provide a link to return to the search results page -->
+            <a th:href="@{/warehouseSearchResults?page=1}"><button>Back to Search Results</button></a>
+
+            <!-- Include a form for updating the warehouse information -->
+            <form th:action="@{/updateWarehouse}" method="post">
+                <input type="hidden" name="id" th:value="${warehouse.warehouseId}" />
+                <button type="submit">Edit Warehouse</button>
+            </form>
+        </div>
+    </div>
+    <script src="/js/script.js"></script>
 </body>
 </html>
