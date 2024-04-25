@@ -155,7 +155,7 @@ public class ItemService implements IItemService {
     }
 
     public void deleteItem(Warehouse deleteIt) {
-        whMapper.deleteItem(deleteIt);
+        itMapper.deleteItem(deleteIt);
     }
     //delete an item with a given list of item ids
     public void deleteItem(List<Integer> itemIdList) {
