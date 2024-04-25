@@ -34,10 +34,9 @@
                     <td th:text="${warehouse.warehouseLong}"></td>
                     <td th:text="${warehouse.warehouseLat}"></td>
                     <td>
-                        <form th:action="@{/editEntity.html}" method="get">
-                            <input type="hidden" name="id" th:value="${warehouse.warehouseId}" />
-                            <button type="submit">Edit</button>
-                        </form>                        
+                        <a href="/editEntity">
+                            <button>Add Warehouse</button>
+                        </a>                      
                     </td>                    
                 </tr>                
             </table>
