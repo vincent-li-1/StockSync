@@ -154,7 +154,7 @@ public class ItemService implements IItemService {
         return pagesArray;
     }
 
-    public void deleteItem(Warehouse deleteIt) {
+    public void deleteItem(Item deleteIt) {
         itMapper.deleteItem(deleteIt);
     }
     //delete an item with a given list of item ids
