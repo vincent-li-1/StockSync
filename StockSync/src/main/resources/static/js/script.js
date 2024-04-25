@@ -27,7 +27,7 @@ function handleSearchSubmit() {
 /*
 * function to handle deletion of all selected warehouses
 */
-function handleDeleteSelected() {
+function handleDeleteSelectedItem() {
     // array to store IDs of selected warehouses
     const selectedItems = [];
     // get all checkboxes with class warehouseCheckbox
@@ -47,7 +47,7 @@ function handleDeleteSelected() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(selectedIds)
+        body: JSON.stringify(selectedItems)
     }).then(response => {
               // Check if the request was successful
               if (response.ok) {
@@ -67,7 +67,7 @@ function handleDeleteSelected() {
 /*
 * function to handle deletion of all selected warehouses
 */
-function handleDeleteSelectedItem() {
+function handleDeleteSelected() {
     // array to store IDs of selected warehouses
     const selectedIds = [];
     // get all checkboxes with class warehouseCheckbox
