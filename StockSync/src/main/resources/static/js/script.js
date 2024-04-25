@@ -11,42 +11,42 @@ const deleteSelectedButton = document.querySelector("#deleteSelected");
 deleteSelectedButton && deleteSelectedButton.addEventListener('click', handleDeleteSelected);
 searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
 
-// document.getElementById('submitEdit').addEventListener('click', function() {
-//     // Get the form data
-//     const warehouseId = document.getElementById('warehouseId').value;
-//     const warehouseName = document.getElementById('warehouseName').value;
-//     const warehouseLong = document.getElementById('warehouseLong').value;
-//     const warehouseLat = document.getElementById('warehouseLat').value;
+document.getElementById('submitEdit').addEventListener('click', function() {
+    // Get the form data
+    const warehouseId = document.getElementById('warehouseId').value;
+    const warehouseName = document.getElementById('warehouseName').value;
+    const warehouseLong = document.getElementById('warehouseLong').value;
+    const warehouseLat = document.getElementById('warehouseLat').value;
 
-//     // Create the data object
-//     const warehouseData = {
-//         warehouseId,
-//         warehouseName,
-//         warehouseLong,
-//         warehouseLat
-//     };
+    // Create the data object
+    const warehouseData = {
+        warehouseId,
+        warehouseName,
+        warehouseLong,
+        warehouseLat
+    };
 
-//     // Send the data to the backend using fetch
-//     fetch('/updateWarehouse', {
-//         method: 'POST', // You can also use PUT if that's more appropriate for updating
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(warehouseData) // Convert to JSON
-//     })
-//     .then(response => {
-//         if (response.ok) {
-//             alert('Warehouse updated successfully!');
-//             // You can redirect to another page or refresh the current one
-//         } else {
-//             throw new Error('Failed to update warehouse');
-//         }
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//         alert('Error updating warehouse');
-//     });
-// });
+    // Send the data to the backend using fetch
+    fetch('/updateWarehouse', {
+        method: 'POST', // You can also use PUT if that's more appropriate for updating
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(warehouseData) // Convert to JSON
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Warehouse updated successfully!');
+            // You can redirect to another page or refresh the current one
+        } else {
+            throw new Error('Failed to update warehouse');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating warehouse');
+    });
+});
 
 function handleSearchSubmit() {
     const searchValue = document.querySelector("#searchinput").value;
