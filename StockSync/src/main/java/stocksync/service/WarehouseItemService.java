@@ -14,7 +14,7 @@ public class WarehouseItemService {
     @Autowired
     private final WarehouseItemMapper warehouseItemMapper;
 
-    public ItemService(WarehouseItemMapper mapper){
+    public WarehouseItemService(WarehouseItemMapper mapper){
         this.warehouseItemMapper = mapper;
     }
 
