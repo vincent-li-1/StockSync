@@ -45,7 +45,7 @@ public class WarehouseItemService {
      * @param searchValue is the value that the request wants to search for
      * @return List of shipment objects
      */
-    public List<Shipment> getWarehouseItems(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
+    public List<WarehouseItem> getWarehouseItems(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
         // Limit is hardcoded to be 10 per page, offset is calculated based off that limit. This is the only line that needs
         // to be changed to change limit per page.
         int limit = 10;
