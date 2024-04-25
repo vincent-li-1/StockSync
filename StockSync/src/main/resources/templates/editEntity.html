@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Warehouse</title>
-    <link rel="stylesheet" type="text/css" media="all" href="../static/css/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Edit ' + (${isWarehouse} ? 'warehouse')"></title>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
-    <h1>Edit Warehouse Details</h1>
-    
-    <form id="editForm"> <!-- id for JavaScript to target -->
-        <!-- Hidden field to hold the warehouse ID -->
-        <input type="hidden" name="warehouseId" id="warehouseId" th:value="${warehouse.warehouseId}" />
-        
-        <!-- Editable fields -->
-        <div>
-            <label for="warehouseName">Warehouse Name:</label>
-            <input type="text" name="warehouseName" id="warehouseName" th:value="${warehouse.warehouseName}" required />
-        </div>
-
-        <div>
-            <label for="warehouseLong">Longitude:</label>
-            <input type="text" name="warehouseLong" id="warehouseLong" th:value="${warehouse.warehouseLong}" required />
-        </div>
-
-        <div>
-            <label for="warehouseLat">Latitude:</label>
-            <input type="text" name="warehouseLat" id="warehouseLat" th:value="${warehouse.warehouseLat}" required />
-        </div>
-        
-        <!-- This submit button will trigger a JavaScript event, not form submission -->
-        <button type="button" id="submitEdit">Save Changes</button>
-    </form>
-
-    <script src="script.js"></script> 
+    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div class="container">
+        <h1>StockSync</h1>
+        <a href="/search">
+            <button>Back to search</button>
+        </a>
+        <div style="margin-top: 20px;"></div>
+            <label for="warehouseName"></label>
+            <input type="text" id="warehouseName" name="warehouseName" placeholder="Enter warehouse name">
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseAddress"></label>
+            <input type="text" id="warehouseAddress" name="warehouseAddress" placeholder="Enter warehouse address">
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseLong"></label>
+            <input type="text" id="warehouseLong" name="warehouseLong" placeholder="Enter warehouse longitude">
+            <div style="margin-top: 10px;"></div>
+            <label for="warehouseLat"></label>
+            <input type="text" id="warehouseLat" name="warehouseLat" placeholder="Enter warehouse latitude">  
+            <div style="margin-top: 10px;"></div>         
+            <button type="submit" id="submitEdit">Save Changes</button> <!-- Add delete button -->
+            <!-- Hidden input field to store selected warehouse IDs -->
+            <input type="hidden" name="warehouseData" id="warehouseData">
+    </div>
+    <script src="script.js"></script>
 </body>
+
 </html>
