@@ -34,9 +34,7 @@
                     <td th:text="${warehouse.warehouseLong}"></td>
                     <td th:text="${warehouse.warehouseLat}"></td>
                     <td>
-                        <a href="/editEntity">
-                            <button>Edit</button>
-                        </a>                     
+                        <a th:href="@{/editEntity}">Edit</a>                   
                     </td>
                 </tr>                
             </table>
