@@ -43,6 +43,10 @@ public interface ItemMapper {
     @Select("SELECT COUNT(*) FROM StockSync.Item WHERE ${searchKeyAsColumnName} LIKE '${searchValueWithWildcard}'")
     int getSearchNumEntries(@Param("searchKeyAsColumnName") String searchKeyAsColumnName,
                         @Param("searchValueWithWildcard") String searchValueWithWildcard);
+                        
+
+        @Delete("DELETE FROM StockSync.Item WHERE item_id = #{deleteIt.itemId}")
+        void deleteItem(@Param("deleteIt") Item deleteIt);
 
     @Delete("DELETE FROM StockSync.Item WHERE item_id = #{itemId}")
     void deleteItem(@Param("itemId") int itemId);
