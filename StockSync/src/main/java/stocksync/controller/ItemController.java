@@ -81,9 +81,14 @@ public class ItemController {
     }
 
 
-    @PostMapping(value = "/deleteItem", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String deleteItem(@ModelAttribute Item deleteIt){
-        this.itemService.deleteItem(deleteIt);
+    /**
+     * Delete a item with DELETE request trigger by a button in the frontend
+     * @param itemIdList a list of id of the items to delete
+     * @return url back to the search page
+     */
+    @PostMapping("/deleteItem")
+    public String deleteItem(@RequestBody List<Integer> itemIdList){
+        this.itemService.deleteItem(itemIdList);
         return "redirect:/itemSearchResults?page=1";
     }
 

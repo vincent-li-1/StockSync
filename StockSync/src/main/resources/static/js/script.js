@@ -7,6 +7,13 @@ searchSubmitButton && searchSubmitButton.addEventListener('click', handleSearchS
 const deleteSelectedButton = document.querySelector("#deleteSelected");
 // attach event listener to the delete selected button
 deleteSelectedButton && deleteSelectedButton.addEventListener('click', handleDeleteSelected);
+
+// get reference to the delete selected button
+const deleteSelectedItemButton = document.querySelector("#deleteSelectedItems");
+// attach event listener to the delete selected button
+deleteSelectedItemButton && deleteSelectedItemButton.addEventListener('click', handleDeleteSelectedItem);
+
+
 searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
 
 function handleSearchSubmit() {
@@ -21,6 +28,46 @@ function handleSearchSubmit() {
 * function to handle deletion of all selected warehouses
 */
 function handleDeleteSelected() {
+    // array to store IDs of selected warehouses
+    const selectedItes = [];
+    // get all checkboxes with class warehouseCheckbox
+    const checkboxes = document.getElementsByClassName('itemCheckbox');
+    console.log(checkboxes)
+    // loop through checkboxes to find checked ones
+    for (let i = 0; i < checkboxes.length; i++) {
+        // if checkbox is checked, add its warehouse id to selectedIds array
+        if (checkboxes[i].checked) {
+            selectedItems.push(checkboxes[i].value);
+        }
+    }
+    console.log(selectedItems)
+    console.log(JSON.stringify(selectedItems))
+    const response = fetch('/deleteItem', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(selectedIds)
+    }).then(response => {
+              // Check if the request was successful
+              if (response.ok) {
+                  // If the server responded with a successful status, redirect to the search results page
+                  window.location.href = '/itemSearchResults?page=1';
+              } else {
+                  // If the server response was not ok (e.g., 400, 500), handle it accordingly
+                  console.error('Request failed with status:', response.status);
+              }
+          })
+          .catch(error => {
+              console.error('Network error:', error);
+          });
+
+}
+
+/*
+* function to handle deletion of all selected warehouses
+*/
+function handleDeleteSelectedItem() {
     // array to store IDs of selected warehouses
     const selectedIds = [];
     // get all checkboxes with class warehouseCheckbox
