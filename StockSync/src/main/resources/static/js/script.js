@@ -29,7 +29,7 @@ function handleSearchSubmit() {
 */
 function handleDeleteSelected() {
     // array to store IDs of selected warehouses
-    const selectedItes = [];
+    const selectedItems = [];
     // get all checkboxes with class warehouseCheckbox
     const checkboxes = document.getElementsByClassName('itemCheckbox');
     console.log(checkboxes)
