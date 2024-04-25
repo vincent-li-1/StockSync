@@ -17,7 +17,7 @@ public interface WarehouseItemMapper {
             @Result(property = "warehouseId",column = "warehouse_id"),
             @Result(property = "quantity", column = "quantity")
     })
-    List<Warehouse> findBySearch(@Param("limit") int limit,
+    List<WarehouseItem> findBySearch(@Param("limit") int limit,
                                  @Param("offset") int offset,
                                  @Param("sortByAsColumnName") String sortByAsColumnName,
                                  @Param("sortMethod") String sortMethod,
@@ -34,13 +34,13 @@ public interface WarehouseItemMapper {
             @Result(property = "warehouseId",column = "warehouse_id"),
             @Result(property = "quantity", column = "quantity")
     })
-    List<Warehouse> findAll(@Param("limit") int limit,
+    List<WarehouseItem> findAll(@Param("limit") int limit,
                             @Param("offset") int offset,
                             @Param("sortByAsColumnName") String sortByAsColumnName,
                             @Param("sortMethod") String sortMethod);
 
     @Insert("INSERT INTO StockSync.WarehouseItems (ware_items_id,warehouse_id,item_id,quantity) Values (#{newWI.warehouseItemId},#{newWI.warehouseId},#{newWI.itemId},#{newWI.quantity})")
-    void insertWarehouseItem(@Param("newWI") Warehouse newWh);
+    void insertWarehouseItem(@Param("newWI") WarehouseItem newWI);
 
     @Select("SELECT COUNT(*) FROM StockSync.WarehouseItems")
     int getTotalNumEntries();
