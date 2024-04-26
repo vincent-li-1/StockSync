@@ -1,53 +1,45 @@
 package stocksync.service;
 
 import java.util.List;
-import stocksync.model.Warehouse;
-import stocksync.mapper.WarehouseMapper;
+import stocksync.model.Item;
+import stocksync.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WarehouseService implements IWarehouseService {
+public class ItemService implements IItemService {
     @Autowired
-    private final WarehouseMapper whMapper;
-    public WarehouseService(WarehouseMapper whMapper){
-        this.whMapper = whMapper;
+    private final ItemMapper itMapper;
+    public ItemService(ItemMapper itMapper){
+        this.itMapper = itMapper;
     }
-    public void createWarehouse(Warehouse newWh) throws IllegalArgumentException {
-        if (Math.abs(newWh.getWarehouseLong()) > 180) {
-            throw new IllegalArgumentException("Longitude out of bounds. Must be between -180 and 180");
-        }
-        if (Math.abs(newWh.getWarehouseLat()) > 180) {
-            throw new IllegalArgumentException("Latitude out of bounds. Must be between -180 and 180");
-        }
-        this.whMapper.insertWarehouse(newWh);
+    public void createItem(Item newIt) {
+        this.itMapper.insertItem(newIt);
     }
 
     // Helper method to convert human-friendly attribute names to SQL query column names
     private String convertKeyToSqlColumn(String stringToConvert) {
         switch (stringToConvert) {
-            case "name": 
-                return "warehouse_name";
-            case "address": 
-                return "warehouse_address";
-            case "longitude": 
-                return "warehouse_long";
-            case "latitude": 
-                return "warehouse_lat";
-            default: 
-                return "warehouse_id";
+            case "name":
+                return "item_name";
+            case "size":
+                return "item_size";
+            case "price":
+                return "item_price";
+            default:
+                return "item_id";
         }
     }
     /**
-     * Method to get a paginated list of warehouses based on sorting and search parameters
+     * Method to get a paginated list of items based on sorting and search parameters
      * @param page is the current page to get
      * @param sortBy is the column/attribute that the request wants to results sorted by
      * @param sortMethod is the method, ascending or descending, to sort results by
      * @param searchKey is the column/attribute that the request wants to search by
      * @param searchValue is the value that the request wants to search for
-     * @return List of warehouse objects
+     * @return List of item objects
      */
-    public List<Warehouse> getWarehouses(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
+    public List<Item> getItems(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
         // Limit is hardcoded to be 10 per page, offset is calculated based off that limit. This is the only line that needs
         // to be changed to change limit per page.
         int limit = 10;
@@ -63,18 +55,17 @@ public class WarehouseService implements IWarehouseService {
 
         // If no search key/value, get all
         if (searchKey.equals("") || searchValue.equals("")) {
-            return whMapper.findAll(limit, offset, sortByAsColumnName, sortMethod);
+            return itMapper.findAll(limit, offset, sortByAsColumnName, sortMethod);
         }
 
         // Get the right table column name for searchKey
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
 
-        // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
 
-        // Convert searchValue to have search wildcard if the search is by name or address (we don't want wildcards for long/lat)
-        String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
+        // Convert searchValue to have search wildcard if the search is by name (we don't want wildcards for size or price)
+        String searchValueWithWildcard = (searchKey.equals("name") ? "%" + searchValue + "%" : searchValue);
 
-        return whMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
+        return itMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
     }
 
 
@@ -87,17 +78,16 @@ public class WarehouseService implements IWarehouseService {
     public int getTotalNumEntries(String searchKey, String searchValue) {
         // Get total number of all entries if there are no search params
         if (searchKey.equals("") || searchValue.equals("")) {
-            return whMapper.getTotalNumEntries();
+            return itMapper.getTotalNumEntries();
         }
 
         // Get the right table column name for searchKey
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
-        // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
 
          // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
-        String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
-        
-        return whMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
+        String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("size") || searchKey.equals("price")) ? "%" + searchValue + "%" : searchValue;
+
+        return itMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
     }
 
     /**
@@ -109,7 +99,7 @@ public class WarehouseService implements IWarehouseService {
     public int getTotalNumPages(String searchKey, String searchValue) {
         int numEntries;
         if (searchKey.equals("") || searchValue.equals("")) {
-            numEntries = whMapper.getTotalNumEntries();
+            numEntries = itMapper.getTotalNumEntries();
         } 
         else {
              // Get the right table column name for searchKey
@@ -117,13 +107,12 @@ public class WarehouseService implements IWarehouseService {
             // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
 
              // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
-            String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
+            String searchValueWithWildcard = searchKey.equals("name") ? "%" + searchValue + "%" : searchValue;
 
-            numEntries = whMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
+            numEntries = itMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
         }
         return numEntries/10 + 1;
     }
-        
 
     /**
      * Method to get an array of the 5 page numbers to display across the bottom
@@ -156,7 +145,7 @@ public class WarehouseService implements IWarehouseService {
                 pagesArray[i-1] = numPages - (5 - i);
             }
         }
-        // Should display 5 pages centered around 
+        // Should display 5 pages centered around
         else {
             for (int i = 1; i <= 5; i++) {
                 pagesArray[i-1] = currentPage - 3 + i;
@@ -165,28 +154,11 @@ public class WarehouseService implements IWarehouseService {
         return pagesArray;
     }
 
-    public void deleteWarehouse(Warehouse deleteWh) {
-        whMapper.deleteWarehouse(deleteWh);
-    }
-    //delete a Warehouse with a given warehouse id
-    public void deleteWarehouseButton(List<Integer> warehouseIdList) {
-        for (int warehouseId : warehouseIdList) {
-            whMapper.deleteWarehouseButton(warehouseId);
-        }
+    public void deleteItem(Item deleteIt) {
+        this.itMapper.deleteItem(deleteIt);
     }
 
-    public void updateWarehouse(Warehouse updateWh) throws IllegalArgumentException {
-//        Warehouse test = updateWh;
-        if (Math.abs(updateWh.getWarehouseLong()) > 180) {
-            throw new IllegalArgumentException("Longitude out of bounds. Must be between -180 and 180");
-        }
-        if (Math.abs(updateWh.getWarehouseLat()) > 180) {
-            throw new IllegalArgumentException("Latitude out of bounds. Must be between -180 and 180");
-        }
-        try {
-            whMapper.updateWarehouse(updateWh);
-        } catch(Exception e) {
-            throw e;
-        }
+    public void updateItem(Item updateIt) {
+        this.itMapper.updateItem(updateIt);
     }
 }

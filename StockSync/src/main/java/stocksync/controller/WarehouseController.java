@@ -47,11 +47,13 @@ public class WarehouseController {
         String searchValueExist = searchValue.isPresent() ? searchValue.get() : "";
 
         int totalNumEntries = this.warehouseService.getTotalNumEntries(searchKeyExist, searchValueExist);
+        int totalNumPages = this.warehouseService.getTotalNumPages(searchKeyExist, searchValueExist);
 
         model.addAttribute("warehouses", this.warehouseService.getWarehouses(page, sortByExist, sortMethodExist, searchKeyExist, searchValueExist));
         model.addAttribute("pagesArray", this.warehouseService.getPagesArray(page, totalNumEntries));
         model.addAttribute("totalNumEntries", totalNumEntries);
         model.addAttribute("currentPage", page);
+        model.addAttribute("totalNumPages", totalNumPages);
 
         // Pass sort params back to frontend for page links to use
         model.addAttribute("sortBy", sortByExist);
@@ -89,27 +91,17 @@ public class WarehouseController {
             errorResponse.put("error", e.getMessage());
             return ResponseEntity.badRequest().body(errorResponse);
         }
-    }
 
-    /**
-     * Delete a warehouse with POST request and a form
-     * @param deleteWh warehouse object that needs to be deleted
-     * @return url back to the search page
-     */
-    @PostMapping(value = "/deleteWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String deleteWarehouse(@ModelAttribute Warehouse deleteWh){
-        this.warehouseService.deleteWarehouse(deleteWh);
-        return "redirect:/warehouseSearchResults?page=1";
     }
 
     /**
      * Delete a warehouse with DELETE request trigger by a button in the frontend
-     * @param warehouseId id of the warehouse to delete
+     * @param warehouseIdList a list of id of the warehouse to delete
      * @return url back to the search page
      */
-    @DeleteMapping("/deleteWarehouse/{warehouseId}")
-    public String deleteWarehouseButton(@PathVariable("warehouseId") int warehouseId){
-        this.warehouseService.deleteWarehouseButton(warehouseId);
+    @PostMapping("/deleteWarehouse")
+    public String deleteWarehouseButton(@RequestBody List<Integer> warehouseIdList){
+        this.warehouseService.deleteWarehouseButton(warehouseIdList);
         return "redirect:/warehouseSearchResults?page=1";
     }
 
