@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     * function to handle deletion of all selected warehouses
     */
     function handleDeleteSelected() {
-        // array to store IDs of selected warehouses
+        //array to store IDs of selected warehouses
         const selectedIds = [];
         // get all checkboxes with class warehouseCheckbox
         const checkboxes = document.getElementsByClassName('warehouseCheckbox');
