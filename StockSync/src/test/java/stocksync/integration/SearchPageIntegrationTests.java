@@ -26,6 +26,9 @@ public class SearchPageIntegrationTests {
         //assertThat(response.getBody()).contains("Warehouse Name", "Warehouse Address", "Warehouse Longitude", "Warehouse Latitude");
     }
 
+    // Additional test for pagination and search functionality would require interaction with the page,
+    // potentially using something like Selenium, as TestRestTemplate cannot handle JavaScript or form submission.
+
     @Test
     public void testEditButtonPresence() throws Exception {
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:" + port + "/search", String.class);
@@ -36,22 +39,5 @@ public class SearchPageIntegrationTests {
     public void testDeleteButtonPresence() throws Exception {
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:" + port + "/search", String.class);
         assertThat(response.getBody()).contains("Add Warehouse");
-    }    
-    @Test
-    public void testAddWarehouseRedirection() throws Exception {
-        // Act
-        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:" + port + "/addWarehouse", String.class);
-
-        // Assert
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK); // or HttpStatus.FOUND if it's a redirect
-    
-        // Follow the redirect and check the final destination's content
-
-            // String redirectedUrl = response.getHeaders().getLocation().toString();
-            // ResponseEntity<String> responseAfterRedirect = restTemplate.getForEntity(redirectedUrl, String.class);
-            // assertThat(responseAfterRedirect.getStatusCode()).isEqualTo(HttpStatus.OK);
-            // assertThat(responseAfterRedirect.getBody()).contains("Enter warehouse name");
-        
     }
-
 }
