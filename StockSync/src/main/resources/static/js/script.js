@@ -1,7 +1,9 @@
 const searchSubmitButton = document.querySelector("#searchSubmit");
 const searchItemSubmitButton = document.querySelector("#searchItemSubmit");
+const warehouseInfoButton = document.querySelector("#warehouseInfo")
 
 searchSubmitButton && searchSubmitButton.addEventListener('click', handleSearchSubmit);
+warehouseInfoButton && warehouseInfoButton.addEventListener('click', handleWarehouseInfoSubmit);
 
 // get reference to the delete selected button
 const deleteSelectedButton = document.querySelector("#deleteSelected");
@@ -17,6 +19,9 @@ function handleSearchSubmit() {
     location.href = `/warehouseSearchResults?page=1&sortBy=${sortBy}&sortMethod=${sortMethod}&searchKey=${searchKey}&searchValue=${searchValue}`
 }
 
+function handleWarehouseInfoSubmit() {
+    
+}
 /*
 * function to handle deletion of all selected warehouses
 */
