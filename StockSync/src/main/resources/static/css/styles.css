@@ -212,3 +212,14 @@ tr:hover {
 .pagination span {
     margin: 0 5px;
 }
+
+.logo {
+    display: block; /* Ensures the image appears on a new line below the button */
+    margin-top: 40px; /* Add some space above the logo */
+    margin-left: auto;
+    margin-right: auto;
+    height: 450px; /* Set the height of the logo */
+    width: auto; /* Maintain aspect ratio */
+  }
+
+  
