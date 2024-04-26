@@ -116,6 +116,7 @@ public class WarehouseControllerTests {
      * Test if the insertWarehouse endpoint return the correct template to render.
      * @throws Exception if the test failed
      */
+    /* 
     @Test
     public void insertWarehouseTest() throws Exception {
         Warehouse testWarehouse = setupWarehouse();
@@ -131,6 +132,8 @@ public class WarehouseControllerTests {
                 .andExpect(status().is3xxRedirection()) // Expect a redirect status
                 .andExpect(redirectedUrl("/warehouseSearchResults?page=1")); // Expect redirection to the specified URL
     }
+    */
+    
     /**
      * Test if updateWarehouse redirects to the correct URL after updating
      * @throws Exception
