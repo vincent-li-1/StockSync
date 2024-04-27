@@ -22,31 +22,31 @@
             }
         
             .short-text-box {
-            width: 150px; /* Adjust for shorter text boxes */
+            width: 50px; /* Adjust for shorter text boxes */
             }
         </style>
         <form id="editWarehouseForm" action="/updateWarehouse" method="POST" class="warehouse-form">
             <!-- Display the warehouse ID in a disabled input field -->
-            <label class="inline" for="warehouseId"></label>
+            <label class="inline" for="warehouseId">Warehouse ID: </label>
             <input class="inline short-text-box" type="text" id="warehouseId" name="warehouseId" th:value="${warehouse.warehouseId}" disabled />
 
             <!-- Add a hidden field to ensure the ID is included in form submission -->
             <input type="hidden" name="warehouseId" th:value="${warehouse.warehouseId}" />
 
             <!-- Other editable fields -->
-            <label class="inline" for="warehouseName"></label>
+            <label class="inline" for="warehouseName">Warehouse Name:</label>
             <input class="inline short-text-box" type="text" id="warehouseName" name="warehouseName" th:value="${warehouse.warehouseName}" placeholder="Enter warehouse name" />
             <div style="margin-top: 10px;"></div>
 
-            <label class="inline" for="warehouseAddress"></label>
+            <label class="inline" for="warehouseAddress">Warehouse Address: </label>
             <input class="inline short-text-box" type="text" id="warehouseAddress" name="warehouseAddress" th:value="${warehouse.warehouseAddress}" placeholder="Enter warehouse address" />
             <div style="margin-top: 10px;"></div>
 
-            <label class="inline" for="warehouseLong"></label>
+            <label class="inline" for="warehouseLong">Longitude</label>
             <input class="inline short-text-box" type="text" id="warehouseLong" name="warehouseLong" th:value="${warehouse.warehouseLong}" placeholder="Enter warehouse longitude" />
             <div style="margin-top: 10px;"></div>
 
-            <label class="inline" for="warehouseLat"></label>
+            <label class="inline" for="warehouseLat">Latitude</label>
             <input class="inline short-text-box" type="text" id="warehouseLat" name="warehouseLat" th:value="${warehouse.warehouseLat}" placeholder="Enter warehouse latitude" />
             <div style="margin-top: 10px;"></div>
 
