@@ -3,22 +3,58 @@ package stocksync.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import stocksync.mapper.ShipmentMapper;
+import stocksync.mapper.WarehouseItemMapper;
 import stocksync.model.Shipment;
+import stocksync.model.ShipmentRequest;
 import stocksync.model.Warehouse;
+import stocksync.model.WarehouseItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ShipmentService {
-    @Autowired
     private final ShipmentMapper shipmentMapper;
 
-    public ShipmentService(ShipmentMapper mapper){
+    private  final WarehouseItemMapper warehouseItemMapper;
+    @Autowired
+    public ShipmentService(ShipmentMapper mapper, WarehouseItemMapper whMapper){
         this.shipmentMapper = mapper;
+        this.warehouseItemMapper = whMapper;
     }
 
     public void createShipment(Shipment shipment){
         this.shipmentMapper.insertShipment(shipment);
+    }
+
+    public void newCreateShipment(ShipmentRequest body){
+        int warehouseFromId = body.getWarehouseFromId();
+        int warehouseToId = body.getWarehouseToId();
+        ArrayList<Integer> itemIdList = body.getItemIdList();
+        ArrayList<Integer> itemQuantityList = body.getItemQuantityList();
+        Shipment newShipment = new Shipment();
+        newShipment.setWarehouseFromId(warehouseFromId);
+        newShipment.setWarehouseToId(warehouseToId);
+        this.shipmentMapper.insertShipment(newShipment);
+
+        int shipmentId = newShipment.getShipmentId();
+        System.out.println(shipmentId);
+        for(int i = 0; i < itemIdList.size(); i++){
+            int currentId = itemIdList.get(i);
+            int currentQuantity = itemQuantityList.get(i);
+            this.warehouseItemMapper.subtractQuantity(currentQuantity,warehouseFromId,currentId);
+            if(!this.warehouseItemMapper.hasItem(warehouseToId,currentId)){
+                WarehouseItem newWI = new WarehouseItem();
+                newWI.setItemId(currentId);
+                newWI.setQuantity(0);
+                newWI.setWarehouseId(warehouseToId);
+                this.warehouseItemMapper.insertWarehouseItem(newWI);
+            }
+            System.out.println(this.warehouseItemMapper.hasItem(warehouseToId,currentId));
+            this.warehouseItemMapper.addQuantity(currentQuantity,warehouseToId,currentId);
+        }
+
+
     }
 
     // Helper method to convert human-friendly attribute names to SQL query column names
