@@ -14,6 +14,14 @@ public class WarehouseService implements IWarehouseService {
         this.whMapper = whMapper;
     }
     public void createWarehouse(Warehouse newWh) throws IllegalArgumentException {
+        // Check the total number of existing warehouses
+        int totalWarehouses = whMapper.getTotalNumEntries();
+        int maxWarehouses = 500;
+        // If the maximum limit is reached, prevent adding the warehouse
+        if (totalWarehouses >= maxWarehouses) {
+            throw new IllegalArgumentException("Maximum warehouse capacity reached. Cannot add more warehouses.");
+        }
+        // Otherwise, proceed with adding the warehouse
         if (Math.abs(newWh.getWarehouseLong()) > 180) {
             throw new IllegalArgumentException("Longitude out of bounds. Must be between -180 and 180");
         }
