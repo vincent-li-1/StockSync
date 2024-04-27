@@ -162,8 +162,11 @@ public class ItemService implements IItemService {
         return pagesArray;
     }
 
-    public void deleteItem(Item deleteIt) {
-        this.itMapper.deleteItem(deleteIt);
+    //delete an item with a given list of item ids
+    public void deleteItem(List<Integer> itemIdList) {
+        for (int itemId : itemIdList) {
+            itMapper.deleteItem(itemId);
+        }
     }
 
     public void updateItem(Item updateIt) {

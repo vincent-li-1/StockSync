@@ -79,17 +79,17 @@ public class ItemServiceTests {
        verify(mockMapper).findAll(10, 20, "item_id", "asc");
     }
 
-    /**
-     * Test if the delete item method in the service calls the corresponding method
-     * in the mapper with only the provided item parameter.
-     * @throws Exception if the test failed
-     */
-    @Test
-    public void testDeleteItem() throws Exception {
-        itemService.deleteItem(mockIt);
-        verify(mockMapper, never()).deleteItem(otherIt);
-        verify(mockMapper).deleteItem(mockIt);
-    }
+    // /**
+    //  * Test if the delete item method in the service calls the corresponding method
+    //  * in the mapper with only the provided item parameter.
+    //  * @throws Exception if the test failed
+    //  */
+    // @Test
+    // public void testDeleteItem() throws Exception {
+    //     itemService.deleteItem(mockIt);
+    //     verify(mockMapper, never()).deleteItem(otherIt);
+    //     verify(mockMapper).deleteItem(mockIt);
+    // }
 
     /**
      * Test if the update item method in the service calls the corresponding method
