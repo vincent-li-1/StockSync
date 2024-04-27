@@ -23,7 +23,7 @@ public class WarehouseService implements IWarehouseService {
         this.whMapper.insertWarehouse(newWh);
     }
 
-    public Warehouse getWarehouseById(Long warehouseId) {
+    public Warehouse getWarehouseById(int warehouseId) {
         Warehouse warehouse = whMapper.findWarehouseById(warehouseId);
         if (warehouse == null) {
             throw new IllegalArgumentException("No warehouse found with ID: " + warehouseId);

@@ -23,7 +23,7 @@ public interface WarehouseMapper {
                             @Param("sortMethod") String sortMethod,
                             @Param("searchKeyAsColumnName") String searchKeyAsColumnName,
                             @Param("searchValueWithWildcard") String searchValueWithWildcard);
-                            
+
     @Select("SELECT * FROM StockSync.Warehouse WHERE warehouse_id = #{id}")
     @Results({
         @Result(property = "warehouseId", column = "warehouse_id"),
@@ -32,7 +32,7 @@ public interface WarehouseMapper {
         @Result(property = "warehouseLong", column = "warehouse_long"),
         @Result(property = "warehouseLat", column = "warehouse_lat")
     })
-    Warehouse findWarehouseById(@Param("id") Long id);
+    Warehouse findWarehouseById(@Param("id") int id);
 
 
     // Get method to use when there are no search params
