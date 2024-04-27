@@ -76,6 +76,12 @@ public class WarehouseController {
         return "addEntity";
     }
 
+    @GetMapping("/editWarehouse")
+    public String getEditWarehousePage(Model model) {
+        model.addAttribute("isWarehouse", true);
+        return "editEntity";
+    }
+
     @PostMapping(value = "/insertWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<String> insertWarehouse(@ModelAttribute Warehouse newWh){
         try {
