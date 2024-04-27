@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
     const searchSubmitButton = document.querySelector("#searchSubmit");
     const searchItemSubmitButton = document.querySelector("#searchItemSubmit");
-    const addItemForm = document.getElementsByName('addItemForm');
+    const addItemForm = document.getElementById('addItemForm');
 
     // get reference to the delete selected button
     const deleteSelectedButton = document.querySelector("#deleteSelected");
