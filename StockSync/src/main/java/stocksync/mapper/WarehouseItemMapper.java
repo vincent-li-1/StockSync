@@ -1,6 +1,5 @@
 package stocksync.mapper;
 
-import stocksync.model.Warehouse;
 import org.apache.ibatis.annotations.*;
 import stocksync.model.WarehouseItem;
 
@@ -39,7 +38,8 @@ public interface WarehouseItemMapper {
                             @Param("sortByAsColumnName") String sortByAsColumnName,
                             @Param("sortMethod") String sortMethod);
 
-    @Insert("INSERT INTO StockSync.WarehouseItems (ware_items_id,warehouse_id,item_id,quantity) Values (#{newWI.warehouseItemId},#{newWI.warehouseId},#{newWI.itemId},#{newWI.quantity})")
+    @Options(useGeneratedKeys = true, keyProperty = "warehouseItemId")
+    @Insert("INSERT INTO StockSync.WarehouseItems (warehouse_id,item_id,quantity) Values (#{newWI.warehouseId},#{newWI.itemId},#{newWI.quantity})")
     void insertWarehouseItem(@Param("newWI") WarehouseItem newWI);
 
     @Select("SELECT COUNT(*) FROM StockSync.WarehouseItems")
@@ -54,4 +54,19 @@ public interface WarehouseItemMapper {
 
     @Update("UPDATE StockSync.WarehouseItems SET warehouse_id = #{updateWI.warehouseId}, item_id = #{updateWI.itemId}, quantity = #{updateWI.quantity} WHERE (ware_items_id = #{updateWI.warehouseItemId})")
     void updateWarehouseItem(@Param("updateWI") WarehouseItem updateWI);
+
+    @Update("UPDATE StockSync.WarehouseItems SET quantity = quantity - #{quantity} WHERE warehouse_id = #{warehouseId} AND item_id = #{itemId}")
+    void subtractQuantity(@Param("quantity") int quantity,
+                        @Param("warehouseId") int warehouseId,
+                        @Param("itemId") int itemId);
+
+    @Update("UPDATE StockSync.WarehouseItems SET quantity = quantity + #{quantity} WHERE warehouse_id = #{warehouseId} AND item_id = #{itemId}")
+    void addQuantity(@Param("quantity") int quantity,
+                          @Param("warehouseId") int warehouseId,
+                          @Param("itemId") int itemId);
+
+    @Select("SELECT EXISTS(SELECT 1 FROM StockSync.WarehouseItems WHERE warehouse_id = #{warehouseId} AND item_id = #{itemId})")
+    boolean hasItem(@Param("warehouseId") int warehouseId,
+                @Param("itemId") int itemId);
+
 }
