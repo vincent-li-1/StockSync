@@ -23,6 +23,14 @@ public class WarehouseService implements IWarehouseService {
         this.whMapper.insertWarehouse(newWh);
     }
 
+    public Warehouse getWarehouseById(Long warehouseId) {
+        Warehouse warehouse = whMapper.findWarehouseById(warehouseId);
+        if (warehouse == null) {
+            throw new IllegalArgumentException("No warehouse found with ID: " + warehouseId);
+        }
+        return warehouse;
+    }
+
     // Helper method to convert human-friendly attribute names to SQL query column names
     private String convertKeyToSqlColumn(String stringToConvert) {
         switch (stringToConvert) {

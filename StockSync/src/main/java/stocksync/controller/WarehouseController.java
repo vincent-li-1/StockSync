@@ -25,6 +25,13 @@ public class WarehouseController {
         this.warehouseService = warehouseService;
     }
 
+    @GetMapping("/warehouseInfo")
+    public string getWarehouseInfo(@RequestParam(value = "WarehouseId") int id) {
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+        model.addAttribute("warehouse", warehouse);
+        return "warehouseInfo";
+    }
+
     @GetMapping("/search")
     public String getSearchPage() {
         return "search";
