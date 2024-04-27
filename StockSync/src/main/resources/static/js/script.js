@@ -218,7 +218,7 @@ function handleDeleteSelectedItem() {
         const size = parseFloat(document.getElementById('itemSize').value);
     
         if (isNaN(price) || isNaN(size)) {
-            showErrorPopup('Longitude and latitude must be valid numbers.');
+            showErrorPopup('Price and size must be valid numbers.');
             return;
         }
     

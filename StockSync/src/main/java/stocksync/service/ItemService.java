@@ -39,10 +39,10 @@ public class ItemService implements IItemService {
      */
     private void validateItemSize(double size) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Size cannot be negative");
+            throw new IllegalArgumentException("Size must be positive number");
         }
         if (size % 0.5 != 0) {
-            throw new IllegalArgumentException("Size must be a multiple of 1/2");
+            throw new IllegalArgumentException("Size must be a multiple of 0.5");
         }
         if (size > 20) {
             throw new IllegalArgumentException("Size must be less than 20");
@@ -59,7 +59,7 @@ public class ItemService implements IItemService {
      */
     private void validateItemPrice(double price) {
         if (price <= 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
+            throw new IllegalArgumentException("Price must be positive number");
         }
         if (BigDecimal.valueOf(price).scale() > 2) {
             throw new IllegalArgumentException("Price must have at most 2 decimal places");
