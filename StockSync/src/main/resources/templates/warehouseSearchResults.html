@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,25 +14,32 @@
             <a href="/search">
                 <button>Back to search</button>
             </a>
-                <button type="submit" id="deleteSelected">Delete Selected</button> <!-- Add delete button -->
-                <!-- Hidden input field to store selected warehouse IDs -->
-                <input type="hidden" name="selectedIds" id="selectedIds">
+            <button type="submit" id="deleteSelected">Delete Selected</button> <!-- Add delete button -->
+            <input type="hidden" name="selectedIds" id="selectedIds"> <!-- Hidden input field to store selected warehouse IDs -->
+
             <table>
                 <tr>
                     <th>Select</th> <!-- Header for checkboxes column -->
+                    <th>Warehouse ID</th>
                     <th>Warehouse Name</th>
                     <th>Warehouse Address</th>
-                    <th>Warehouse Longitude</th>
-                    <th>Warehouse Latitude</th>
+                    <th>Longitude</th>
+                    <th>Latitude</th>
+                    <th>Actions</th>
                 </tr>
+                <!-- Make each row clickable by wrapping it with an <a> tag -->
                 <tr th:each="warehouse : ${warehouses}">
                     <td> <!-- Add checkbox for each warehouse-->
                         <input type="checkbox" class="warehouseCheckbox" th:value="${warehouse.warehouseId}">
                     </td>
-                    <td th:text="${warehouse.warehouseName}"></td>
+                    <!-- Add a hyperlink to the warehouse info page -->
+                    <td>
+                        <a th:href="@{/warehouseInfo(WarehouseId=${warehouse.warehouseId})}" th:text="${warehouse.warehouseName}"></a>
+                    </td>
                     <td th:text="${warehouse.warehouseAddress}"></td>
                     <td th:text="${warehouse.warehouseLong}"></td>
                     <td th:text="${warehouse.warehouseLat}"></td>
+                    <!-- Keep the existing edit form -->
                     <td>
                         <a href="/editWarehouse">
                             <button>Edit</button>
@@ -41,6 +48,7 @@
                 </tr>                
             </table>
         </div>
+
         <ul class="pagination">
         <span>Jump to:</span>
             <li th:each="page : ${pagesArray}">
@@ -50,6 +58,6 @@
         </ul>
         <span th:text="|Showing ${pageStartingNum} - ${pageEndingNum} of ${totalNumEntries} total warehouses|"></span>
     </div>
-    <script src="/js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

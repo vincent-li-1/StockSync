@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.web.bind.annotation.RequestBody;
 import stocksync.mapper.ShipmentMapper;
+import stocksync.mapper.WarehouseItemMapper;
 import stocksync.model.Shipment;
 
 import static org.mockito.BDDMockito.verify;
@@ -12,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import stocksync.model.ShipmentRequest;
 
 import java.util.ArrayList;
 
@@ -35,7 +38,11 @@ public class ShipmentServiceTests {
      *
      */
     @Mock
-    private ShipmentMapper mockMapper;
+    private ShipmentMapper shipmentMapper;
+
+    @Mock
+    private WarehouseItemMapper warehouseItemMapper;
+
 
     @InjectMocks
     private ShipmentService shipmentService;
@@ -46,6 +53,33 @@ public class ShipmentServiceTests {
     @Mock
     private Shipment otherShipment;
 
+
+    @Test
+    public void testNewCreateShipment() throws Exception {
+        ShipmentRequest testBody = new ShipmentRequest();
+        ArrayList<Integer> idList = new ArrayList<Integer>();
+        idList.add(100);
+        idList.add(101);
+        ArrayList<Integer> quantityList = new ArrayList<Integer>();
+        quantityList.add(5);
+        quantityList.add(5);
+
+        testBody.setShipmentId(100);
+        testBody.setItemIdList(idList);
+        testBody.setItemQuantityList(quantityList);
+        testBody.setWarehouseFromId(10000);
+        testBody.setWarehouseToId(10001);
+
+        shipmentService.newCreateShipment(testBody);
+        verify(shipmentMapper).insertShipment(any());
+        verify(warehouseItemMapper).subtractQuantity(5,10000,100);
+        verify(warehouseItemMapper).subtractQuantity(5,10000,101);
+        verify(warehouseItemMapper,atLeastOnce()).hasItem(10001,100);
+        verify(warehouseItemMapper,atLeastOnce()).hasItem(10001,101);
+        verify(warehouseItemMapper).addQuantity(5,10001,100);
+        verify(warehouseItemMapper).addQuantity(5,10001,101);
+    }
+
     /**
      * Test if the createWarehouse method in the service calls the corresponding method
      * in the mapper with only the provided warehouse parameter.
@@ -54,8 +88,8 @@ public class ShipmentServiceTests {
     @Test
     public void testCreateShipment() throws Exception {
         shipmentService.createShipment(mockShipment);
-        verify(mockMapper, never()).insertShipment(otherShipment);
-        verify(mockMapper).insertShipment(mockShipment);
+        verify(shipmentMapper, never()).insertShipment(otherShipment);
+        verify(shipmentMapper).insertShipment(mockShipment);
     }
 
     /**
@@ -68,9 +102,9 @@ public class ShipmentServiceTests {
         shipmentService.getShipments(1, "origin", "desc", "origin", "search term");
         shipmentService.getShipments(2, "destination", "asc", "destination", "search term");
         shipmentService.getShipments(3, "id", "someOther", "", "");
-        verify(mockMapper).findBySearch(10, 0, "warehouse_from_id", "desc", "warehouse_from_id", "%search term%");
-        verify(mockMapper).findBySearch(10, 10, "warehouse_to_id", "asc", "warehouse_to_id", "%search term%");
-        verify(mockMapper).findAll(10, 20, "shipment_id", "asc");
+        verify(shipmentMapper).findBySearch(10, 0, "warehouse_from_id", "desc", "warehouse_from_id", "%search term%");
+        verify(shipmentMapper).findBySearch(10, 10, "warehouse_to_id", "asc", "warehouse_to_id", "%search term%");
+        verify(shipmentMapper).findAll(10, 20, "shipment_id", "asc");
     }
 
     /**
@@ -83,7 +117,7 @@ public class ShipmentServiceTests {
         ArrayList<Integer> shipmentIDs = new ArrayList<Integer>();
         shipmentIDs.add(mockShipment.getShipmentId());
         shipmentService.deleteShipment(shipmentIDs);
-        verify(mockMapper).deleteShipment(shipmentIDs.get(0));
+        verify(shipmentMapper).deleteShipment(shipmentIDs.get(0));
     }
 
     /**
@@ -94,8 +128,8 @@ public class ShipmentServiceTests {
     @Test
     public void testUpdateShipment() throws Exception {
         shipmentService.updateShipment(mockShipment);
-        verify(mockMapper, never()).updateShipment(otherShipment);
-        verify(mockMapper).updateShipment(mockShipment);
+        verify(shipmentMapper, never()).updateShipment(otherShipment);
+        verify(shipmentMapper).updateShipment(mockShipment);
     }
 
     /**
@@ -104,7 +138,7 @@ public class ShipmentServiceTests {
      */
     @Test
     public void testGetTotalNumEntries() throws Exception {
-        when(mockMapper.getTotalNumEntries()).thenReturn(55);
+        when(shipmentMapper.getTotalNumEntries()).thenReturn(55);
         assertEquals(shipmentService.getTotalNumEntries("", ""), 55);
     }
 
@@ -114,7 +148,7 @@ public class ShipmentServiceTests {
      */
     @Test
     public void testGetSearchNumEntries() throws Exception {
-        when(mockMapper.getSearchNumEntries("shipment_id", "1")).thenReturn(123);
+        when(shipmentMapper.getSearchNumEntries("shipment_id", "1")).thenReturn(123);
         assertEquals(shipmentService.getTotalNumEntries("shipment_id", "1"), 123);
     }
 

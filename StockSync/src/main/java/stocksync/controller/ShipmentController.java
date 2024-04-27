@@ -1,6 +1,7 @@
 package stocksync.controller;
 
 import stocksync.model.Shipment;
+import stocksync.model.ShipmentRequest;
 import stocksync.service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -71,8 +72,19 @@ public class ShipmentController {
         return "addShipment";
     }
 
+    @PostMapping("/shipment/create")
+    public ResponseEntity<String> createShipment(@RequestBody ShipmentRequest body){
+        try{
+            this.shipmentService.newCreateShipment(body);
+            HttpHeaders headers = new HttpHeaders();
+            return new ResponseEntity<String>(headers,HttpStatus.OK);
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<String>(
+                    e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
     @PostMapping(value = "/insertShipment", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<String> insertSipment(@ModelAttribute Shipment newShipment){
+    public ResponseEntity<String> insertShipment(@ModelAttribute Shipment newShipment){
         try {
             this.shipmentService.createShipment(newShipment);
             HttpHeaders headers = new HttpHeaders();
@@ -87,7 +99,7 @@ public class ShipmentController {
 
     /**
      * Delete a shipment with DELETE request trigger by a button in the frontend
-     * @param shipmentIdList a list of id of shipments to delete
+     * @param shipmentIdList a list of id of Shipments to delete
      * @return url back to the search page
      */
     @PostMapping("/shipment/delete")

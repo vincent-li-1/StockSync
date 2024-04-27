@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Item Page</title>
+    <title>Warehouse Information Page</title>
     <link rel="stylesheet" type="text/css" media="all" 
           href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
     <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
     <div class="container">
-        <h1>StockSync</h1>
+        <h1>Warehouse Information</h1>
+        <div>
+            <h2 th:text="${warehouse.warehouseName}"></h2> <!-- Display warehouse name -->
+            <p><strong>Warehouse Address:</strong> <span th:text="${warehouse.warehouseAddress}"></span></p> <!-- Display warehouse address -->
+            <p><strong>Longitude:</strong> <span th:text="${warehouse.warehouseLong}"></span></p> <!-- Display warehouse longitude -->
+            <p><strong>Latitude:</strong> <span th:text="${warehouse.warehouseLat}"></span></p> <!-- Display warehouse latitude -->
+        </div>
             <label for="itemSearchKey">Search By:</label>
             <select id="itemSearchKey" name="itemSearchKey">
                 <option></option>
@@ -37,7 +43,6 @@
         <a href="/addItem">
             <button>Add Item</button>
         </a>
-        <img src="/logo.jpg" alt="StockSync Logo" class="logo"> <!-- Logo added here -->
     </div>
     <script src="js/script.js"></script>
 </body>
