@@ -42,7 +42,7 @@ function handleDeleteSelectedItem() {
     }
     console.log(selectedItems)
     console.log(JSON.stringify(selectedItems))
-    const response = fetch('/warehouseItem/delete', {
+    const response = fetch('/deleteItem', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
