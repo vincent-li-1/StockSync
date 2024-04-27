@@ -10,7 +10,13 @@
 <body>
     <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
     <div class="container">
-        <h1>StockSync</h1>
+        <h1>Warehouse Information</h1>
+        <div>
+            <h2 th:text="${warehouse.warehouseName}"></h2> <!-- Display warehouse name -->
+            <p><strong>Warehouse Address:</strong> <span th:text="${warehouse.warehouseAddress}"></span></p> <!-- Display warehouse address -->
+            <p><strong>Longitude:</strong> <span th:text="${warehouse.warehouseLong}"></span></p> <!-- Display warehouse longitude -->
+            <p><strong>Latitude:</strong> <span th:text="${warehouse.warehouseLat}"></span></p> <!-- Display warehouse latitude -->
+        </div>
             <label for="itemSearchKey">Search By:</label>
             <select id="itemSearchKey" name="itemSearchKey">
                 <option></option>
