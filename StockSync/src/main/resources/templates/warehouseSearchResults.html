@@ -41,7 +41,7 @@
                     <td th:text="${warehouse.warehouseLat}"></td>
                     <!-- Keep the existing edit form -->
                     <td>
-                        <a href="/editWarehouse">
+                        <a th:href="@{/editWarehouse(WarehouseId=${warehouse.warehouseId})}">
                             <button>Edit</button>
                         </a>                      
                     </td>                    

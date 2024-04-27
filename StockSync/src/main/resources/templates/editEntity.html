@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="'Edit ' + (${isWarehouse} ? 'warehouse')"></title>
-    <link rel="stylesheet" type="text/css" media="all" 
-          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+    <title th:text="'Edit Warehouse'"></title>
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
     <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
@@ -15,24 +14,34 @@
             <button>Back to search</button>
         </a>
         <div style="margin-top: 20px;"></div>
-            <label for="warehouseId"></label>
-            <input type="text" id="warehouseId" name="warehouseId" placeholder="Enter warehouse id">
+        <form id="editWarehouseForm" action="/updateWarehouse" method="POST" class="warehouse-form">
+            <!-- Display the warehouse ID in a disabled input field -->
+            <label for="warehouseId">Warehouse ID:</label>
+            <input type="text" id="warehouseId" name="warehouseId" th:value="${warehouse.warehouseId}" disabled />
+
+            <!-- Add a hidden field to ensure the ID is included in form submission -->
+            <input type="hidden" name="warehouseId" th:value="${warehouse.warehouseId}" />
+
+            <!-- Other editable fields -->
+            <label for="warehouseName">Warehouse Name:</label>
+            <input type="text" id="warehouseName" name="warehouseName" th:value="${warehouse.warehouseName}" placeholder="Enter warehouse name" />
             <div style="margin-top: 10px;"></div>
-            <label for="warehouseName"></label>
-            <input type="text" id="warehouseName" name="warehouseName" placeholder="Enter warehouse name">
+
+            <label for="warehouseAddress">Warehouse Address:</label>
+            <input type="text" id="warehouseAddress" name="warehouseAddress" th:value="${warehouse.warehouseAddress}" placeholder="Enter warehouse address" />
             <div style="margin-top: 10px;"></div>
-            <label for="warehouseAddress"></label>
-            <input type="text" id="warehouseAddress" name="warehouseAddress" placeholder="Enter warehouse address">
+
+            <label for="warehouseLong">Longitude:</label>
+            <input type="text" id="warehouseLong" name="warehouseLong" th:value="${warehouse.warehouseLong}" placeholder="Enter warehouse longitude" />
             <div style="margin-top: 10px;"></div>
-            <label for="warehouseLong"></label>
-            <input type="text" id="warehouseLong" name="warehouseLong" placeholder="Enter warehouse longitude">
+
+            <label for="warehouseLat">Latitude:</label>
+            <input type="text" id="warehouseLat" name="warehouseLat" th:value="${warehouse.warehouseLat}" placeholder="Enter warehouse latitude" />
             <div style="margin-top: 10px;"></div>
-            <label for="warehouseLat"></label>
-            <input type="text" id="warehouseLat" name="warehouseLat" placeholder="Enter warehouse latitude">  
-            <div style="margin-top: 10px;"></div>         
-            <button type="submit" id="submitEdit">Save Changes</button> <!-- Add edit button -->
+
+            <button type="submit" id="submitEdit">Save Changes</button>
+        </form>
     </div>
     <script src="js/script.js"></script>
 </body>
-
 </html>

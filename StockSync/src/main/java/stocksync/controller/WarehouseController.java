@@ -86,7 +86,9 @@ public class WarehouseController {
     }
 
     @GetMapping("/editWarehouse")
-    public String getEditWarehousePage(Model model) {
+    public String getEditWarehousePage(Model model, @RequestParam(value = "WarehouseId") int id) {
+        Warehouse warehouse = warehouseService.getWarehouseById(id);
+        model.addAttribute("warehouse", warehouse);
         model.addAttribute("isWarehouse", true);
         return "editEntity";
     }
