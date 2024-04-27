@@ -1,5 +1,6 @@
 package stocksync.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import stocksync.model.Item;
 import stocksync.mapper.ItemMapper;
@@ -13,7 +14,9 @@ public class ItemService implements IItemService {
     public ItemService(ItemMapper itMapper){
         this.itMapper = itMapper;
     }
-    public void createItem(Item newIt) {
+    
+
+    public void createItem(Item newIt) throws IllegalArgumentException {
         // Check the total number of existing items
         int totalItems = itMapper.getTotalNumEntries();
         int maxItems = 500;
@@ -21,8 +24,46 @@ public class ItemService implements IItemService {
         if (totalItems >= maxItems) {
             throw new IllegalArgumentException("Maximum item capacity reached. Cannot add more items.");
         }
+        // If item size is invalid throw error
+        this.validateItemSize(newIt.getItemSize());
+        // If item price is invalid throw error
+        this.validateItemPrice(newIt.getItemPrice());
         // Otherwise, proceed with adding the item
         this.itMapper.insertItem(newIt);
+    }
+
+    /**
+     * Helper method to validate that a item's size is positive and a multiple of 0.5 and 1 decimal
+     * @param size is the size to validate
+     * @throws error if the size is invalid
+     */
+    private void validateItemSize(double size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Size cannot be negative");
+        }
+        if (size % 0.5 != 0) {
+            throw new IllegalArgumentException("Size must be a multiple of 1/2");
+        }
+        if (size > 20) {
+            throw new IllegalArgumentException("Size must be less than 20");
+        }
+        if (BigDecimal.valueOf(size).scale() > 1) {
+            throw new IllegalArgumentException("Size must be at most 1 decimal place");
+        }
+    }
+
+    /**
+     * Helper method to validate that a item's price is positive and 2 decimal places
+     * @param price is the price to validate
+     * @throws error if the price is invalid
+     */
+    private void validateItemPrice(double price) {
+        if (price <= 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
+        if (BigDecimal.valueOf(price).scale() > 2) {
+            throw new IllegalArgumentException("Price must have at most 2 decimal places");
+        }
     }
 
     // Helper method to convert human-friendly attribute names to SQL query column names
@@ -169,7 +210,12 @@ public class ItemService implements IItemService {
         }
     }
 
-    public void updateItem(Item updateIt) {
+    public void updateItem(Item updateIt) throws IllegalArgumentException {
+        // If item size is invalid throw error
+        this.validateItemSize(updateIt.getItemSize());
+        // If item price is invalid throw error
+        this.validateItemPrice(updateIt.getItemPrice());
+        // Otherwise, proceed with adding the item
         this.itMapper.updateItem(updateIt);
     }
 }

@@ -108,13 +108,12 @@ public class WarehouseController {
     @PostMapping(value = "/updateWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<String> updateWarehouse(@ModelAttribute Warehouse updateWh) {
         try {
-                this.warehouseService.updateWarehouse(updateWh);
-                            HttpHeaders headers = new HttpHeaders();
+            this.warehouseService.updateWarehouse(updateWh);
+            HttpHeaders headers = new HttpHeaders();
             headers.add("Location", "/warehouseSearchResults?page=1");
             return new ResponseEntity<String>(headers, HttpStatus.FOUND);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<String>(
-                e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

@@ -159,6 +159,55 @@ function handleDeleteSelectedItem() {
         });
     }
 
+     // Function to handle the warehouse form submission
+    function handleWarehouseFormSubmit(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        // Validate longitude and latitude values
+        const longitude = parseFloat(document.getElementById('warehouseLong').value);
+        const latitude = parseFloat(document.getElementById('warehouseLat').value);
+    
+        if (isNaN(longitude) || isNaN(latitude)) {
+            showErrorPopup('Longitude and latitude must be valid numbers.');
+            return;
+        }
+    
+        // If validation passes, proceed with form submission
+        const formData = new URLSearchParams();
+        for (const pair of new FormData(addWarehouseForm)) {
+            formData.append(pair[0], pair[1]);
+        }
+    
+        fetch('/insertWarehouse', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData
+        })
+        .then(response => {
+            console.log(response);
+            if (!response.ok) { // If the response status is not OK, it's an error
+                return response.json().then(errorData => Promise.reject(errorData));
+            }
+            return response.json(); // For a good response, parse it as JSON
+        })
+        .then(data => {
+            if (data.success) { 
+                alert(data.message); // Show a success message
+                // Optionally, reset the form or handle additional success logic
+                addWarehouseForm.reset();
+            } else {
+                // Handle any other successful response that's not expected
+                showErrorPopup('Unexpected success response, no success flag.');
+            }
+        })
+        .catch(error => {
+            // Display the error message contained in the response JSON
+            showErrorPopup(error.error || 'An error occurred.');
+        });
+    }
+
     function handleSearchSubmit(event) {
         event.preventDefault();
         const searchValue = document.querySelector("#searchinput").value;
