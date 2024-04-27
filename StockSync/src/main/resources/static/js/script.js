@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
     const searchSubmitButton = document.querySelector("#searchSubmit");
     const searchItemSubmitButton = document.querySelector("#searchItemSubmit");
+    const addItemForm = document.getElementsByName('addItemForm');
 
     // get reference to the delete selected button
     const deleteSelectedButton = document.querySelector("#deleteSelected");
@@ -208,6 +209,55 @@ function handleDeleteSelectedItem() {
         });
     }
 
+    // Function to handle the item form submission
+    function handleItemFormSubmit(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        // Validate price and size values
+        const price = parseFloat(document.getElementById('itemPrice').value);
+        const size = parseFloat(document.getElementById('itemSize').value);
+    
+        if (isNaN(price) || isNaN(size)) {
+            showErrorPopup('Longitude and latitude must be valid numbers.');
+            return;
+        }
+    
+        // If validation passes, proceed with form submission
+        const formData = new URLSearchParams();
+        for (const pair of new FormData(addItemForm)) {
+            formData.append(pair[0], pair[1]);
+        }
+    
+        fetch('/insertItem', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData
+        })
+        .then(response => {
+            console.log(response);
+            if (!response.ok) { // If the response status is not OK, it's an error
+                return response.json().then(errorData => Promise.reject(errorData));
+            }
+            return response.json(); // For a good response, parse it as JSON
+        })
+        .then(data => {
+            if (data.success) { 
+                alert(data.message); // Show a success message
+                // Optionally, reset the form or handle additional success logic
+                addItemForm.reset();
+            } else {
+                // Handle any other successful response that's not expected
+                showErrorPopup('Unexpected success response, no success flag.');
+            }
+        })
+        .catch(error => {
+            // Display the error message contained in the response JSON
+            showErrorPopup(error.error || 'An error occurred.');
+        });
+    }
+
     function handleSearchSubmit(event) {
         event.preventDefault();
         const searchValue = document.querySelector("#searchinput").value;
@@ -243,5 +293,9 @@ function handleDeleteSelectedItem() {
     // Attach the event listener for the warehouse form
     if (addWarehouseForm) {
         addWarehouseForm.addEventListener('submit', handleWarehouseFormSubmit);
+    }
+
+    if (addItemForm) {
+        addItemForm.addEventListener('submit', handleItemFormSubmit);
     }
 });
