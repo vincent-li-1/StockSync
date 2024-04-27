@@ -4,12 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchSubmitButton = document.querySelector("#searchSubmit");
     const searchItemSubmitButton = document.querySelector("#searchItemSubmit");
     const addItemForm = document.getElementById('addItemForm');
+const warehouseInfoButton = document.querySelector("#warehouseInfo");
 
     // get reference to the delete selected button
     const deleteSelectedButton = document.querySelector("#deleteSelected");
     // attach event listener to the delete selected button
     deleteSelectedButton && deleteSelectedButton.addEventListener('click', handleDeleteSelected);
-    
+    warehouseInfoButton && warehouseInfoButton.addEventListener('click', handleWarehouseInfoSubmit);
+
 // get reference to the delete selected button
 const deleteSelectedItemButton = document.querySelector("#deleteSelectedItems");
 // attach event listener to the delete selected button
@@ -25,6 +27,9 @@ searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handl
         alert(message); // Using an alert box to display the error
     }
 
+function handleWarehouseInfoSubmit() {
+    
+}
 /*
 * function to handle deletion of all selected warehouses
 */
