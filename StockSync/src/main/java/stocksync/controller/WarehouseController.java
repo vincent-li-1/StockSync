@@ -26,7 +26,7 @@ public class WarehouseController {
     }
 
     @GetMapping("/warehouseInfo")
-    public string getWarehouseInfo(Model model, @RequestParam(value = "WarehouseId") int id) {
+    public String getWarehouseInfo(Model model, @RequestParam(value = "WarehouseId") int id) {
         Warehouse warehouse = warehouseService.getWarehouseById(id);
         model.addAttribute("warehouse", warehouse);
         return "warehouseInfo";
