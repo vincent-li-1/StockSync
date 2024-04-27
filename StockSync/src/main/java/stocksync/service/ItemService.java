@@ -14,6 +14,14 @@ public class ItemService implements IItemService {
         this.itMapper = itMapper;
     }
     public void createItem(Item newIt) {
+        // Check the total number of existing items
+        int totalItems = itMapper.getTotalNumEntries();
+        int maxItems = 500;
+        // If the maximum limit is reached, prevent adding the item
+        if (totalItems >= maxItems) {
+            throw new IllegalArgumentException("Maximum item capacity reached. Cannot add more items.");
+        }
+        // Otherwise, proceed with adding the item
         this.itMapper.insertItem(newIt);
     }
 
@@ -154,8 +162,11 @@ public class ItemService implements IItemService {
         return pagesArray;
     }
 
-    public void deleteItem(Item deleteIt) {
-        this.itMapper.deleteItem(deleteIt);
+    //delete an item with a given list of item ids
+    public void deleteItem(List<Integer> itemIdList) {
+        for (int itemId : itemIdList) {
+            itMapper.deleteItem(itemId);
+        }
     }
 
     public void updateItem(Item updateIt) {

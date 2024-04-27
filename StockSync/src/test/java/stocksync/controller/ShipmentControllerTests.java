@@ -35,8 +35,6 @@ public class ShipmentControllerTests {
         testShipment.setShipmentId(10000);
         testShipment.setWarehouseFromId(1);
         testShipment.setWarehouseToId(2);
-        testShipment.setShipmentDate("05/24/2024");
-        testShipment.setShipmentStatus("completed");
         return testShipment;
     }
 
@@ -62,9 +60,7 @@ public class ShipmentControllerTests {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("shipmentId",String.valueOf(testShipment.getShipmentId()))
                 .param("warehouseFromId","1")
-                .param("warehouseToId","2")
-                .param("shipmentDate","05/24/2024")
-                .param("shipmentStatus","completed");
+                .param("warehouseToId","2");
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection()) // Expect a redirect status
@@ -81,9 +77,7 @@ public class ShipmentControllerTests {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("shipmentId",String.valueOf(testShipment.getShipmentId()))
                 .param("warehouseFromId","1")
-                .param("warehouseToId","2")
-                .param("shipmentDate","05/24/2024")
-                .param("shipmentStatus","completed");
+                .param("warehouseToId","2");
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection()) // Expect a redirect status

@@ -2,7 +2,7 @@
 # build-and-deploy.sh
 
 # Step 1: Build the project with Gradle
-./gradlew build
+./gradlew build --warning-mode all
 
 # Step 2: Build and start Docker containers
 docker build . -t stocksync/stocksync

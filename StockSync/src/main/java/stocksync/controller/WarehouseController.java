@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.lang.Math;
 
@@ -84,15 +86,17 @@ public class WarehouseController {
     }
 
     @PostMapping(value = "/insertWarehouse", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<String> insertWarehouse(@ModelAttribute Warehouse newWh){
+    public ResponseEntity<?> insertWarehouse(@ModelAttribute Warehouse newWh) {
         try {
             this.warehouseService.createWarehouse(newWh);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Location", "/warehouseSearchResults?page=1");
-            return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+            Map<String, Object> successResponse = new HashMap<>();
+            successResponse.put("success", true);
+            successResponse.put("message", "Warehouse added successfully");
+            return ResponseEntity.ok(successResponse);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<String>(
-                e.getMessage(), HttpStatus.BAD_REQUEST);
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
         }
 
     }

@@ -1,9 +1,11 @@
 image: gradle:jdk17
 
+
 stages:
   - unitTest  
   - integrationTest
   - build
+  - test  # Define a test stage
   - docker
 
 before_script:
@@ -62,12 +64,10 @@ AddItemIntegrationTest:
 build:
   stage: build
   script:
-    - ./gradlew build -x test
+    - ./gradlew build
   artifacts:
     paths:
       - StockSync/build/libs/
-
-
 
 docker:
   image: docker:latest

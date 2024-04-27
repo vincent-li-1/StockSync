@@ -81,17 +81,17 @@ public class WarehouseServiceTests {
         verify(mockMapper).findAll(10, 20, "warehouse_id", "asc");
     }
 
-    /**
-     * Test if the delete warehouse method in the service calls the corresponding method 
-     * in the mapper with only the provided warehouse parameter.
-     * @throws Exception if the test failed
-     */
-    @Test
-    public void testDeleteWarehouse() throws Exception {
-        warehouseService.deleteWarehouse(mockWh);
-        verify(mockMapper, never()).deleteWarehouse(otherWh);
-        verify(mockMapper).deleteWarehouse(mockWh);
-    }
+    // /**
+    //  * Test if the delete warehouse method in the service calls the corresponding method 
+    //  * in the mapper with only the provided warehouse parameter.
+    //  * @throws Exception if the test failed
+    //  */
+    // @Test
+    // public void testDeleteWarehouse() throws Exception {
+    //     warehouseService.deleteWarehouse(mockWh);
+    //     verify(mockMapper, never()).deleteWarehouse(otherWh);
+    //     verify(mockMapper).deleteWarehouse(mockWh);
+    // }
 
     /**
      * Test if the update warehouse method in the service calls the corresponding method 

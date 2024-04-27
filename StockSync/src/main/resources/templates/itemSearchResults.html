@@ -15,13 +15,21 @@
             <a href="/searchItem">
                 <button>Back to search</button>
             </a>
+            <!-- Form for deleting selected items -->
+            <button type="submit" id="deleteSelectedItems">Delete Selected</button> <!-- Add delete button -->
+            <!-- Hidden input field to store selected warehouse IDs -->
+            <input type="hidden" name="selectedItems" id="selectedItems">
             <table>
                 <tr>
+                    <th>Select</th> <!-- Header for checkboxes column -->
                     <th>Item Name</th>
                     <th>Item Size</th>
                     <th>Item Price</th>
                 </tr>
                 <tr th:each="item : ${items}">
+                    <td> <!-- Add checkbox for each item-->
+                        <input type="checkbox" class="itemCheckbox" th:value="${item.itemId}">
+                    </td>
                     <td th:text="${item.itemName}"></td>
                     <td th:text="${item.itemSize}"></td>
                     <td th:text="${item.itemPrice}"></td>
@@ -29,12 +37,6 @@
                         <form th:action="@{/editItem}" method="post">
                             <input type="hidden" name="id" th:value="${item.itemId}" />
                             <button type="submit">Edit</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form th:action="@{/deleteItem}" method="post">
-                            <input type="hidden" name="id" th:value="${item.itemId}" />
-                            <button type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>                
@@ -48,6 +50,6 @@
             <span th:text="|of ${totalNumPages}|"></span>
         </ul>
         <span th:text="|Showing ${pageStartingNum} - ${pageEndingNum} of ${totalNumEntries} total items|"></span>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
