@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const addWarehouseForm = document.getElementById('addWarehouseForm');
+    const searchForm = document.getElementById('searchForm');
     const searchSubmitButton = document.querySelector("#searchSubmit");
     const searchItemSubmitButton = document.querySelector("#searchItemSubmit");
 
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // attach event listener to the delete selected button
     deleteSelectedButton && deleteSelectedButton.addEventListener('click', handleDeleteSelected);
     searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
+    searchForm && searchForm.addEventListener('submit', handleSearchSubmit); // Attach to the form's submit event
 
 
     // Helper function to display error messages
@@ -54,17 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
     }
-
-    function handleSearchItemSubmit() {
-        const searchValue = document.querySelector("#itemSearchInput").value;
-        const searchKey = document.querySelector("#itemSearchKey").value;
-        const sortBy = document.querySelector("#itemSortBy").value;
-        const sortMethod = document.querySelector("#itemSortMethod").value;
-        location.href = `/itemSearchResults?page=1&sortBy=${sortBy}&sortMethod=${sortMethod}&searchKey=${searchKey}&searchValue=${searchValue}`
-    }
-    
-
-
     // Function to handle the warehouse form submission
     function handleWarehouseFormSubmit(event) {
         event.preventDefault(); // Prevent the default form submission
@@ -114,35 +105,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Function to handle the search submission
     function handleSearchSubmit(event) {
-        event.preventDefault(); // Prevent the default action
+        event.preventDefault();
         const searchValue = document.querySelector("#searchinput").value;
         const searchKey = document.querySelector("#searchKey").value;
         const sortBy = document.querySelector("#sortBy").value;
         const sortMethod = document.querySelector("#sortMethod").value;
-
+    
         fetch(`/warehouseSearchResults?page=1&sortBy=${sortBy}&sortMethod=${sortMethod}&searchKey=${searchKey}&searchValue=${searchValue}`)
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) {
-                showError(data.message); // Show error message in a popup
+        .then(response => {
+            // Check if the response is JSON
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.indexOf('application/json') !== -1) {
+                return response.json().then(data => {
+                    if (!data.success) {
+                        showErrorPopup(data.message);
+                    } else {
+                        window.location.href = data.redirectURL;
+                    }
+                });
             } else {
-                window.location.href = data.redirectURL; // Redirect if there's no error
+                // If it's not JSON, you can assume it's HTML
+                // You might want to handle this case differently,
+                // for example by displaying the HTML content.
+                // For now redirect to the response URL.
+                window.location.href = response.url;
             }
         })
         .catch(error => {
-            showError('An error occurred: ' + error.message);
+            showErrorPopup('An error occurred: ' + error.message);
         });
     }
 
     // Attach the event listener for the warehouse form
     if (addWarehouseForm) {
         addWarehouseForm.addEventListener('submit', handleWarehouseFormSubmit);
-    }
-
-    // Attach the event listener for the search button
-    if (searchSubmitButton) {
-        searchSubmitButton.addEventListener('click', handleSearchSubmit);
     }
 });
