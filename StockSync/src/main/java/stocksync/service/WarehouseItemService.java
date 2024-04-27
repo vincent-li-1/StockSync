@@ -19,6 +19,14 @@ public class WarehouseItemService {
     }
 
     public void createWarehouseItem(WarehouseItem wi){
+        // Check the total number of existing warehouse items
+        int totalWarehouseItems = warehouseItemMapper.getTotalNumEntries();
+        int maxWarehouseItems = 500;
+        // If the maximum limit is reached, prevent adding the warehouse item
+        if (totalWarehouseItems >= maxWarehouseItems) {
+            throw new IllegalArgumentException("Maximum warehouse item capacity reached. Cannot add more warehouse items.");
+        }
+        // Otherwise, proceed with adding the warehouse item
         this.warehouseItemMapper.insertWarehouseItem(wi);
     }
 
