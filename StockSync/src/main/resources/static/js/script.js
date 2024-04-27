@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchItemSubmitButton = document.querySelector("#searchItemSubmit");
 const warehouseInfoButton = document.querySelector("#warehouseInfo")
 
+searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
+
     // get reference to the delete selected button
     const deleteSelectedButton = document.querySelector("#deleteSelected");
     // attach event listener to the delete selected button
@@ -16,6 +18,12 @@ const deleteSelectedItemButton = document.querySelector("#deleteSelectedItems");
 // attach event listener to the delete selected button
 deleteSelectedItemButton && deleteSelectedItemButton.addEventListener('click', handleDeleteSelectedItem);
 
+
+
+// get reference to the edit warehouse button
+const editWarehouseButton = document.querySelector("#submitEdit");
+// attach event listener to the delete selected button
+editWarehouseButton && editWarehouseButton.addEventListener('click', editWarehouse);
 
 searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
     searchForm && searchForm.addEventListener('submit', handleSearchSubmit); // Attach to the form's submit event
@@ -29,6 +37,63 @@ searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handl
 function handleWarehouseInfoSubmit() {
     
 }
+
+function editWarehouse() {
+    // Get the form data
+    const warehouseId = document.getElementById('warehouseId').value;
+    const warehouseName = document.getElementById('warehouseName').value;
+    const warehouseLong = document.getElementById('warehouseLong').value;
+    const warehouseLat = document.getElementById('warehouseLat').value;
+
+    // Validate longitude and latitude values
+    const longitude = parseFloat(warehouseLong);
+    const latitude = parseFloat(warehouseLat);
+
+    if (isNaN(longitude) || isNaN(latitude)) {
+        showErrorPopup('Longitude and latitude must be valid numbers.');
+        return;
+    }
+
+    // Create the data object
+    const warehouseData = [];
+
+    warehouseData[0] = warehouseId;
+    warehouseData[1] = warehouseName;
+    warehouseData[2] = warehouseLong;
+    warehouseData[3] = warehouseLat;
+
+    // Send the data to the backend using fetch
+    const response = fetch('/updateWarehouse', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(warehouseData)
+    }).then(response => {
+              // Check if the request was successful
+              if (response.ok) {
+                  // If the server responded with a successful status, redirect to the search results page
+                  window.location.href = '/warehouseSearchResults?page=1';
+              } else {
+                  // If the server response was not ok (e.g., 400, 500), handle it accordingly
+                  console.error('Request failed with status:', response.status);
+              }
+          })
+          .catch(error => {
+              console.error('Network error:', error);
+          });
+
+}
+
+function handleSearchSubmit() {
+    const searchValue = document.querySelector("#searchinput").value;
+    const searchKey = document.querySelector("#searchKey").value;
+    const sortBy = document.querySelector("#sortBy").value;
+    const sortMethod = document.querySelector("#sortMethod").value;
+    location.href = `/warehouseSearchResults?page=1&sortBy=${sortBy}&sortMethod=${sortMethod}&searchKey=${searchKey}&searchValue=${searchValue}`
+}
+
+
 /*
 * function to handle deletion of all selected warehouses
 */
