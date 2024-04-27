@@ -34,7 +34,7 @@
                     </td>
                     <!-- Add a hyperlink to the warehouse info page -->
                     <td>
-                        <a th:href="@{/warehouseInfo(id=${warehouse.warehouseId})}" th:text="${warehouse.warehouseName}"></a>
+                        <a th:href="@{/warehouseInfo(WarehouseId=${warehouse.warehouseId})}" th:text="${warehouse.warehouseName}"></a>
                     </td>
                     <td th:text="${warehouse.warehouseAddress}"></td>
                     <td th:text="${warehouse.warehouseLong}"></td>
