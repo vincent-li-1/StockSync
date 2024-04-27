@@ -21,6 +21,7 @@
             <table>
                 <tr>
                     <th>Select</th> <!-- Header for checkboxes column -->
+                    <th>Warehouse ID</th>
                     <th>Warehouse Name</th>
                     <th>Warehouse Address</th>
                     <th>Warehouse Longitude</th>
@@ -30,6 +31,7 @@
                     <td> <!-- Add checkbox for each warehouse-->
                         <input type="checkbox" class="warehouseCheckbox" th:value="${warehouse.warehouseId}">
                     </td>
+                    <td th:text="${warehouse.warehouseId}"></td>
                     <td th:text="${warehouse.warehouseName}"></td>
                     <td th:text="${warehouse.warehouseAddress}"></td>
                     <td th:text="${warehouse.warehouseLong}"></td>
@@ -44,12 +46,14 @@
             </table>
         </div>
         <ul class="pagination">
+        <span>Jump to:</span>
             <li th:each="page : ${pagesArray}">
                 <a th:href="@{warehouseSearchResults(page=${page},sortBy=${sortBy},sortMethod=${sortMethod},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
             </li>
+            <span th:text="|of ${totalNumPages}|"></span>
         </ul>
         <span th:text="|Showing ${pageStartingNum} - ${pageEndingNum} of ${totalNumEntries} total warehouses|"></span>
     </div>
-    <script src="/js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

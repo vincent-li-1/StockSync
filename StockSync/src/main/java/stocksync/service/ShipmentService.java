@@ -24,6 +24,14 @@ public class ShipmentService {
     }
 
     public void createShipment(Shipment shipment){
+        // Check the total number of existing shipments
+        int totalShipments = shipmentMapper.getTotalNumEntries();
+        int maxShipments = 500;
+        // If the maximum limit is reached, prevent adding the shipment
+        if (totalShipments >= maxShipments) {
+            throw new IllegalArgumentException("Maximum shipment capacity reached. Cannot add more shipments.");
+        }
+        // Otherwise, proceed with adding the shipment
         this.shipmentMapper.insertShipment(shipment);
     }
 

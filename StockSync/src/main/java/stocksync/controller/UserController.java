@@ -32,6 +32,7 @@ public class UserController {
     }
     @GetMapping("/hi")
     public String hi(){
+
         return "HELLO WORLD!";
     }
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Item Page</title>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div class="container">
+        <h1>StockSync</h1>
+            <label for="itemSearchKey">Search By:</label>
+            <select id="itemSearchKey" name="itemSearchKey">
+                <option></option>
+                <option value="name">Name</option>
+                <option value="size">Size</option>
+                <option value="price">Price</option>
+            </select>
+            <input type="text" id="itemSearchInput" placeholder="Search for...">
+            <label for="itemSortBy">Sort By:</label>
+            <select id="itemSortBy" name="itemSortBy">
+                <option></option>
+                <option value="name">Name</option>
+                <option value="size">Size</option>
+                <option value="price">Price</option>
+            </select>
+            <label for="itemSortMethod"></label>
+            <select id="itemSortMethod" name="itemSortMethod">
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+            </select>
+            <button id="searchItemSubmit">Search</button>
+        
+        <div style="margin-top: 25px;"></div>
+        <a href="/addItem">
+            <button>Add Item</button>
+        </a>
+        <img src="/logo.jpg" alt="StockSync Logo" class="logo"> <!-- Logo added here -->
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

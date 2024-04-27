@@ -1,53 +1,59 @@
 package stocksync.service;
 
-import java.util.List;
-import stocksync.model.Item;
-import stocksync.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import stocksync.mapper.WarehouseItemMapper;
+import stocksync.model.WarehouseItem;
+import stocksync.model.Warehouse;
+import stocksync.model.Item;
+
+import java.util.List;
 
 @Service
-public class ItemService implements IItemService {
+public class WarehouseItemService {
     @Autowired
-    private final ItemMapper itMapper;
-    public ItemService(ItemMapper itMapper){
-        this.itMapper = itMapper;
+    private final WarehouseItemMapper warehouseItemMapper;
+
+    public WarehouseItemService(WarehouseItemMapper mapper){
+        this.warehouseItemMapper = mapper;
     }
-    public void createItem(Item newIt) {
-        // Check the total number of existing items
-        int totalItems = itMapper.getTotalNumEntries();
-        int maxItems = 500;
-        // If the maximum limit is reached, prevent adding the item
-        if (totalItems >= maxItems) {
-            throw new IllegalArgumentException("Maximum item capacity reached. Cannot add more items.");
+
+    public void createWarehouseItem(WarehouseItem wi){
+        // Check the total number of existing warehouse items
+        int totalWarehouseItems = warehouseItemMapper.getTotalNumEntries();
+        int maxWarehouseItems = 500;
+        // If the maximum limit is reached, prevent adding the warehouse item
+        if (totalWarehouseItems >= maxWarehouseItems) {
+            throw new IllegalArgumentException("Maximum warehouse item capacity reached. Cannot add more warehouse items.");
         }
-        // Otherwise, proceed with adding the item
-        this.itMapper.insertItem(newIt);
+        // Otherwise, proceed with adding the warehouse item
+        this.warehouseItemMapper.insertWarehouseItem(wi);
     }
 
     // Helper method to convert human-friendly attribute names to SQL query column names
     private String convertKeyToSqlColumn(String stringToConvert) {
         switch (stringToConvert) {
-            case "name":
-                return "item_name";
-            case "size":
-                return "item_size";
-            case "price":
-                return "item_price";
-            default:
+            case "warehouseId":
+                return "warehouse_id";
+            case "itemId":
                 return "item_id";
+            case "quantity":
+                return "quantity";
+            default:
+                return "ware_item_id";
         }
     }
+
     /**
-     * Method to get a paginated list of items based on sorting and search parameters
+     * Method to get a paginated list of warehouse items based on sorting and search parameters
      * @param page is the current page to get
      * @param sortBy is the column/attribute that the request wants to results sorted by
      * @param sortMethod is the method, ascending or descending, to sort results by
-     * @param searchKey is the column/attribute that the request wants to search by
+     * @param searchKey is the column/attribute that the request wants to search by (origin/destination/id)
      * @param searchValue is the value that the request wants to search for
-     * @return List of item objects
+     * @return List of shipment objects
      */
-    public List<Item> getItems(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
+    public List<WarehouseItem> getWarehouseItems(int page, String sortBy, String sortMethod, String searchKey, String searchValue) {
         // Limit is hardcoded to be 10 per page, offset is calculated based off that limit. This is the only line that needs
         // to be changed to change limit per page.
         int limit = 10;
@@ -62,20 +68,18 @@ public class ItemService implements IItemService {
         }
 
         // If no search key/value, get all
-        if (searchKey.equals("") || searchValue.equals("")) {
-            return itMapper.findAll(limit, offset, sortByAsColumnName, sortMethod);
+        if (searchKey.isEmpty() || searchValue.isEmpty()) {
+            return warehouseItemMapper.findAll(limit, offset, sortByAsColumnName, sortMethod);
         }
 
         // Get the right table column name for searchKey
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
 
+        // Convert searchValue to have search wildcard if the search is by name or address (we don't want wildcards for long/lat)
+        String searchValueWithWildcard = searchValue;
 
-        // Convert searchValue to have search wildcard if the search is by name (we don't want wildcards for size or price)
-        String searchValueWithWildcard = (searchKey.equals("name") ? "%" + searchValue + "%" : searchValue);
-
-        return itMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
+        return warehouseItemMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
     }
-
 
     /**
      * Method to get a count of the total number of entries for a get request
@@ -86,40 +90,17 @@ public class ItemService implements IItemService {
     public int getTotalNumEntries(String searchKey, String searchValue) {
         // Get total number of all entries if there are no search params
         if (searchKey.equals("") || searchValue.equals("")) {
-            return itMapper.getTotalNumEntries();
+            return warehouseItemMapper.getTotalNumEntries();
         }
 
         // Get the right table column name for searchKey
         String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
+        // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
 
-         // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
-        String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("size") || searchKey.equals("price")) ? "%" + searchValue + "%" : searchValue;
+        // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
+        String searchValueWithWildcard = (searchKey.equals("origin") || searchKey.equals("destination")) ? "%" + searchValue + "%" : searchValue;
 
-        return itMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
-    }
-
-    /**
-     * Method to get a count of the total number of pages for a get request
-     * @param searchKey is the column/attribute that the get is searched by
-     * @param searchValue is the value that the get searched for
-     * @return number of pages based on the parameters (if any)
-     */
-    public int getTotalNumPages(String searchKey, String searchValue) {
-        int numEntries;
-        if (searchKey.equals("") || searchValue.equals("")) {
-            numEntries = itMapper.getTotalNumEntries();
-        } 
-        else {
-             // Get the right table column name for searchKey
-            String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
-            // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
-
-             // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
-            String searchValueWithWildcard = searchKey.equals("name") ? "%" + searchValue + "%" : searchValue;
-
-            numEntries = itMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
-        }
-        return numEntries/10 + 1;
+        return warehouseItemMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
     }
 
     /**
@@ -162,11 +143,14 @@ public class ItemService implements IItemService {
         return pagesArray;
     }
 
-    public void deleteItem(Item deleteIt) {
-        this.itMapper.deleteItem(deleteIt);
+    public void deleteWarehouseItem(List<Integer> wiIdList) {
+        for (int wiId : wiIdList) {
+            warehouseItemMapper.deleteWarehouseItem(wiId);
+        }
     }
 
-    public void updateItem(Item updateIt) {
-        this.itMapper.updateItem(updateIt);
+    public void updateWarehouseItem(WarehouseItem updateWi) {
+        warehouseItemMapper.updateWarehouseItem(updateWi);
     }
 }
+

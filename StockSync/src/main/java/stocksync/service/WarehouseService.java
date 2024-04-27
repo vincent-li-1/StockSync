@@ -14,6 +14,14 @@ public class WarehouseService implements IWarehouseService {
         this.whMapper = whMapper;
     }
     public void createWarehouse(Warehouse newWh) throws IllegalArgumentException {
+        // Check the total number of existing warehouses
+        int totalWarehouses = whMapper.getTotalNumEntries();
+        int maxWarehouses = 500;
+        // If the maximum limit is reached, prevent adding the warehouse
+        if (totalWarehouses >= maxWarehouses) {
+            throw new IllegalArgumentException("Maximum warehouse capacity reached. Cannot add more warehouses.");
+        }
+        // Otherwise, proceed with adding the warehouse
         if (Math.abs(newWh.getWarehouseLong()) > 180) {
             throw new IllegalArgumentException("Longitude out of bounds. Must be between -180 and 180");
         }
@@ -99,6 +107,31 @@ public class WarehouseService implements IWarehouseService {
         
         return whMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
     }
+
+    /**
+     * Method to get a count of the total number of pages for a get request
+     * @param searchKey is the column/attribute that the get is searched by
+     * @param searchValue is the value that the get searched for
+     * @return number of pages based on the parameters (if any)
+     */
+    public int getTotalNumPages(String searchKey, String searchValue) {
+        int numEntries;
+        if (searchKey.equals("") || searchValue.equals("")) {
+            numEntries = whMapper.getTotalNumEntries();
+        } 
+        else {
+             // Get the right table column name for searchKey
+            String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
+            // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
+
+             // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
+            String searchValueWithWildcard = (searchKey.equals("name") || searchKey.equals("address")) ? "%" + searchValue + "%" : searchValue;
+
+            numEntries = whMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
+        }
+        return numEntries/10 + 1;
+    }
+        
 
     /**
      * Method to get an array of the 5 page numbers to display across the bottom
