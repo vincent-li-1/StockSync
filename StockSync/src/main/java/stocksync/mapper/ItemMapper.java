@@ -44,10 +44,6 @@ public interface ItemMapper {
     int getSearchNumEntries(@Param("searchKeyAsColumnName") String searchKeyAsColumnName,
                         @Param("searchValueWithWildcard") String searchValueWithWildcard);
                         
-
-        @Delete("DELETE FROM StockSync.Item WHERE item_id = #{deleteIt.itemId}")
-        void deleteItem(@Param("deleteIt") Item deleteIt);
-
     @Delete("DELETE FROM StockSync.Item WHERE item_id = #{itemId}")
     void deleteItem(@Param("itemId") int itemId);
 
