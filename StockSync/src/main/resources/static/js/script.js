@@ -45,6 +45,15 @@ function editWarehouse() {
     const warehouseLong = document.getElementById('warehouseLong').value;
     const warehouseLat = document.getElementById('warehouseLat').value;
 
+    // Validate longitude and latitude values
+    const longitude = parseFloat(warehouseLong);
+    const latitude = parseFloat(warehouseLat);
+
+    if (isNaN(longitude) || isNaN(latitude)) {
+        showErrorPopup('Longitude and latitude must be valid numbers.');
+        return;
+    }
+
     // Create the data object
     const warehouseData = [];
 
