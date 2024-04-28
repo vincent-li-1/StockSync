@@ -3,6 +3,8 @@ package stocksync.service;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,9 @@ public class ItemServiceTests {
      */
     @Test
     public void testCreateItem() throws Exception {
+        // Make sure that mock item has valid values for item size and price
+        when(mockIt.getItemSize()).thenReturn(1.0);
+        when(mockIt.getItemPrice()).thenReturn(50.4);
         itemService.createItem(mockIt);
         verify(mockMapper, never()).insertItem(otherIt);
         verify(mockMapper).insertItem(mockIt);
@@ -97,7 +102,9 @@ public class ItemServiceTests {
      * @throws Exception if the test failed
      */
     @Test
-    public void testUpdateWarehouse() throws Exception {
+    public void testUpdateItem() throws Exception {
+        when(mockIt.getItemSize()).thenReturn(1.5);
+        when(mockIt.getItemPrice()).thenReturn(100.0);
         itemService.updateItem(mockIt);
         verify(mockMapper, never()).updateItem(otherIt);
         verify(mockMapper).updateItem(mockIt);
@@ -155,4 +162,102 @@ public class ItemServiceTests {
             assertArrayEquals(itemService.getPagesArray(6, 100), pagesArray1);
             assertArrayEquals(itemService.getPagesArray(4, 100), pagesArray2);
         }
+
+    /**
+     * Test if creating an item with an illegal size throws the expected error
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void testCreateInvalidItemSize() throws Exception {
+        when(mockIt.getItemSize()).thenReturn(1.1);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.createItem(mockIt);
+        });
+        when(mockIt.getItemSize()).thenReturn(-1.0);
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.createItem(mockIt);
+        });
+        when(mockIt.getItemSize()).thenReturn(1.50);
+        Exception exception3 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.createItem(mockIt);
+        });
+        when(mockIt.getItemSize()).thenReturn(21.0);
+        Exception exception4 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.createItem(mockIt);
+        });
+        when(mockIt.getItemSize()).thenReturn(0.0);
+        Exception exception5 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.createItem(mockIt);
+        });
+    }
+
+    /**
+     * Test if creating an item with an illegal price throws the expected error
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void testCreateInvalidItemPrice() throws Exception {
+        when(mockIt.getItemSize()).thenReturn(1.0);
+        when(mockIt.getItemPrice()).thenReturn(-1.0);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.createItem(mockIt);
+        });
+        when(mockIt.getItemPrice()).thenReturn(0.0);
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.createItem(mockIt);
+        });
+        when(mockIt.getItemPrice()).thenReturn(1.555);
+        Exception exception3 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.createItem(mockIt);
+        });
+    }
+
+     /**
+     * Test if updating an item with an illegal size throws the expected error
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void testUpdateInvalidItemSize() throws Exception {
+        when(mockIt.getItemSize()).thenReturn(1.1);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.updateItem(mockIt);
+        });
+        when(mockIt.getItemSize()).thenReturn(-1.0);
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.updateItem(mockIt);
+        });
+        when(mockIt.getItemSize()).thenReturn(1.50);
+        Exception exception3 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.updateItem(mockIt);
+        });
+        when(mockIt.getItemSize()).thenReturn(21.0);
+        Exception exception4 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.updateItem(mockIt);
+        });
+        when(mockIt.getItemSize()).thenReturn(0.0);
+        Exception exception5 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.updateItem(mockIt);
+        });
+    }
+
+/**
+     * Test if updating an item with an illegal price throws the expected error
+     * @throws Exception if the test failed
+     */
+    @Test
+    public void testUpdateInvalidItemPrice() throws Exception {
+        when(mockIt.getItemSize()).thenReturn(1.0);
+        when(mockIt.getItemPrice()).thenReturn(-1.0);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.updateItem(mockIt);
+        });
+        when(mockIt.getItemPrice()).thenReturn(0.0);
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.updateItem(mockIt);
+        });
+        when(mockIt.getItemPrice()).thenReturn(1.555);
+        Exception exception3 = assertThrows(IllegalArgumentException.class, () -> {
+            itemService.updateItem(mockIt);
+        });
+    }
 }
