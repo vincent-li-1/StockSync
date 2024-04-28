@@ -10,9 +10,19 @@ import org.springframework.stereotype.Service;
 public class ItemService implements IItemService {
     @Autowired
     private final ItemMapper itMapper;
+
+    /**
+     * Constructor maps mapper to the service (handled by Spring Boot)
+     * @param itMapper mapper for the service
+     */
     public ItemService(ItemMapper itMapper){
         this.itMapper = itMapper;
     }
+
+    /**
+     * Method to create a new item in the database
+     * @param newIt the new item to create. Will be validated in this method
+     */
     public void createItem(Item newIt) {
         // Check the total number of existing items
         int totalItems = itMapper.getTotalNumEntries();
@@ -25,7 +35,10 @@ public class ItemService implements IItemService {
         this.itMapper.insertItem(newIt);
     }
 
-    // Helper method to convert human-friendly attribute names to SQL query column names
+    /**
+     * Helper method to convert a human-friendly attribute name to SQL query column name
+     * @param stringToConvert the string to convert
+     */
     private String convertKeyToSqlColumn(String stringToConvert) {
         switch (stringToConvert) {
             case "name":
@@ -162,13 +175,20 @@ public class ItemService implements IItemService {
         return pagesArray;
     }
 
-    //delete an item with a given list of item ids
+    /**
+     * Method to delete item(s) from the database
+     * @param itemIdList the list of items to delete from the database
+     */
     public void deleteItem(List<Integer> itemIdList) {
         for (int itemId : itemIdList) {
             itMapper.deleteItem(itemId);
         }
     }
 
+    /**
+     * Method to update an item in the database
+     * @param updateIt the item to update and the information to update with
+     */
     public void updateItem(Item updateIt) {
         this.itMapper.updateItem(updateIt);
     }

@@ -10,9 +10,19 @@ import org.springframework.stereotype.Service;
 public class WarehouseService implements IWarehouseService {
     @Autowired
     private final WarehouseMapper whMapper;
+
+    /**
+     * Constructor maps mapper to the service (handled by Spring Boot)
+     * @param whMapper mapper for the service
+     */
     public WarehouseService(WarehouseMapper whMapper){
         this.whMapper = whMapper;
     }
+
+    /**
+     * Method to create a new warehouse in the database
+     * @param newWh the new warehouse to create. Will be validated in this method
+     */
     public void createWarehouse(Warehouse newWh) throws IllegalArgumentException {
         // Check the total number of existing warehouses
         int totalWarehouses = whMapper.getTotalNumEntries();
@@ -39,7 +49,10 @@ public class WarehouseService implements IWarehouseService {
         return warehouse;
     }
 
-    // Helper method to convert human-friendly attribute names to SQL query column names
+    /**
+     * Helper method to convert a human-friendly attribute name to SQL query column name
+     * @param stringToConvert the string to convert
+     */
     private String convertKeyToSqlColumn(String stringToConvert) {
         switch (stringToConvert) {
             case "name": 
@@ -181,18 +194,30 @@ public class WarehouseService implements IWarehouseService {
         return pagesArray;
     }
 
+    /**
+     * Method to delete one warehouse from the database
+     * @param deleteWh the warehouse to delete from the database
+     */
     public void deleteWarehouse(Warehouse deleteWh) {
         whMapper.deleteWarehouse(deleteWh);
     }
-    //delete a Warehouse with a given warehouse id
+
+    /**
+     * Method to delete multiple warehouses from the database
+     * @param warehouseIdList the list of warehouses to delete from the database
+     */
     public void deleteWarehouseButton(List<Integer> warehouseIdList) {
         for (int warehouseId : warehouseIdList) {
             whMapper.deleteWarehouseButton(warehouseId);
         }
     }
 
+
+    /**
+     * Method to update a warehouse in the database
+     * @param updateWh the warehouse to update and the information to update with
+     */
     public void updateWarehouse(Warehouse updateWh) throws IllegalArgumentException {
-//        Warehouse test = updateWh;
         if (Math.abs(updateWh.getWarehouseLong()) > 180) {
             throw new IllegalArgumentException("Longitude out of bounds. Must be between -180 and 180");
         }
