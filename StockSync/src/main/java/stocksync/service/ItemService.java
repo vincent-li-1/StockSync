@@ -172,7 +172,7 @@ public class ItemService implements IItemService {
 
             numEntries = itMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
         }
-        return numEntries/10 + 1;
+        return Math.ceil(numEntries/10);
     }
 
     /**

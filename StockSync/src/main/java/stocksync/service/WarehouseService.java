@@ -150,7 +150,7 @@ public class WarehouseService implements IWarehouseService {
 
             numEntries = whMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
         }
-        return numEntries/10 + 1;
+        return Math.ceil(numEntries/10);
     }
         
 
