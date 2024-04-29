@@ -17,6 +17,9 @@
             </a>
             <!-- Form for deleting selected items -->
             <button type="submit" id="deleteSelectedItems">Delete Selected</button> <!-- Add delete button -->
+            <label for="shipToWarehouse" style="margin-left: 10px">Destination Warehouse ID:</label>
+            <input id="shipToWarehouse"></input>
+            <button id="shipToWarehouseButton">Ship To Warehouse</button>
             <!-- Hidden input field to store selected warehouse IDs -->
             <input type="hidden" name="selectedItems" id="selectedItems">
             <table>
@@ -25,6 +28,7 @@
                     <th>Item Name</th>
                     <th>Item Size</th>
                     <th>Item Price</th>
+                    <th>Ship To Warehouse QTY</th>
                 </tr>
                 <tr th:each="item : ${items}">
                     <td> <!-- Add checkbox for each item-->
@@ -33,6 +37,7 @@
                     <td th:text="${item.itemName}"></td>
                     <td th:text="${item.itemSize}"></td>
                     <td th:text="${item.itemPrice}"></td>
+                    <td><input type="text" class="inputQty"></td>
                     <td>
                         <form th:action="@{/editItem}" method="post">
                             <input type="hidden" name="id" th:value="${item.itemId}" />
