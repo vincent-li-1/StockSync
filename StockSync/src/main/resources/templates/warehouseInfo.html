@@ -16,33 +16,6 @@
             <p><strong>Warehouse Address:</strong> <span th:text="${warehouse.warehouseAddress}"></span></p> <!-- Display warehouse address -->
             <p><strong>Longitude:</strong> <span th:text="${warehouse.warehouseLong}"></span></p> <!-- Display warehouse longitude -->
             <p><strong>Latitude:</strong> <span th:text="${warehouse.warehouseLat}"></span></p> <!-- Display warehouse latitude -->
-        </div>
-            <label for="itemSearchKey">Search By:</label>
-            <select id="itemSearchKey" name="itemSearchKey">
-                <option></option>
-                <option value="name">Name</option>
-                <option value="size">Size</option>
-                <option value="price">Price</option>
-            </select>
-            <input type="text" id="itemSearchInput" placeholder="Search for...">
-            <label for="itemSortBy">Sort By:</label>
-            <select id="itemSortBy" name="itemSortBy">
-                <option></option>
-                <option value="name">Name</option>
-                <option value="size">Size</option>
-                <option value="price">Price</option>
-            </select>
-            <label for="itemSortMethod"></label>
-            <select id="itemSortMethod" name="itemSortMethod">
-                <option value="asc">Asc</option>
-                <option value="desc">Desc</option>
-            </select>
-            <button id="searchItemSubmit">Search</button>
-        
-        <div style="margin-top: 25px;"></div>
-        <a href="/addItem">
-            <button>Add Item</button>
-        </a>
 
         <div class="shipContainer" style="margin-top: 25px">
             <label for="shipToId">Destination Warehouse ID:</label>
