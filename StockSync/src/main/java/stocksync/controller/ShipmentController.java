@@ -83,6 +83,18 @@ public class ShipmentController {
                     e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/shipment/factoryShipment")
+    public ResponseEntity<String> factoryShipment(@RequestBody ShipmentRequest body){
+        try{
+            this.shipmentService.factoryShipment(body);
+            HttpHeaders headers = new HttpHeaders();
+            return new ResponseEntity<String>(headers,HttpStatus.OK);
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<String>(
+                    e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
     @PostMapping(value = "/insertShipment", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<String> insertShipment(@ModelAttribute Shipment newShipment){
         try {

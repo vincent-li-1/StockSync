@@ -32,7 +32,6 @@ public class ShipmentService {
             throw new IllegalArgumentException("Maximum shipment capacity reached. Cannot add more shipments.");
         }
         // Otherwise, proceed with adding the shipment
-        this.shipmentMapper.insertShipment(shipment);
     }
 
     public void newCreateShipment(ShipmentRequest body){
@@ -46,7 +45,6 @@ public class ShipmentService {
         this.shipmentMapper.insertShipment(newShipment);
 
         int shipmentId = newShipment.getShipmentId();
-        System.out.println(shipmentId);
         for(int i = 0; i < itemIdList.size(); i++){
             int currentId = itemIdList.get(i);
             int currentQuantity = itemQuantityList.get(i);
@@ -58,11 +56,25 @@ public class ShipmentService {
                 newWI.setWarehouseId(warehouseToId);
                 this.warehouseItemMapper.insertWarehouseItem(newWI);
             }
-            System.out.println(this.warehouseItemMapper.hasItem(warehouseToId,currentId));
             this.warehouseItemMapper.addQuantity(currentQuantity,warehouseToId,currentId);
         }
-
-
+    }
+    public void factoryShipment(ShipmentRequest body){
+        int warehouseToId = body.getWarehouseToId();
+        ArrayList<Integer> itemIdList = body.getItemIdList();
+        ArrayList<Integer> itemQuantityList = body.getItemQuantityList();
+        for(int i = 0; i < itemIdList.size(); i++){
+            int currentId = itemIdList.get(i);
+            int currentQuantity = itemQuantityList.get(i);
+            if(!this.warehouseItemMapper.hasItem(warehouseToId,currentId)){
+                WarehouseItem newWI = new WarehouseItem();
+                newWI.setItemId(currentId);
+                newWI.setQuantity(0);
+                newWI.setWarehouseId(warehouseToId);
+                this.warehouseItemMapper.insertWarehouseItem(newWI);
+            }
+            this.warehouseItemMapper.addQuantity(currentQuantity,warehouseToId,currentId);
+        }
     }
 
     // Helper method to convert human-friendly attribute names to SQL query column names
