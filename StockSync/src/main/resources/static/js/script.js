@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const addItemForm = document.getElementById('addItemForm');
 const warehouseInfoButton = document.querySelector("#warehouseInfo");
 
+const createShipmentButton = document.querySelector('#createShipment');
+const shipToCustomerButton = document.querySelector('#shipToCustomer');
+
+createShipmentButton && createShipmentButton.addEventListener('click', handleCreateShipment);
+shipToCustomerButton && shipToCustomerButton.addEventListener('click', handleShipToCustomer);
+
+
 searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
 
     // get reference to the delete selected button
@@ -37,6 +44,18 @@ searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handl
 
 function handleWarehouseInfoSubmit() {
     
+}
+
+// function to create a shipment
+function handleCreateShipment() {
+    const shipToId = document.querySelector("#shipToId").value;
+    alert(shipToId);
+}
+
+// function to ship to a customer
+function handleShipToCustomer() {
+    const qtys = document.querySelectorAll(".inputQty").map(query => query.value);
+    alert(qtys);
 }
 
 function editWarehouse() {

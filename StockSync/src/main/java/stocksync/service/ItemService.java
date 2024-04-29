@@ -165,8 +165,6 @@ public class ItemService implements IItemService {
         else {
              // Get the right table column name for searchKey
             String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
-            // TODO: Check that searchKeyAsColumnName is not id, if it is throw error
-
              // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
             String searchValueWithWildcard = searchKey.equals("name") ? "%" + searchValue + "%" : searchValue;
 
