@@ -59,8 +59,9 @@ function handleCreateShipment() {
         warehouseFromId: Number(nonEmptyInputs[0].parentElement.parentElement.classList[0]),
         warehouseToId: Number(shipToId),
         itemIdList: nonEmptyInputs.map(input => Number(input.parentElement.parentElement.id)),
-        itemQuantityList: nonEmptyInputs.map(input => Number(input.value))
+        itemQuantityList: nonEmptyInputs.map(input => Math.min(Number(input.value), Number(input.parentElement.parentElement.dataset.qty)))
     }
+    console.log(request);
     const response = fetch('/shipment/create', {
         method: 'POST',
         headers: {
