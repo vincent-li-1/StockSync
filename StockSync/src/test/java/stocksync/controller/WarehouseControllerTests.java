@@ -9,6 +9,8 @@ import org.springframework.test.web.servlet.*;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import stocksync.model.Warehouse;
 import stocksync.service.WarehouseService;
+import stocksync.model.WarehouseItem;
+import stocksync.service.WarehouseItemService;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.refEq;
@@ -45,6 +47,9 @@ public class WarehouseControllerTests {
     private MockMvc mockMvc;
     @MockBean
     private WarehouseService mockService;
+    @MockBean
+    private WarehouseItemService warehouseItemService;
+    
     //setting up a standard test warehouse object
     public Warehouse setupWarehouse(){
         Warehouse testWH = new Warehouse();

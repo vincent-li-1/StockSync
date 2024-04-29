@@ -6,6 +6,7 @@ import stocksync.mapper.WarehouseItemMapper;
 import stocksync.model.WarehouseItem;
 import stocksync.model.Warehouse;
 import stocksync.model.Item;
+import stocksync.model.ItemDetailsDTO;
 
 import java.util.List;
 
@@ -152,5 +153,15 @@ public class WarehouseItemService {
     public void updateWarehouseItem(WarehouseItem updateWi) {
         warehouseItemMapper.updateWarehouseItem(updateWi);
     }
+
+    /*public Warehouse getWarehouseById(int warehouseId) {
+        return warehouseMapper.selectWarehouseById(warehouseId);
+    }*/
+
+    public List<ItemDetailsDTO> getItemDetailsByWarehouseId(int warehouseId) {
+        return warehouseItemMapper.findItemDetailsByWarehouseId(warehouseId);
+    }
+
+    
 }
 

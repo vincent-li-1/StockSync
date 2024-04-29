@@ -43,6 +43,27 @@
         <a href="/addItem">
             <button>Add Item</button>
         </a>
+
+        <div id="resultsWarehouseItems">
+            
+            <table>
+                <tr>
+                    <th>Select</th> <!-- Header for checkboxes column -->
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                </tr>
+                <tr th:each="item : ${warehouseItems}">
+                    
+                    <tr th:each="item : ${warehouseItems}">
+                    <td th:text="${item.itemName}"></td>
+                    <td th:text="${item.itemSize}"></td>
+                    <td th:text="${item.itemPrice}"></td>
+                    <td th:text="${item.quantity}"></td>
+                </tr>                
+            </table>
+        </div>
+
     </div>
     <script src="js/script.js"></script>
 </body>

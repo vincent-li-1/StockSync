@@ -3,7 +3,10 @@ package stocksync.controller;
 import org.apache.ibatis.annotations.Delete;
 import stocksync.mapper.WarehouseMapper;
 import stocksync.model.Warehouse;
+import stocksync.model.ItemDetailsDTO;
 import stocksync.service.WarehouseService;
+import stocksync.model.WarehouseItem;
+import stocksync.service.WarehouseItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,16 +24,21 @@ import java.lang.Math;
 public class WarehouseController {
 
     private final WarehouseService warehouseService;
+    private final WarehouseItemService warehouseItemService;
+    
 
     @Autowired
-    public WarehouseController(WarehouseService warehouseService) {
+    public WarehouseController(WarehouseService warehouseService, WarehouseItemService warehouseItemService) {
         this.warehouseService = warehouseService;
+        this.warehouseItemService = warehouseItemService;
     }
 
     @GetMapping("/warehouseInfo")
     public String getWarehouseInfo(Model model, @RequestParam(value = "WarehouseId") int id) {
         Warehouse warehouse = warehouseService.getWarehouseById(id);
         model.addAttribute("warehouse", warehouse);
+        List<ItemDetailsDTO> warehouseItems = warehouseItemService.getItemDetailsByWarehouseId(id);
+        model.addAttribute("warehouseItems", warehouseItems);
         return "warehouseInfo";
     }
 

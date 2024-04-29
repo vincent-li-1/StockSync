@@ -2,6 +2,7 @@ package stocksync.mapper;
 
 import org.apache.ibatis.annotations.*;
 import stocksync.model.WarehouseItem;
+import stocksync.model.ItemDetailsDTO;
 
 import java.util.List;
 
@@ -37,6 +38,38 @@ public interface WarehouseItemMapper {
                             @Param("offset") int offset,
                             @Param("sortByAsColumnName") String sortByAsColumnName,
                             @Param("sortMethod") String sortMethod);
+
+
+
+     /*@Select("SELECT wi.*, i.item_name, i.item_size, i.item_price FROM WarehouseItems wi " + "INNER JOIN Item i ON wi.item_id = i.item_id " + "WHERE wi.warehouse_id = #{warehouseId}")
+     @Results({
+            @Result(property = "warehouseItemId", column = "ware_items_id"),
+            @Result(property = "itemId",column = "item_id"),
+            @Result(property = "warehouseId",column = "warehouse_id"),
+            @Result(property = "quantity", column = "quantity")
+            @Result(property = "itemName", column = "item_name"),
+            @Result(property = "itemSize", column = "item_size"),
+            @Result(property = "itemPrice", column = "item_price"),
+    })
+    List<WarehouseItem> findItemsByWarehouseId(@Param("warehouseId") int warehouseId);
+
+    @Select("SELECT * FROM WarehouseItems WHERE warehouse_id = #{warehouseId}")
+    List<WarehouseItem> findItemsByWarehouseId(@Param("warehouseId") int warehouseId);*/
+
+    @Select("SELECT i.item_id, i.item_name, i.item_size, i.item_price, wi.quantity " +
+                "FROM Item i JOIN WarehouseItems wi ON i.item_id = wi.item_id " +
+                "WHERE wi.warehouse_id = #{warehouseId}")
+        @Results(value = {
+            @Result(property = "itemId", column = "item_id"),
+            @Result(property = "itemName", column = "item_name"),
+            @Result(property = "itemSize", column = "item_size"),
+            @Result(property = "itemPrice", column = "item_price"),
+            @Result(property = "quantity", column = "quantity")
+        })
+        List<ItemDetailsDTO> findItemDetailsByWarehouseId(@Param("warehouseId") int warehouseId);
+                    
+
+                        
 
     @Options(useGeneratedKeys = true, keyProperty = "warehouseItemId")
     @Insert("INSERT INTO StockSync.WarehouseItems (warehouse_id,item_id,quantity) Values (#{newWI.warehouseId},#{newWI.itemId},#{newWI.quantity})")
