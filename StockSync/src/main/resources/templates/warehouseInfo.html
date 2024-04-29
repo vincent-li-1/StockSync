@@ -63,7 +63,7 @@
                     <th>Ship QTY</th>
                 </tr>
                     
-                <tr th:each="item : ${warehouseItems}" id="${item.itemId}" class="${warehouse.warehouseId}">
+                <tr th:each="item : ${warehouseItems}" th:id="${item.itemId}" th:class="${warehouse.warehouseId}">
                     <td th:text="${item.itemName}"></td>
                     <td th:text="${item.itemSize}"></td>
                     <td th:text="${item.itemPrice}"></td>
