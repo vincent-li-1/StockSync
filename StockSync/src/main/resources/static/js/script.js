@@ -8,10 +8,11 @@ const warehouseInfoButton = document.querySelector("#warehouseInfo");
 
 const createShipmentButton = document.querySelector('#createShipment');
 const shipToCustomerButton = document.querySelector('#shipToCustomer');
+const shipToWarehouseButton = document.querySelector('#shipToWarehouseButton');
 
 createShipmentButton && createShipmentButton.addEventListener('click', handleCreateShipment);
 shipToCustomerButton && shipToCustomerButton.addEventListener('click', handleShipToCustomer);
-
+shipToWarehouseButton && shipToWarehouseButton.addEventListener('click', handleShipToWarehouse);
 
 searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
 
@@ -85,7 +86,7 @@ function handleCreateShipment() {
               // Check if the request was successful
               if (response.ok) {
                 alert('Shipment created successfully');
-                  // If the server responded with a successful status, redirect to the search results page
+                  // If the server responded with a successful status, reload the page
                   window.location.reload();
               } else {
                   // If the server response was not ok (e.g., 400, 500), handle it accordingly
@@ -128,7 +129,7 @@ function handleShipToCustomer() {
     //           // Check if the request was successful
     //           if (response.ok) {
     //             alert('Shipment created successfully');
-    //               // If the server responded with a successful status, redirect to the search results page
+    //               // If the server responded with a successful status, reload the page
     //               window.location.reload();
     //           } else {
     //               // If the server response was not ok (e.g., 400, 500), handle it accordingly
@@ -139,6 +140,54 @@ function handleShipToCustomer() {
     //           console.error('Network error:', error);
     //       }); 
     
+}
+
+function handleShipToWarehouse() {
+    const shipToId = document.querySelector("#shipToWarehouse").value;
+    // Convert all input qty fields to an Array
+    const inputs = Array.from(document.querySelectorAll(".inputQty"));
+    // Filter out empty inputs
+    const nonEmptyInputs = inputs.filter(input => input.value !== '');
+    if (nonEmptyInputs.length === 0) {
+        showErrorPopup('No qtys entered!');
+        return;
+    }
+    // Validate that the ship to id is a number
+    if (!shipToId || isNaN(Number(shipToId))) {
+        showErrorPopup('Warehouse destination ID must be a number');
+        return;
+    }
+
+    // Create the request body
+    const request = {
+        warehouseToId: Number(shipToId),
+        // Convert the item ID list to the ids from the parent element
+        itemIdList: nonEmptyInputs.map(input => Number(input.parentElement.parentElement.id)),
+        // Get either the input value or the total qty of items if input qty exceeds total
+        itemQuantityList: nonEmptyInputs.map(input => Math.min(Number(input.value), Number(input.parentElement.parentElement.dataset.qty)))
+    }
+    console.log(request);
+    // Post request
+    const response = fetch('/shipment/factoryShipment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+    }).then(response => {
+              // Check if the request was successful
+              if (response.ok) {
+                  alert('Shipment created successfully');
+                  // If the server responded with a successful status, reload page
+                  window.location.reload();
+              } else {
+                  // If the server response was not ok (e.g., 400, 500), handle it accordingly
+                  console.error('Request failed with status:', response.status);
+              }
+          })
+          .catch(error => {
+              console.error('Network error:', error);
+          }); 
 }
 
 function editWarehouse() {

@@ -30,7 +30,7 @@
                     <th>Item Price</th>
                     <th>Ship To Warehouse QTY</th>
                 </tr>
-                <tr th:each="item : ${items}">
+                <tr th:each="item : ${items}" th:id="${item.itemId}">
                     <td> <!-- Add checkbox for each item-->
                         <input type="checkbox" class="itemCheckbox" th:value="${item.itemId}">
                     </td>
