@@ -52,7 +52,7 @@ function handleCreateShipment() {
     const inputs = Array.from(document.querySelectorAll(".inputQty"));
     const nonEmptyInputs = inputs.filter(input => input.value !== '');
     const request = {
-        warehouseFromId: Number(URLSearchParams.get('WarehouseId')),
+        warehouseFromId: Number(nonEmptyInputs[0].parentElement.classList[0]),
         warehouseToId: Number(shipToId),
         itemIdList: nonEmptyInputs.map(input => Number(input.parentElement.id)),
         itemQuantityList: nonEmptyInputs.map(input => Number(input.value))
