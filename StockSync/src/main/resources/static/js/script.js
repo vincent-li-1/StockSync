@@ -53,6 +53,10 @@ function handleCreateShipment() {
     const inputs = Array.from(document.querySelectorAll(".inputQty"));
     // Filter out empty inputs
     const nonEmptyInputs = inputs.filter(input => input.value !== '');
+    if (nonEmptyInputs.length === 0) {
+        alert('No qtys entered!');
+        return;
+    }
     // Validate that the ship to id is a number
     if (!shipToId || isNaN(Number(shipToId))) {
         showErrorPopup('Warehouse destination ID must be a number');
