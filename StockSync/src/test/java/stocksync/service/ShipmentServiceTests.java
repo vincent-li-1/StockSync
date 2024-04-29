@@ -102,6 +102,31 @@ public class ShipmentServiceTests {
         verify(warehouseItemMapper).addQuantity(5,10001,101);
     }
 
+    @Test
+    public void testCustomerShipment() throws Exception {
+        ShipmentRequest testBody = new ShipmentRequest();
+        ArrayList<Integer> idList = new ArrayList<Integer>();
+        idList.add(100);
+        idList.add(101);
+        ArrayList<Integer> quantityList = new ArrayList<Integer>();
+        quantityList.add(5);
+        quantityList.add(5);
+
+        testBody.setItemIdList(idList);
+        testBody.setItemQuantityList(quantityList);
+        testBody.setWarehouseFromId(10001);
+
+        when(warehouseItemMapper.hasItem(10001,100)).thenReturn(true);
+        when(warehouseItemMapper.hasItem(10001,101)).thenReturn(true);
+
+        shipmentService.customerShipment(testBody);
+        verify(shipmentMapper,never()).insertShipment(any());
+        verify(warehouseItemMapper,atLeastOnce()).hasItem(10001,100);
+        verify(warehouseItemMapper,atLeastOnce()).hasItem(10001,101);
+        verify(warehouseItemMapper).subtractQuantity(5,10001,100);
+        verify(warehouseItemMapper).subtractQuantity(5,10001,101);
+    }
+
     /**
      * Test if the createWarehouse method in the service calls the corresponding method
      * in the mapper with only the provided warehouse parameter.

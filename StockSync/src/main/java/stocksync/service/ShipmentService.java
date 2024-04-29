@@ -77,6 +77,19 @@ public class ShipmentService {
         }
     }
 
+    public void customerShipment(ShipmentRequest body){
+        int warehouseFromId = body.getWarehouseFromId();
+        ArrayList<Integer> itemIdList = body.getItemIdList();
+        ArrayList<Integer> itemQuantityList = body.getItemQuantityList();
+        for(int i = 0; i < itemIdList.size(); i++){
+            int currentId = itemIdList.get(i);
+            int currentQuantity = itemQuantityList.get(i);
+            if(this.warehouseItemMapper.hasItem(warehouseFromId,currentId)){
+                this.warehouseItemMapper.subtractQuantity(currentQuantity,warehouseFromId,currentId);
+            }
+        }
+    }
+
     // Helper method to convert human-friendly attribute names to SQL query column names
     private String convertKeyToSqlColumn(String stringToConvert) {
         switch (stringToConvert) {
