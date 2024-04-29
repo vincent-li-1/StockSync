@@ -54,7 +54,7 @@ function handleCreateShipment() {
     // Filter out empty inputs
     const nonEmptyInputs = inputs.filter(input => input.value !== '');
     if (nonEmptyInputs.length === 0) {
-        alert('No qtys entered!');
+        showErrorPopup('No qtys entered!');
         return;
     }
     // Validate that the ship to id is a number
@@ -104,7 +104,10 @@ function handleShipToCustomer() {
     const inputs = Array.from(document.querySelectorAll(".inputQty"));
     // Filter out empty inputs
     const nonEmptyInputs = inputs.filter(input => input.value !== '');
-
+    if (nonEmptyInputs.length === 0) {
+        showErrorPopup('No qtys entered!');
+        return;
+    }
     // Create the request body
     const request = {
         // Get the warehouse from ID from the parent element
