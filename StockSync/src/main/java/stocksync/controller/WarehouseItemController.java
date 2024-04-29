@@ -66,6 +66,28 @@ public class WarehouseItemController {
         return "warehouseItemSearchResults";
     }
 
+    /*@GetMapping("/warehouse/{warehouseId}")
+    public String getWarehouseDetails(Model model, @PathVariable("warehouseId") int warehouseId) {
+        // Retrieve warehouse details
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+        if (warehouse == null) {
+            // Handle the case where the warehouse does not exist
+            // This could be redirecting to an error page or listing page
+            return "redirect:/warehouses";
+        }
+    
+        // Retrieve the list of items in the warehouse
+        List<WarehouseItem> warehouseItems = warehouseItemService.getItemsByWarehouseId(warehouseId);
+    
+        // Add the retrieved data to the model
+        model.addAttribute("warehouse", warehouse);
+        model.addAttribute("warehouseItems", warehouseItems);
+    
+        // The name of the Thymeleaf template to render (without the .html extension)
+        return "warehouseInfo";
+    }*/
+    
+
     @GetMapping("/warehouseItem/add")
     public String getAddWarehouseItemPage(Model model) {
         return "addWarehouseItem";
