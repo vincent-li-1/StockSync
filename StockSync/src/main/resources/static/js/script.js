@@ -51,13 +51,35 @@ function handleCreateShipment() {
     const shipToId = document.querySelector("#shipToId").value;
     const inputs = Array.from(document.querySelectorAll(".inputQty"));
     const nonEmptyInputs = inputs.filter(input => input.value !== '');
+    if (!shipToId || isNaN(Number(shipToId))) {
+        showErrorPopup('Warehouse destination ID must be a number');
+        return;
+    }
     const request = {
         warehouseFromId: Number(nonEmptyInputs[0].parentElement.parentElement.classList[0]),
         warehouseToId: Number(shipToId),
         itemIdList: nonEmptyInputs.map(input => Number(input.parentElement.parentElement.id)),
         itemQuantityList: nonEmptyInputs.map(input => Number(input.value))
     }
-    console.log(request);
+    const response = fetch('/shipment/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+    }).then(response => {
+              // Check if the request was successful
+              if (response.ok) {
+                  // If the server responded with a successful status, redirect to the search results page
+                  window.location.reload();
+              } else {
+                  // If the server response was not ok (e.g., 400, 500), handle it accordingly
+                  console.error('Request failed with status:', response.status);
+              }
+          })
+          .catch(error => {
+              console.error('Network error:', error);
+          }); 
     
 }
 
