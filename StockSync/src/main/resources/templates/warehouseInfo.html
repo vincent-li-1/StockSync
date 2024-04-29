@@ -44,22 +44,31 @@
             <button>Add Item</button>
         </a>
 
+        <div class="shipContainer" style="margin-top: 25px">
+            <label for="shipToId">Destination Warehouse ID:</label>
+            <input id="shipToId"></input>
+            <button id="createShipment">Create Shipment</button>
+            <button id="shipToCustomer">Ship to Customer</button>
+        </div>
+
+
         <div id="resultsWarehouseItems">
             
             <table>
                 <tr>
-                    <th>Select</th> <!-- Header for checkboxes column -->
                     <th>Name</th>
                     <th>Size</th>
                     <th>Price</th>
+                    <th>QTY</th>
+                    <th>Ship QTY</th>
                 </tr>
-                <tr th:each="item : ${warehouseItems}">
                     
-                    <tr th:each="item : ${warehouseItems}">
+                <tr th:each="item : ${warehouseItems}" th:id="${item.itemId}" th:class="${warehouse.warehouseId}" th:attr="data-qty=${item.quantity}">
                     <td th:text="${item.itemName}"></td>
                     <td th:text="${item.itemSize}"></td>
                     <td th:text="${item.itemPrice}"></td>
                     <td th:text="${item.quantity}"></td>
+                    <td><input type="text" class="inputQty"></input></td>
                 </tr>                
             </table>
         </div>
