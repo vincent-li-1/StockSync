@@ -164,7 +164,7 @@ function handleShipToWarehouse() {
         // Convert the item ID list to the ids from the parent element
         itemIdList: nonEmptyInputs.map(input => Number(input.parentElement.parentElement.id)),
         // Get either the input value or the total qty of items if input qty exceeds total
-        itemQuantityList: nonEmptyInputs.map(input => Math.min(Number(input.value), Number(input.parentElement.parentElement.dataset.qty)))
+        itemQuantityList: nonEmptyInputs.map(input => Number(input.value))
     }
     console.log(request);
     // Post request
