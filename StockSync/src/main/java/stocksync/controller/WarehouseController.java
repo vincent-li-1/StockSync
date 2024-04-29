@@ -42,6 +42,11 @@ public class WarehouseController {
         return "warehouseInfo";
     }
 
+    @GetMapping("/")
+    public String homePage() {
+        return "homepage";
+    }
+    
     @GetMapping("/search")
     public String getSearchPage() {
         return "search";
