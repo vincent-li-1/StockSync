@@ -49,13 +49,14 @@ function handleWarehouseInfoSubmit() {
 // function to create a shipment
 function handleCreateShipment() {
     const shipToId = document.querySelector("#shipToId").value;
-    alert('test');
-    alert(shipToId);
+    const inputs = Array.from(document.querySelectorAll(".inputQty"));
+    inputs = inputs.filter(input => input.value !== '');
+    
 }
 
 // function to ship to a customer
 function handleShipToCustomer() {
-    const qtys = document.querySelectorAll(".inputQty").map(query => query.value);
+    const qtys = Array.from(document.querySelectorAll(".inputQty")).map(qty => qty.value);
     alert(qtys);
 }
 
