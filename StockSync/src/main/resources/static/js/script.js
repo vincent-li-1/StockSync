@@ -49,6 +49,7 @@ function handleWarehouseInfoSubmit() {
 // function to create a shipment
 function handleCreateShipment() {
     const shipToId = document.querySelector("#shipToId").value;
+    alert('test');
     alert(shipToId);
 }
 
