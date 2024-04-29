@@ -119,26 +119,26 @@ function handleShipToCustomer() {
         itemQuantityList: nonEmptyInputs.map(input => Math.min(Number(input.value), Number(input.parentElement.parentElement.dataset.qty)))
     }
     console.log(request);
-    // const response = fetch('/shipment/', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(request)
-    // }).then(response => {
-    //           // Check if the request was successful
-    //           if (response.ok) {
-    //             alert('Shipment created successfully');
-    //               // If the server responded with a successful status, reload the page
-    //               window.location.reload();
-    //           } else {
-    //               // If the server response was not ok (e.g., 400, 500), handle it accordingly
-    //               console.error('Request failed with status:', response.status);
-    //           }
-    //       })
-    //       .catch(error => {
-    //           console.error('Network error:', error);
-    //       }); 
+    const response = fetch('/shipment/customerShipment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+    }).then(response => {
+              // Check if the request was successful
+              if (response.ok) {
+                alert('Shipment created successfully');
+                  // If the server responded with a successful status, reload the page
+                  window.location.reload();
+              } else {
+                  // If the server response was not ok (e.g., 400, 500), handle it accordingly
+                  console.error('Request failed with status:', response.status);
+              }
+          })
+          .catch(error => {
+              console.error('Network error:', error);
+          }); 
     
 }
 
