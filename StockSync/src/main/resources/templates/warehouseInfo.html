@@ -43,6 +43,8 @@
         <a href="/addItem">
             <button>Add Item</button>
         </a>
+        <button>Create Shipment</button>
+        <button>Ship to Customer</button>
 
         <div id="resultsWarehouseItems">
             
@@ -52,6 +54,7 @@
                     <th>Name</th>
                     <th>Size</th>
                     <th>Price</th>
+                    <th>Ship QTY</th>
                 </tr>
                 <tr th:each="item : ${warehouseItems}">
                     
@@ -60,6 +63,7 @@
                     <td th:text="${item.itemSize}"></td>
                     <td th:text="${item.itemPrice}"></td>
                     <td th:text="${item.quantity}"></td>
+                    <td><input type="text"></input></td>
                 </tr>                
             </table>
         </div>
