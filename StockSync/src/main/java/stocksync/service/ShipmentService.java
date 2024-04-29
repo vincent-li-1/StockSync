@@ -32,6 +32,7 @@ public class ShipmentService {
             throw new IllegalArgumentException("Maximum shipment capacity reached. Cannot add more shipments.");
         }
         // Otherwise, proceed with adding the shipment
+        this.shipmentMapper.insertShipment(shipment);
     }
 
     public void newCreateShipment(ShipmentRequest body){

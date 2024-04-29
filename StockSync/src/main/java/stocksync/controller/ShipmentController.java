@@ -96,7 +96,7 @@ public class ShipmentController {
         }
     }
 
-    @PostMapping("/shipment/factoryShipment")
+    @PostMapping("/shipment/customerShipment")
     public ResponseEntity<String> customerShipment(@RequestBody ShipmentRequest body){
         try{
             this.shipmentService.customerShipment(body);
