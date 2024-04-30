@@ -23,6 +23,11 @@ public class ShipmentService {
         this.warehouseItemMapper = whMapper;
     }
 
+    /**
+     * Method to insert a shipment
+     *
+     * @param shipment the shipment to insert
+     */
     public void createShipment(Shipment shipment){
         // Check the total number of existing shipments
         int totalShipments = shipmentMapper.getTotalNumEntries();
@@ -35,6 +40,11 @@ public class ShipmentService {
         this.shipmentMapper.insertShipment(shipment);
     }
 
+    /**
+     * create new shipment from warehouse to warehouse
+     *
+     * @param body a http request body
+     */
     public void newCreateShipment(ShipmentRequest body){
         int warehouseFromId = body.getWarehouseFromId();
         int warehouseToId = body.getWarehouseToId();
@@ -60,6 +70,12 @@ public class ShipmentService {
             this.warehouseItemMapper.addQuantity(currentQuantity,warehouseToId,currentId);
         }
     }
+
+    /**
+     * create new shipment from factory to warehouse
+     *
+     * @param body a http request body
+     */
     public void factoryShipment(ShipmentRequest body){
         int warehouseToId = body.getWarehouseToId();
         ArrayList<Integer> itemIdList = body.getItemIdList();
@@ -78,6 +94,11 @@ public class ShipmentService {
         }
     }
 
+    /**
+     * create new shipment from warehouse to customer
+     *
+     * @param body a http request body
+     */
     public void customerShipment(ShipmentRequest body){
         int warehouseFromId = body.getWarehouseFromId();
         ArrayList<Integer> itemIdList = body.getItemIdList();
@@ -91,7 +112,12 @@ public class ShipmentService {
         }
     }
 
-    // Helper method to convert human-friendly attribute names to SQL query column names
+    /**
+     * Helper method to convert human-friendly attribute names to SQL query column names
+     *
+     * @param stringToConvert human-friendly attributes
+     * @return corresponding SQL column names
+     */
     private String convertKeyToSqlColumn(String stringToConvert) {
         switch (stringToConvert) {
             case "origin":
@@ -105,6 +131,7 @@ public class ShipmentService {
 
     /**
      * Method to get a paginated list of warehouses based on sorting and search parameters
+     *
      * @param page is the current page to get
      * @param sortBy is the column/attribute that the request wants to results sorted by
      * @param sortMethod is the method, ascending or descending, to sort results by
@@ -142,6 +169,7 @@ public class ShipmentService {
 
     /**
      * Method to get a count of the total number of entries for a get request
+     *
      * @param searchKey is the column/attribute that the get is searched by
      * @param searchValue is the value that the get searched for
      * @return number of entries based on the parameters (if any)
@@ -188,6 +216,7 @@ public class ShipmentService {
      * of the page depending on which current page the user is on. The user's page
      * should be "centered" between the 5 options, unless there are fewer than 2 other
      * options in either direction
+     *
      * @param currentPage that the user is on
      * @param totalEntries that the given search yielded
      * @return array of integers representing page numbers
@@ -223,12 +252,22 @@ public class ShipmentService {
         return pagesArray;
     }
 
+    /**
+     * delete shipments with specified shipment ids
+     *
+     * @param shipmentIdList List of ids of shipments to delete
+     */
     public void deleteShipment(List<Integer> shipmentIdList) {
         for (int shipmentId : shipmentIdList) {
             shipmentMapper.deleteShipment(shipmentId);
         }
     }
 
+    /**
+     * update an existing shipment
+     *
+     * @param updateShipment shipment to update
+     */
     public void updateShipment(Shipment updateShipment) {
         shipmentMapper.updateShipment(updateShipment);
     }
