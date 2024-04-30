@@ -93,9 +93,14 @@ public class ItemController {
         }
     }
 
+    /*
+     * GET endpoint for the edit Item page
+     * It returns the name of the view to be rendered at the editItem url
+     */
     @GetMapping("/editItem")
     public String getEditItemPage(Model model, @RequestParam(value = "ItemId") int id) {
         Item item = itemService.getItemById(id);
+        // Add attributes to the model so it can be rendered in the view
         model.addAttribute("item", item);
         model.addAttribute("isItem", true);
         return "editItem";

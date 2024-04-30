@@ -130,8 +130,14 @@ public class ItemService implements IItemService {
         return itMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
     }
 
+    /*
+     * Method for getting a singular item given the id
+     * @param id is the id of the item to get
+     * @return the item that matches given id
+     */
     public Item getItemById(int id) {
         Item item = itMapper.findItemById(id);
+        // Make sure the item exists
         if (item == null) {
             throw new IllegalArgumentException("No item found with ID: " + id);
         }
