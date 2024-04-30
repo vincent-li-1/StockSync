@@ -8,7 +8,7 @@
           href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
-    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div th:replace="navbar :: items-navbar"></div> <!-- Include the navbar -->
     <div class="container">
         <h1>StockSync</h1>
         <a href="/searchItem">

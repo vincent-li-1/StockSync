@@ -8,7 +8,7 @@
           href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
-    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div th:replace="navbar :: items-navbar"></div> <!-- Include the navbar -->
     <div class="container">
         <h1>StockSync</h1>
         <div id="results">
@@ -29,6 +29,7 @@
                     <th>Item Size</th>
                     <th>Item Price</th>
                     <th>Ship To Warehouse QTY</th>
+                    <th>Action</th>
                 </tr>
                 <tr th:each="item : ${items}" th:id="${item.itemId}">
                     <td> <!-- Add checkbox for each item-->

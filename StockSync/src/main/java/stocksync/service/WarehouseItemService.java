@@ -142,20 +142,29 @@ public class WarehouseItemService {
         return pagesArray;
     }
 
+    /**
+     * Serice method for deleting warehouse
+     * @param wiIdList list of warehouse ids to delete
+     */
     public void deleteWarehouseItem(List<Integer> wiIdList) {
         for (int wiId : wiIdList) {
             warehouseItemMapper.deleteWarehouseItem(wiId);
         }
     }
 
+    /**
+     * Service method for updating warehouse item
+     * @param updateWi instance of warehouse item
+     */
     public void updateWarehouseItem(WarehouseItem updateWi) {
         warehouseItemMapper.updateWarehouseItem(updateWi);
     }
 
-    /*public Warehouse getWarehouseById(int warehouseId) {
-        return warehouseMapper.selectWarehouseById(warehouseId);
-    }*/
-
+    /**
+     * Find warehouse by specific id
+     * @param warehouseId warehouse id
+     * @return warehouse by id
+     */
     public List<ItemDetailsDTO> getItemDetailsByWarehouseId(int warehouseId) {
         return warehouseItemMapper.findItemDetailsByWarehouseId(warehouseId);
     }
