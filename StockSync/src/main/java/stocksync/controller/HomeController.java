@@ -19,10 +19,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.lang.Math;
 
+@Controller
 public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "homepage"; // This should correspond to the name of your homepage view
+        return "homepage"; 
     }
 }
