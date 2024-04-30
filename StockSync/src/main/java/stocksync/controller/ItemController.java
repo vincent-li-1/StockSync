@@ -31,6 +31,8 @@ public class ItemController {
         return "searchItem";
     }
 
+    
+
     @GetMapping("/itemSearchResults")
     public String getAllItems(Model model,
                     @RequestParam(value = "page") int page,
