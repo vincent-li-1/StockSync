@@ -44,7 +44,7 @@ public class ShipmentControllerTests {
      */
     @Test
     public void searchTest() throws Exception {
-        this.mockMvc.perform(get("/shipment/search"))
+        this.mockMvc.perform(get("/shipmentSearch"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("shipmentSearch"));
     }
