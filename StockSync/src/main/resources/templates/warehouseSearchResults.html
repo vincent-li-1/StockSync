@@ -20,8 +20,8 @@
             <table>
                 <tr>
                     <th>Select</th> <!-- Header for checkboxes column -->
-                    <th>Warehouse ID</th>
                     <th>Warehouse Name</th>
+                    <th>Warehouse ID</th>
                     <th>Warehouse Address</th>
                     <th>Longitude</th>
                     <th>Latitude</th>
@@ -34,9 +34,9 @@
                     </td>
                     <!-- Add a hyperlink to the warehouse info page -->
                     <td>
-                        <a th:href="@{/warehouseInfo(WarehouseId=${warehouse.warehouseId})}" th:text="${warehouse.warehouseId}"></a>
+                        <a th:href="@{/warehouseInfo(WarehouseId=${warehouse.warehouseId})}" th:text="${warehouse.warehouseName}"></a>
                     </td>
-                    <td th:text="${warehouse.warehouseName}"></td>
+                    <td th:text="'#' + ${warehouse.warehouseId}"></td>
                     <td th:text="${warehouse.warehouseAddress}"></td>
                     <td th:text="${warehouse.warehouseLong}"></td>
                     <td th:text="${warehouse.warehouseLat}"></td>
