@@ -29,7 +29,7 @@ public class ShipmentController {
         return "shipmentSearch";
     }
 
-    @GetMapping("/shipment/SearchResults")
+    @GetMapping("/shipmentSearchResults")
     public String getAllShipments(Model model,
                                    @RequestParam(value = "page") int page,
                                    @RequestParam(value = "sortBy") Optional<String> sortBy,
