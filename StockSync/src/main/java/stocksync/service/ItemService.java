@@ -130,10 +130,10 @@ public class ItemService implements IItemService {
         return itMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
     }
 
-    public Item getItemById(int itemId) {
-        Item item = itMapper.findItemById(itemId);
+    public Item getItemById(int id) {
+        Item item = itMapper.findItemById(id);
         if (item == null) {
-            throw new IllegalArgumentException("No item found with ID: " + itemId);
+            throw new IllegalArgumentException("No item found with ID: " + id);
         }
         return item;
     }
