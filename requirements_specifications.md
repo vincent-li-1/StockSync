@@ -8,7 +8,7 @@
 
 <!--A one paragraph summary of what the software will do.-->
 
-This is a full stack inventory management web application. The app allows a customer to store data on what inventory is available across a network of warehouses. The user can manage and edit that inventory, moving it between warehouses, as well as in or out of the network. Information about the products and the warehouses themselves are also accessible from the app. The app also stores a full log of actions taken by users so there is a clear audit trail for every piece of inventory in the network.
+This is a full stack inventory management web application. The app allows a customer to store data on what inventory is available across a network of warehouses. The user can manage and edit that inventory, moving it between warehouses, as well as in or out of the network. Information about the products and the warehouses themselves are also accessible from the app. 
 
 ### Customer
 
@@ -23,43 +23,34 @@ This product is designed for merchants specifically in the shoe industry. It is 
 <!--This section lists the behavior that the users see. This information needs to be presented in a logical, organized fashion. It is most helpful if this section is organized in outline form: a bullet list of major topics (e.g., one for each kind of user, or each major piece of system functionality) each with some number of subtopics.-->
 
 - **Navigation:**
-  - The application must provide a universal navigation bar present on all pages for quick access to Home, Log, Item Information, and Warehouse Information pages.
-  - User identification and logout options must be accessible from any location within the application.
+  - The application must provide a universal navigation bar present on all pages for quick access to Home,Item Information,Warehouse Information, and Shipment pages.
+  - User identification when first logging on
 - **Information Accessibility:**
-  - An information page for a given item or warehouse should show all data for that given item or warehouse
-  - Warehouse pages should enable users to view both historical and present inventory data
+  - An information page for the warehouse should show all data for that given warehouse including items with it.
+  - Warehouse pages enable users to view present inventory data
 - **Search Functionality:**
-  - Users must be able to perform searches with multiple filters, accessing detailed pages for items or warehouses from the result. An empty search should return all entries
-  - Within the search results, users should click on an item or warehouse and access the information page for that entry
+  - Users must be able to perform searches with multiple filters, accessing detailed pages for items,warehouses, or shipments from the result. An empty search should return all entries
+  - Within the search results for warehouses, users should click a specific warehouse and access the information page for that entry
 - **Data Management:**
   - Thes system must allow the creation, editing, movement, and deletion of inventory entries with appropriate validation and feedback mechanism
     - Entries with invalid information (missing fields or certain duplicates of unique fields) should fail with an error message
     - Users should edit the data of existing entries
-    - Users should move items from one warehouse to another or out of the inventory in case of a sale
+    - Users should move items from one warehouse to another 
     - This should be done individually on the item level or in bulk on the warehouse level
-    - Users should delete existing entries entirely
-- **Action Loggin and Audit Trails:**
-  - A complete log of user actions must be maintained and accessible
-    - Actions should also be filtered by user(s), time, action type, or a combination of the above
+    - Users can delete multiple entries
 - **Performance Requirment**
-    - Users should store at least 100 warehouses, 1,000 different users, and 10,000 products
+    - Users should store at least 100 warehouses, 1,000 different users, and 10,000 products but limited to 500 for each in the testing phase
     - Users should be able to load any webpage in "average" time on an "average" network - 3.21 seconds on a 60 mbps connection. In other words, no page should exceed 200 MB
 
 ### User stories/requirements provided by the customer Daniel Semeda: ###
 
-As a corporate manager, I want to see a count of how many facilities I have.
+As a corporate manager, I want to see how many facilities I have.
 
-As a corporate manager, I want to see an aggregate of the inventory that has come in to and gone out from all facilities over an arbitrary time span.
+As a corporate manager, I want to see the shipments from and to the warehouses
 
 As a corporate manager, I want to create a new facility.
 
-As a corporate manager, I want to mark that a facility has ceased operation as of some date. I don't want that facility included in aggregates after that date.
-
-As a corporate manager, I want to see my facilities represented on a map.
-
 As a facility manager, I want to view what I have in my facility's inventory.
-
-As a facility manager, I want to view what I used to have in my facility's inventory at some time in the past, and what I will have in my inventory at some point in the future.
 
 As a facility manager, I want to record a shipment that has arrived at or left the facility, including the quantities of items in that shipment, and I want this to automatically update my inventory.
 
@@ -67,7 +58,6 @@ As a facility manager, I want to record a scheduled shipment (a shipment whose d
 
 As a facility manager, I want to see a list of shipments that contained a particular kind of item.
 
-As a facility manager, I want to create a process that takes some set of inputs (inventory items and perhaps other inputs like time, money, and/or energy) and produces some set of outputs (which might include waste items).
 
 
 
@@ -80,9 +70,7 @@ As a facility manager, I want to create a process that takes some set of inputs 
 
 > As a user, when I search for a given item, I should see total quantity, as well as a breakdown of where those quantities are
 
-> As a user, when I'm looking at a warehouse I shall see what was at that warehouse at the start of any day in the past or present
-
-> As a user, I should see an audit trail of updates all other users have made to the data
+> As a user, when I'm looking at a warehouse I shall see what is at that warehouse
 
 
 ### Item specification for Shoe
@@ -113,15 +101,12 @@ As a facility manager, I want to create a process that takes some set of inputs 
 #### Core Functionalities
 * **Recording Arrived or Departed Shipments**:
     * The system should allow the facility manager to record details of shipments arriving at or leaving the facility.
-        * Each shipment record should include: Date and time of arrival/departure
-        * List of items
-        * Quantities of each item
+        * Each shipment record should include: 
+            * List of items
+            * Quantities of each item
     * The inventory should automatically update based on these records, increasing or decreasing item quantities.
-* **Recording Scheduled Shipments**:
-    * The system should specify their expected arrival or departure date and time.
-    * Scheduled shipments should include the expected list of items and their quantities.
 * **Tracking Shipments by Item**:
-    * The system should allow querying the history of shipments containing a particular item.
+    * The system should allow querying the history of shipments 
     * The query should return a list of shipments, including dates, and quantities of the item.
 
 ### Action Table Requirements
@@ -135,21 +120,13 @@ As a facility manager, I want to create a process that takes some set of inputs 
     * Responsible Role: Facility Manager
     * Expected Outcome: All details of outgoing shipments are recorded, and the inventory is adjusted to reflect these changes.
 
-* **Schedule Future Shipments (ACT03)**
-    * Responsible Role: Facility Manager
-    * Expected Outcome: The system allows for the scheduling of future shipments, with all relevant details included.
-
 * **Search and List Shipments Containing a Specific Item (ACT04)**
     * Responsible Role: Facility Manager/User
     * Expected Outcome: Users can search for and list all shipments (past and scheduled) containing a specific item.
 
 * **Record Processes Affecting Inventory (ACT05)**
     * Responsible Role: Facility Manager
-    * Expected Outcome: All processes that affect inventory (inputs, outputs) are recorded, showing their impact.
-
-* **Record Ad-hoc Shipments (ACT06)**
-    * Responsible Role: User
-    * Expected Outcome: Unplanned shipments are logged in the system with an immediate update to the inventory.
+    * Expected Outcome: All processes that affect inventory (inputs, outputs) are recorded
 
 * **Search and Display Item Inventory Details (ACT07)**
     * Responsible Role: User
@@ -157,18 +134,10 @@ As a facility manager, I want to create a process that takes some set of inputs 
 
 * **View Historical Inventory Status of a Warehouse (ACT08)**
     * Responsible Role: User
-    * Expected Outcome: Users should view the inventory status of any warehouse for any specified past or current date.
-
-* **Access Audit Trail (ACT09)**
-    * Responsible Role: User
-    * Expected Outcome: Users should access a detailed log of all changes made within the system.
-
+    * Expected Outcome: Users should view the inventory status of any warehouse 
 * **Manually Update Inventory Levels (ACT10)**
     * Responsible Role: Facility Manager/User
-    * Expected Outcome: Users have the ability to manually adjust inventory levels, with all changes logged.
-* **Generate and View Inventory and Shipment Reports (ACT11)**
-    * Responsible Role: Facility Manager/User
-    * Expected Outcome: Users can generate detailed reports on inventory and shipments for analysis and decision-making.
+    * Expected Outcome: Users have the ability to manually adjust inventory levels
 
 <!--### User Interface Requirements-->
 
@@ -276,35 +245,13 @@ classDiagram
     }
     class Item {
         - String itemName
-        - String itemType
         - String itemSize
         + Item(String itemName, int key, )
         + Item getItem(String name, int key)
-        + String getItemType()
         + void addItem()
         + void deleteItem()
     }
-    class Shirt {
-        + Shirt(String name)
-        + void getKey()
-        + void getName()
-        + void getPrice()
-        + void getSize()
-    }
-    class Pant {
-        + Pant(String name)
-        + void getKey()
-        + void getName()
-        + void getPrice()
-        + void getSize()
-    }
-    class Jacket {
-        + Jacket(String name)
-        + void getKey()
-        + void getName()
-        + void getPrice()
-        + void getSize()
-    }
+    
     class Shoe {
         + Shoe(String name)
         + void getKey()
@@ -313,9 +260,7 @@ classDiagram
         + void getSize()
     }
     Driver <|-- Item
-    Item <|-- Shirt
-    Item <|-- Pant
-    Item <|-- Jacket
+    
     Item <|-- Shoe
 ```
 
@@ -349,21 +294,23 @@ stateDiagram
     Ready --> Login : Login
     Login --> Home : Success
     Login --> Login : Failed
-    Home --> Search : SearchBar
-    Home --> AddItem : Add
-    AddItem --> Home : BackButton
-    Home --> DelItem : Del
-    Home --> EditItem : Edit
-    DelItem --> Home : BackButton
-    EditItem --> Home : BackButton
-    Search --> Search : SearchError
-    Search --> Home : BackButton
-    Search --> Item : SearchSuccess
-    Item --> Search : SearchDiff
-    Search --> Login : Logout
-    AddItem --> Login : Logout
-    DelItem --> Login : Logout
-    Item --> Login : Logout
+    Home --> Warehouses : search Warehouses
+    Warehouses --> warehouse Form: add a Warehouse
+    Warehouses --> all Warehouses: view all the warehouses
+    all Warehouses --> edit Warehouse
+    all Warehouses --> delete warehouses: multiple w/ checkbox
+    all Warehouses --> Individual Warehouse: track items
+    Warehouses --> Warehouses : search again
+    Home --> Items : search Items
+    Items--> item Form: add Items
+    Items--> all Items: view all items
+    all Items --> edit Item
+    all Items -->delete items: multiple w/ checkbox
+    Items--> Items: search again
+    Home --> Shipments: search Shipments
+    Shipments --> all Shipments: view all the shipments
+    Shipments --> shipments: search again
+    
 ```
 
 #### Sequence Diagram
