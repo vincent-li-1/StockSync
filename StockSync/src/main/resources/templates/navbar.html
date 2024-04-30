@@ -12,7 +12,7 @@
         <nav class="navbar">
             <a th:href="@{/search}">Warehouses</a>
             <a th:href="@{/searchItem}">Items</a>
-            <a th:href="@{/shipmentSearch}">Shipments</a>
+            <a th:href="@{/shipmentSearchResults(page=1)}">Shipments</a>
         </nav>
     </div>
     <!-- Warehouses Navbar Fragment -->
@@ -37,8 +37,6 @@
     <div th:fragment="shipments-navbar">
         <nav class="navbar">
             <a th:href="@{/}"> <img th:src="@{/homeIcon.svg}" alt="Home" /></a>
-            <a th:href="@{/shipmentSearch}">Search Shipments</a>
-            <a th:href="@{/shipmentSearchResults(page=1)}">All Shipments</a>
         </nav>
     </div>
 </body>

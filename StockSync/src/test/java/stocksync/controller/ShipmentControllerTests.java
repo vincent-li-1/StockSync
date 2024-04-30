@@ -5,7 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import stocksync.DisabledSecurityConfig;
+import stocksync.StockSyncApplication;
+import stocksync.StockSyncSecurityApplication;
 import stocksync.model.Shipment;
 import stocksync.service.ShipmentService;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -13,11 +19,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
+import org.springframework.test.context.ContextConfiguration;
+import stocksync.StockSyncApplication;
+import stocksync.service.ItemService;
+import org.springframework.security.test.context.support.WithMockUser;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 /**
  * Test class for controllers.
  */
+@ContextConfiguration(classes = {StockSyncApplication.class, DisabledSecurityConfig.class})
+@ActiveProfiles("test")
 @WebMvcTest(ShipmentController.class)
+
 public class ShipmentControllerTests {
     /*
      * Set up test environment:
@@ -29,6 +46,7 @@ public class ShipmentControllerTests {
     private MockMvc mockMvc;
     @MockBean
     private ShipmentService mockService;
+
     //setting up a standard test warehouse object
     public Shipment setupShipment(){
         Shipment testShipment = new Shipment();
@@ -44,7 +62,7 @@ public class ShipmentControllerTests {
      */
     @Test
     public void searchTest() throws Exception {
-        this.mockMvc.perform(get("/shipment/search"))
+        this.mockMvc.perform(get("/shipmentSearch"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("shipmentSearch"));
     }
@@ -71,6 +89,7 @@ public class ShipmentControllerTests {
      * @throws Exception
      */
     @Test
+
     public void updateShipmentTest() throws Exception {
         Shipment testShipment = setupShipment();
         MockHttpServletRequestBuilder request = post("/shipment/update")

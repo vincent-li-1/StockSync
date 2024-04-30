@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.*;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import stocksync.DisabledSecurityConfig;
+import stocksync.StockSyncApplication;
 import stocksync.model.Warehouse;
 import stocksync.service.WarehouseService;
 import stocksync.model.WarehouseItem;
@@ -17,14 +21,18 @@ import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
+
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,6 +44,8 @@ import org.junit.jupiter.api.Test;
  * Test class for controllers.
  */
 @WebMvcTest(WarehouseController.class)
+@ContextConfiguration(classes = {StockSyncApplication.class, DisabledSecurityConfig.class})
+@ActiveProfiles("test")
 public class WarehouseControllerTests {
     /*
      * Set up test environment:
@@ -85,6 +95,7 @@ public class WarehouseControllerTests {
      * @throws Exception if the test failed
      */
     @Test
+    @WithUserDetails(value = "USER")
     public void searchTest() throws Exception {
         this.mockMvc.perform(get("/search"))
                     .andExpect(status().isOk())
