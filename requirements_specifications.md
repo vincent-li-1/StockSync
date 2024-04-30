@@ -289,22 +289,22 @@ title: Sample State Diagram For Inventory Maneagment System
 ---
 stateDiagram
     [*] --> Ready
-    Ready --> Login : Login
+    Ready --> Login
     Login --> Home : Success
     Login --> Login : Failed
-    Home --> Search Warehouses 
-    Search Warehouses --> warehouse Form
-    Search Warehouses --> all Warehouses
-    all Warehouses --> edit Warehouse
-    all Warehouses --> delete warehouses
-    all Warehouses --> Individual Warehouse
-    Home --> Search Items
-    Search Items--> item Form
-    Search Items--> all Items
-    all Items --> edit Item
-    all Items -->delete items
+    Home --> SearchWarehouses
+    SearchWarehouses --> WarehouseForm
+    SearchWarehouses --> AllWarehouses
+    AllWarehouses --> EditWarehouse
+    AllWarehouses --> DeleteWarehouses
+    AllWarehouses --> IndividualWarehouse
+    Home --> SearchItems
+    SearchItems --> ItemForm
+    SearchItems --> AllItems
+    AllItems --> EditItem
+    AllItems --> DeleteItems
     Home --> Shipments
-    Shipments --> all Shipments
+    Shipments --> AllShipments
 
     
 ```
