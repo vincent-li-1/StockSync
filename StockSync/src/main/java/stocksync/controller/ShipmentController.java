@@ -24,11 +24,27 @@ public class ShipmentController {
         this.shipmentService = shipmentService;
     }
 
+    /**
+     * Endpoint for homepage of Shipment
+     *
+     * @return shipmentSearch is the html page for shipment home
+     */
     @GetMapping("/shipmentSearch")
     public String getSearchPage() {
         return "shipmentSearch";
     }
 
+    /**
+     * Endpoint for shipment search result page
+     *
+     * @param model model for holding properties needed to render the search result page
+     * @param page  result page number
+     * @param sortBy key used to sort search results
+     * @param sortMethod increasing or decreasing order
+     * @param searchKey key used for searching
+     * @param searchValue value used for searching
+     * @return
+     */
     @GetMapping("/shipmentSearchResults")
     public String getAllShipments(Model model,
                                    @RequestParam(value = "page") int page,
@@ -67,11 +83,23 @@ public class ShipmentController {
         return "shipmentSearchResults";
     }
 
+    /**
+     * Endpoint for add shipment page
+     *
+     * @param model
+     * @return addShipment html page
+     */
     @GetMapping("/shipment/add")
     public String getAddShipmentPage(Model model) {
         return "addShipment";
     }
 
+    /**
+     * Endpoint for creating shipment from a warehouse to a warehouse
+     *
+     * @param body http request body
+     * @return a http response entity with a 200 if shipment is created successfully, otherwise a 400
+     */
     @PostMapping("/shipment/create")
     public ResponseEntity<String> createShipment(@RequestBody ShipmentRequest body){
         try{
@@ -84,6 +112,12 @@ public class ShipmentController {
         }
     }
 
+    /**
+     * Endpoint for creating shipment from factory to a warehouse
+     *
+     * @param body http request body
+     * @return a http response entity with a 200 if shipment is created successfully, otherwise a 400
+     */
     @PostMapping("/shipment/factoryShipment")
     public ResponseEntity<String> factoryShipment(@RequestBody ShipmentRequest body){
         try{
@@ -96,6 +130,12 @@ public class ShipmentController {
         }
     }
 
+    /**
+     * Endpoint for creating shipment from a warehouse to customer
+     *
+     * @param body http request body
+     * @return a http response entity with a 200 if shipment is created successfully, otherwise a 400
+     */
     @PostMapping("/shipment/customerShipment")
     public ResponseEntity<String> customerShipment(@RequestBody ShipmentRequest body){
         try{
@@ -108,6 +148,14 @@ public class ShipmentController {
         }
     }
 
+    /**
+     * Endpoint for creating shipment with a form in the frontend
+     * Note this should not be used directly, for creating shipment
+     * Use '/shipment/create' '/shipment/factoryShipment' '/shipment/customerShipment' instead
+     *
+     * @param newShipment shipment object created by the form
+     * @return a http response entity with a 200 if shipment is created successfully, otherwise a 400
+     */
     @PostMapping(value = "/insertShipment", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<String> insertShipment(@ModelAttribute Shipment newShipment){
         try {
@@ -133,6 +181,12 @@ public class ShipmentController {
         return "redirect:/shipmentSearchResults?page=1";
     }
 
+    /**
+     * Endpoint for updating existing shipment
+     *
+     * @param updateShipment
+     * @return a http response entity with a 200 if shipment is edited successfully, otherwise a 400
+     */
     @PostMapping(value = "/shipment/update", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<String> updateShipment(@ModelAttribute Shipment updateShipment) {
         try {

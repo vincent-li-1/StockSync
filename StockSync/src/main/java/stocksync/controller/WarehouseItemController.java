@@ -25,6 +25,7 @@ public class WarehouseItemController {
 
     /**
      * Delete a warehouseItem with UPDATE request trigger by a button in the frontend
+     *
      * @return url back to the search page
      */
     @GetMapping("/warehouseItem/search")
@@ -34,6 +35,7 @@ public class WarehouseItemController {
 
     /**
      * search for a warehouseItem with SEARCH request trigger by a button in the frontend
+     *
      * @param model a list of id of warehouseItems to search
      * @param page page number currently on
      * @param sortBy sort by
@@ -82,6 +84,7 @@ public class WarehouseItemController {
     
     /**
      * Add a warehouseItem with ADD request trigger by a button in the frontend
+     *
      * @param model a list of id of warehouseItems to add
      * @return url to add warehouse item
      */
@@ -92,6 +95,7 @@ public class WarehouseItemController {
 
     /**
      * Insert a warehouseItem with INSERT request trigger by a button in the frontend
+     *
      * @param newWarehouseItem a list of id of warehouseItems to insert
      * @return response entity
      */
@@ -111,6 +115,7 @@ public class WarehouseItemController {
 
     /**
      * Delete a warehouseItem with DELETE request trigger by a button in the frontend
+     *
      * @param warehouseItemIdList a list of id of warehouseItems to delete
      * @return url back to the search page
      */
@@ -122,6 +127,7 @@ public class WarehouseItemController {
 
     /**
      * Delete a warehouseItem with UPDATE request trigger by a button in the frontend
+     *
      * @param updateWarehouseItem a list of id of warehouseItems to update
      * @return url back to the search page
      */

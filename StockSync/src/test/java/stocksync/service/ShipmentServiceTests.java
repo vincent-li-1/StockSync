@@ -54,8 +54,13 @@ public class ShipmentServiceTests {
     private Shipment otherShipment;
 
 
+    /**
+     * Test for create shipment from warehouse to warehouse
+     * @throws Exception if failed to create shipment
+     */
     @Test
     public void testNewCreateShipment() throws Exception {
+        //setting up test request body
         ShipmentRequest testBody = new ShipmentRequest();
         ArrayList<Integer> idList = new ArrayList<Integer>();
         idList.add(100);
@@ -63,13 +68,13 @@ public class ShipmentServiceTests {
         ArrayList<Integer> quantityList = new ArrayList<Integer>();
         quantityList.add(5);
         quantityList.add(5);
-
         testBody.setShipmentId(100);
         testBody.setItemIdList(idList);
         testBody.setItemQuantityList(quantityList);
         testBody.setWarehouseFromId(10000);
         testBody.setWarehouseToId(10001);
 
+        //test with test request body
         shipmentService.newCreateShipment(testBody);
         verify(shipmentMapper).insertShipment(any());
         verify(warehouseItemMapper).subtractQuantity(5,10000,100);
@@ -80,8 +85,13 @@ public class ShipmentServiceTests {
         verify(warehouseItemMapper).addQuantity(5,10001,101);
     }
 
+    /**
+     * Test for create shipment from factory to warehouse
+     * @throws Exception if failed to create shipment
+     */
     @Test
     public void testFactoryShipment() throws Exception {
+        //setting up test request body
         ShipmentRequest testBody = new ShipmentRequest();
         ArrayList<Integer> idList = new ArrayList<Integer>();
         idList.add(100);
@@ -89,11 +99,11 @@ public class ShipmentServiceTests {
         ArrayList<Integer> quantityList = new ArrayList<Integer>();
         quantityList.add(5);
         quantityList.add(5);
-
         testBody.setItemIdList(idList);
         testBody.setItemQuantityList(quantityList);
         testBody.setWarehouseToId(10001);
 
+        //test with test request body
         shipmentService.factoryShipment(testBody);
         verify(shipmentMapper,never()).insertShipment(any());
         verify(warehouseItemMapper,atLeastOnce()).hasItem(10001,100);
@@ -102,8 +112,13 @@ public class ShipmentServiceTests {
         verify(warehouseItemMapper).addQuantity(5,10001,101);
     }
 
+    /**
+     * Test for create shipment from warehouse to customer
+     * @throws Exception if failed to create shipment
+     */
     @Test
     public void testCustomerShipment() throws Exception {
+        //setting up test request body
         ShipmentRequest testBody = new ShipmentRequest();
         ArrayList<Integer> idList = new ArrayList<Integer>();
         idList.add(100);
@@ -111,14 +126,13 @@ public class ShipmentServiceTests {
         ArrayList<Integer> quantityList = new ArrayList<Integer>();
         quantityList.add(5);
         quantityList.add(5);
-
         testBody.setItemIdList(idList);
         testBody.setItemQuantityList(quantityList);
         testBody.setWarehouseFromId(10001);
 
+        //test with test request body
         when(warehouseItemMapper.hasItem(10001,100)).thenReturn(true);
         when(warehouseItemMapper.hasItem(10001,101)).thenReturn(true);
-
         shipmentService.customerShipment(testBody);
         verify(shipmentMapper,never()).insertShipment(any());
         verify(warehouseItemMapper,atLeastOnce()).hasItem(10001,100);
@@ -210,6 +224,10 @@ public class ShipmentServiceTests {
         assertArrayEquals(shipmentService.getPagesArray(1, 40), pagesArray);
     }
 
+    /**
+     * Test if the page array correctly gets values when on the first two pages
+     * @throws Exception if failed to get correct value
+     */
     @Test
     public void testGetPagesArrayOnFirstTwoPages() throws Exception {
         int[] pagesArray = new int[] {1, 2, 3, 4, 5};
@@ -217,6 +235,10 @@ public class ShipmentServiceTests {
         assertArrayEquals(shipmentService.getPagesArray(2, 100), pagesArray);
     }
 
+    /**
+     * Test if the page array correctly gets values when on the last two pages
+     * @throws Exception if failed to get correct value
+     */
     @Test
     public void testGetPagesArrayOnLastTwoPages() throws Exception {
         int[] pagesArray = new int[] {6, 7, 8, 9, 10};
@@ -224,6 +246,10 @@ public class ShipmentServiceTests {
         assertArrayEquals(shipmentService.getPagesArray(9, 100), pagesArray);
     }
 
+    /**
+     * Test if the page array correctly gets values when on the middle pages
+     * @throws Exception if failed to get correct value
+     */
     @Test
     public void testGetPagesArrayInMiddlePage() throws Exception {
         int[] pagesArray1 = new int[] {4, 5, 6, 7, 8};
