@@ -293,18 +293,18 @@ stateDiagram
     Login --> Home : Success
     Login --> Login : Failed
     Home --> Search Warehouses 
-    Warehouses --> warehouse Form
-    Warehouses --> all Warehouses
+    Search Warehouses --> warehouse Form
+    Search Warehouses --> all Warehouses
     all Warehouses --> edit Warehouse
     all Warehouses --> delete warehouses
     all Warehouses --> Individual Warehouse
     Home --> Search Items
-    Items--> item Form
-    Items--> all Items
+    Search Items--> item Form
+    Search Items--> all Items
     all Items --> edit Item
     all Items -->delete items
     Home --> Shipments
-    Shipments --> all Shipments: view all the shipments
+    Shipments --> all Shipments
 
     
 ```
