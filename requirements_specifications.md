@@ -118,9 +118,9 @@ As a facility manager, I want to see a list of shipments that contained a partic
     * Responsible Role: Facility Manager
     * Expected Outcome: All details of outgoing shipments are recorded, and the inventory is adjusted to reflect these changes.
 
-* **Search and List Shipments Containing a Specific Item (ACT04)**
+* **List Shipments Containing a Specific Item (ACT04)**
     * Responsible Role: Facility Manager/User
-    * Expected Outcome: Users can search for and list all shipments (past and scheduled) containing a specific item.
+    * Expected Outcome: Users can list all shipments (past and scheduled) containing a specific item.
 
 * **Record Processes Affecting Inventory (ACT05)**
     * Responsible Role: Facility Manager
