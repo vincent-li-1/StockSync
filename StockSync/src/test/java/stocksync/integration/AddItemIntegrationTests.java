@@ -27,11 +27,9 @@ public class AddItemIntegrationTests {
         // Check if the response status code is OK (200)
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         // Navbar presense
-        assertThat(response.getBody()).contains("Search");
-        assertThat(response.getBody()).contains("Add Warehouse");
-        assertThat(response.getBody()).contains("All Warehouses");
-        assertThat(response.getBody()).contains("Search Item");
+        assertThat(response.getBody()).contains("Search Items");
         assertThat(response.getBody()).contains("Add Item");
+        assertThat(response.getBody()).contains("All Items");
         // Team name presense
         assertThat(response.getBody()).contains("StockSync");
       
