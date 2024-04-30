@@ -8,9 +8,15 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
-
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import stocksync.DisabledSecurityConfig;
+import stocksync.StockSyncApplication;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(classes = {StockSyncApplication.class, DisabledSecurityConfig.class})
+@ActiveProfiles("test")
 public class AddWarehouseIntegrationTests {
 
     @LocalServerPort
