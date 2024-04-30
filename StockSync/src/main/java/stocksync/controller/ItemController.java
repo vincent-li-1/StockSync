@@ -2,9 +2,9 @@ package stocksync.controller;
 
 import stocksync.mapper.ItemMapper;
 import stocksync.model.Item;
+import stocksync.model.Warehouse;
 import stocksync.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -93,6 +93,13 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/editItem")
+    public String getEditItemPage(Model model, @RequestParam(value = "ItemId") int id) {
+        Item item = itemService.getItemById(id);
+        model.addAttribute("item", item);
+        model.addAttribute("isItem", true);
+        return "editItem";
+    }
 
     /**
      * Delete a item with DELETE request trigger by a button in the frontend
