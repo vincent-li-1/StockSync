@@ -29,7 +29,7 @@ This product is designed for merchants specifically in the shoe industry. It is 
   - An information page for the warehouse should show all data for that given warehouse including items with it.
   - Warehouse pages enable users to view present inventory data
 - **Search Functionality:**
-  - Users must be able to perform searches with multiple filters, accessing detailed pages for items,warehouses, or shipments from the result. An empty search should return all entries
+  - Users must be able to perform searches with multiple filters, accessing detailed pages for items,or warehouses from the result. An empty search should return all entries
   - Within the search results for warehouses, users should click a specific warehouse and access the information page for that entry
 - **Data Management:**
   - Thes system must allow the creation, editing, movement, and deletion of inventory entries with appropriate validation and feedback mechanism
@@ -53,8 +53,6 @@ As a corporate manager, I want to create a new facility.
 As a facility manager, I want to view what I have in my facility's inventory.
 
 As a facility manager, I want to record a shipment that has arrived at or left the facility, including the quantities of items in that shipment, and I want this to automatically update my inventory.
-
-As a facility manager, I want to record a scheduled shipment (a shipment whose date and/or time is in the future).
 
 As a facility manager, I want to see a list of shipments that contained a particular kind of item.
 
@@ -294,22 +292,20 @@ stateDiagram
     Ready --> Login : Login
     Login --> Home : Success
     Login --> Login : Failed
-    Home --> Warehouses : search Warehouses
-    Warehouses --> warehouse Form: add a Warehouse
-    Warehouses --> all Warehouses: view all the warehouses
+    Home --> Search Warehouses 
+    Warehouses --> warehouse Form
+    Warehouses --> all Warehouses
     all Warehouses --> edit Warehouse
-    all Warehouses --> delete warehouses: multiple w/ checkbox
-    all Warehouses --> Individual Warehouse: track items
-    Warehouses --> Warehouses : search again
-    Home --> Items : search Items
-    Items--> item Form: add Items
-    Items--> all Items: view all items
+    all Warehouses --> delete warehouses
+    all Warehouses --> Individual Warehouse
+    Home --> Search Items
+    Items--> item Form
+    Items--> all Items
     all Items --> edit Item
-    all Items -->delete items: multiple w/ checkbox
-    Items--> Items: search again
-    Home --> Shipments: search Shipments
+    all Items -->delete items
+    Home --> Shipments
     Shipments --> all Shipments: view all the shipments
-    Shipments --> shipments: search again
+
     
 ```
 
