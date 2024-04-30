@@ -176,6 +176,7 @@ tr:hover {
     justify-content: space-around;
     padding: 9px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    align-items: center; /* Align items vertically */
 }
 
 /* Navigation link styling */
@@ -186,6 +187,10 @@ tr:hover {
     text-decoration: none;
     font-size: 17px;
     transition: all 0.3s ease; /* Smooth transition for all properties */
+    display: flex; /* Use flex layout for the links */
+    align-items: center; /* Align the text and icons vertically */
+    justify-content: center; /* Center content horizontally */
+    position: relative; /* Add relative positioning to the parent */
 }
 
 /* Navigation link hover effect */
@@ -197,9 +202,11 @@ tr:hover {
 /* Navigation link underline */
 .navbar a::after {
     content: '';
+    position: absolute; /* Position absolutely within the parent a element */
     display: block;
     width: 0;
-    height: 2px;
+    bottom: 8px;
+    height: 2.5px;
     background-color: white;
     transition: width 0.3s ease;
 }
@@ -207,6 +214,10 @@ tr:hover {
 /* Navigation link hover effect for underline */
 .navbar a:hover::after {
     width: 100%;
+}
+.navbar img {
+    height: 40px; /* Adjust the size as needed */
+    width: auto; /* This will maintain the aspect ratio */
 }
 
 .pagination span {
@@ -221,5 +232,7 @@ tr:hover {
     height: 450px; /* Set the height of the logo */
     width: 450px;
 }
+
+
 
   

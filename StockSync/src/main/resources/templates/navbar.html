@@ -2,17 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Bar</title>
     <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <div th:fragment="navbar">
+        <!-- Home Navbar Fragment -->
+    <div th:fragment="home-navbar">
         <nav class="navbar">
-            <a th:href="@{/search}">Search</a>
+            <a th:href="@{/search}">Warehouses</a>
+            <a th:href="@{/searchItem}">Items</a>
+            <a th:href="@{/shipmentSearch}">Shipments</a>
+        </nav>
+    </div>
+    <!-- Warehouses Navbar Fragment -->
+    <div th:fragment="warehouses-navbar">
+        <nav class="navbar">
+            <a th:href="@{/}"> <img th:src="@{/homeIcon.svg}" alt="Home" /></a>
+            <a th:href="@{/search}">Search Warehouses</a>
             <a th:href="@{/addWarehouse}">Add Warehouse</a>
             <a th:href="@{/warehouseSearchResults(page=1)}">All Warehouses</a>
-            <a th:href="@{/searchItem}">Search Item</a>
+        </nav>
+    </div>
+    <!-- Items Navbar Fragment -->
+    <div th:fragment="items-navbar">
+        <nav class="navbar">
+            <a th:href="@{/}"> <img th:src="@{/homeIcon.svg}" alt="Home" /></a>
+            <a th:href="@{/searchItem}">Search Items</a>
             <a th:href="@{/addItem}">Add Item</a>
+            <a th:href="@{/itemSearchResults(page=1)}">All Items</a>
+        </nav>
+    </div>
+    <!-- Shipments Navbar Fragment -->
+    <div th:fragment="shipments-navbar">
+        <nav class="navbar">
+            <a th:href="@{/}"> <img th:src="@{/homeIcon.svg}" alt="Home" /></a>
+            <a th:href="@{/shipmentSearch}">Search Shipments</a>
+            <a th:href="@{/shipmentSearchResults(page=1)}">All Shipments</a>
         </nav>
     </div>
 </body>
