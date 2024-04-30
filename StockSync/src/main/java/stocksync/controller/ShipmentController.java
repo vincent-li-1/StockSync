@@ -24,7 +24,7 @@ public class ShipmentController {
         this.shipmentService = shipmentService;
     }
 
-    @GetMapping("/shipment/search")
+    @GetMapping("/shipmentSearch")
     public String getSearchPage() {
         return "shipmentSearch";
     }
