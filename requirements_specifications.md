@@ -293,13 +293,13 @@ stateDiagram
     Login --> Home : Success
     Login --> Login : Failed
     Home --> SearchWarehouses
-    SearchWarehouses --> WarehouseForm
+    SearchWarehouses --> WarehouseForm: add a Warehouse
     SearchWarehouses --> AllWarehouses
     AllWarehouses --> EditWarehouse
     AllWarehouses --> DeleteWarehouses
     AllWarehouses --> IndividualWarehouse
     Home --> SearchItems
-    SearchItems --> ItemForm
+    SearchItems --> ItemForm: add a item
     SearchItems --> AllItems
     AllItems --> EditItem
     AllItems --> DeleteItems
