@@ -3,6 +3,7 @@ package stocksync.service;
 import java.math.BigDecimal;
 import java.util.List;
 import stocksync.model.Item;
+import stocksync.model.Warehouse;
 import stocksync.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -129,6 +130,13 @@ public class ItemService implements IItemService {
         return itMapper.findBySearch(limit, offset, sortByAsColumnName, sortMethod, searchKeyAsColumnName, searchValueWithWildcard);
     }
 
+    public Item getItemById(int id) {
+        Item item = itMapper.findItemById(id);
+        if (item == null) {
+            throw new IllegalArgumentException("No item found with ID: " + id);
+        }
+        return item;
+    }
 
     /**
      * Method to get a count of the total number of entries for a get request

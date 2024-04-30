@@ -1,6 +1,8 @@
 package stocksync.mapper;
 
 import stocksync.model.Item;
+import stocksync.model.Warehouse;
+
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -33,6 +35,15 @@ public interface ItemMapper {
                         @Param("offset") int offset,
                         @Param("sortByAsColumnName") String sortByAsColumnName,
                         @Param("sortMethod") String sortMethod);
+
+    @Select("SELECT * FROM StockSync.Item WHERE item_id = #{id}")
+    @Results({
+        @Result(property = "itemId", column = "item_id"),
+        @Result(property = "itemName",column = "item_name"),
+        @Result(property = "itemSize",column = "item_size"),
+        @Result(property = "itemPrice", column = "item_price"),
+    })
+    Item findItemById(@Param("id") int id);
 
     @Insert("INSERT INTO StockSync.Item (item_id,item_name,item_size,item_price) Values (#{newIt.itemId},#{newIt.itemName},#{newIt.itemSize},#{newIt.itemPrice})")
     void insertItem(@Param("newIt") Item newIt);

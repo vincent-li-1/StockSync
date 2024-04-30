@@ -27,11 +27,14 @@ const deleteSelectedItemButton = document.querySelector("#deleteSelectedItems");
 // attach event listener to the delete selected button
 deleteSelectedItemButton && deleteSelectedItemButton.addEventListener('click', handleDeleteSelectedItem);
 
-
+// get reference to the edit item button
+const editItemButton = document.querySelector("#submitEditItem");
+// attach event listener to the button
+editItemButton && editItemButton.addEventListener('click', editItem);
 
 // get reference to the edit warehouse button
 const editWarehouseButton = document.querySelector("#submitEdit");
-// attach event listener to the delete selected button
+// attach event listener to the button
 editWarehouseButton && editWarehouseButton.addEventListener('click', editWarehouse);
 
 searchItemSubmitButton && searchItemSubmitButton.addEventListener('click', handleSearchItemSubmit);
@@ -189,6 +192,45 @@ function handleShipToWarehouse() {
               console.error('Network error:', error);
           }); 
 }
+
+function editItem() {
+    // Get the form data
+    const itemId = document.getElementById('itemId').value;
+    const itemName = document.getElementById('itemName').value;
+    const itemPrice = document.getElementById('itemSize').value;
+    const itemSize = document.getElementById('itemPrice').value;
+
+    // Create the data object
+    const itemData = [];
+
+    itemData[0] = itemId;
+    itemData[1] = itemName;
+    itemData[2] = itemPrice;
+    itemData[3] = itemSize;
+
+    // Send the data to the backend using fetch
+    const response = fetch('/updateItem', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(itemData)
+    }).then(response => {
+              // Check if the request was successful
+              if (response.ok) {
+                  // If the server responded with a successful status, redirect to the search results page
+                  window.location.href = '/itemSearchResults?page=1';
+              } else {
+                  // If the server response was not ok (e.g., 400, 500), handle it accordingly
+                  console.error('Request failed with status:', response.status);
+              }
+          })
+          .catch(error => {
+              console.error('Network error:', error);
+          });
+
+}
+
 
 function editWarehouse() {
     // Get the form data

@@ -40,11 +40,10 @@
                     <td th:text="${item.itemPrice}"></td>
                     <td><input type="text" class="inputQty"></td>
                     <td>
-                        <form th:action="@{/editItem}" method="post">
-                            <input type="hidden" name="id" th:value="${item.itemId}" />
-                            <button type="submit">Edit</button>
-                        </form>
-                    </td>
+                        <a th:href="@{/editItem(ItemId=${item.itemId})}">
+                            <button>Edit</button>
+                        </a>                      
+                    </td>  
                 </tr>                
             </table>
         </div>

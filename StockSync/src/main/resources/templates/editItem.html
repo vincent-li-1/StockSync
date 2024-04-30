@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Edit Item'"></title>
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:insert="navbar :: items-navbar"></div> <!-- Include the navbar -->
+    <div class="container">
+        <h1>StockSync</h1>
+        <a href="/search">
+            <button>Back to search</button>
+        </a>
+        <div style="margin-top: 30px;"></div>
+        <form id="edititemForm" action="/updateItem" method="POST" class="item-form">
+            <!-- Display the item ID in a disabled input field -->
+            <label for="itemId"></label>
+            <input type="text" id="itemId" name="itemId" th:value="${item.itemId}" style="width: 200px;" disabled />
+            <div style="margin-top: 20px;"></div>
+            <!-- Add a hidden field to ensure the ID is included in form submission -->
+            <input type="hidden" name="itemId" th:value="${item.itemId}" />
+
+            <!-- Other editable fields -->
+            <label for="itemName"></label>
+            <input type="text" id="itemName" name="itemName" th:value="${item.itemName}" placeholder="Enter item name" style="width: 200px;" />
+            <div style="margin-top: 10px;"></div>
+
+            <label for="itemSize"></label>
+            <input type="text" id="itemSize" name="itemSize" th:value="${item.itemSize}" placeholder="Enter item size" style="width: 200px;"/>
+            <div style="margin-top: 10px;"></div>
+
+            <label for="itemPrice"></label>
+            <input type="text" id="itemPrice" name="itemPrice" th:value="${item.itemPrice}" placeholder="Enter item price" style="width: 200px;"/>
+            <div style="margin-top: 10px;"></div>
+
+            <button type="submit" id="submitEditItem">Save Changes</button>
+        </form>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
