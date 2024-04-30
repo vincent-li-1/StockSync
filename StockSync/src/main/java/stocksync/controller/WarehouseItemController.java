@@ -23,11 +23,25 @@ public class WarehouseItemController {
         this.warehouseItemService = warehouseItemService;
     }
 
+    /**
+     * Delete a warehouseItem with UPDATE request trigger by a button in the frontend
+     * @return url back to the search page
+     */
     @GetMapping("/warehouseItem/search")
     public String getSearchPage() {
         return "warehouseItemSearch";
     }
 
+    /**
+     * search for a warehouseItem with SEARCH request trigger by a button in the frontend
+     * @param model a list of id of warehouseItems to search
+     * @param page page number currently on
+     * @param sortBy sort by
+     * @param sortMethod sort method
+     * @param searchKey search key
+     * @param searchValue search val
+     * @return url back to the search page
+     */
     @GetMapping("/warehouseItem/SearchResults")
     public String getAllWarehouseItems(Model model,
                                    @RequestParam(value = "page") int page,
@@ -65,34 +79,22 @@ public class WarehouseItemController {
 
         return "warehouseItemSearchResults";
     }
-
-    /*@GetMapping("/warehouse/{warehouseId}")
-    public String getWarehouseDetails(Model model, @PathVariable("warehouseId") int warehouseId) {
-        // Retrieve warehouse details
-        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
-        if (warehouse == null) {
-            // Handle the case where the warehouse does not exist
-            // This could be redirecting to an error page or listing page
-            return "redirect:/warehouses";
-        }
     
-        // Retrieve the list of items in the warehouse
-        List<WarehouseItem> warehouseItems = warehouseItemService.getItemsByWarehouseId(warehouseId);
-    
-        // Add the retrieved data to the model
-        model.addAttribute("warehouse", warehouse);
-        model.addAttribute("warehouseItems", warehouseItems);
-    
-        // The name of the Thymeleaf template to render (without the .html extension)
-        return "warehouseInfo";
-    }*/
-    
-
+    /**
+     * Add a warehouseItem with ADD request trigger by a button in the frontend
+     * @param model a list of id of warehouseItems to add
+     * @return url to add warehouse item
+     */
     @GetMapping("/warehouseItem/add")
     public String getAddWarehouseItemPage(Model model) {
         return "addWarehouseItem";
     }
 
+    /**
+     * Insert a warehouseItem with INSERT request trigger by a button in the frontend
+     * @param newWarehouseItem a list of id of warehouseItems to insert
+     * @return response entity
+     */
     @PostMapping(value = "/insertWarehouseItem", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<String> insertSipment(@ModelAttribute WarehouseItem newWarehouseItem){
         try {
@@ -118,6 +120,11 @@ public class WarehouseItemController {
         return "redirect:/warehouseItemSearchResults?page=1";
     }
 
+    /**
+     * Delete a warehouseItem with UPDATE request trigger by a button in the frontend
+     * @param updateWarehouseItem a list of id of warehouseItems to update
+     * @return url back to the search page
+     */
     @PostMapping(value = "/warehouseItem/update", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<String> updateWarehouseItem(@ModelAttribute WarehouseItem updateWarehouseItem) {
         try {

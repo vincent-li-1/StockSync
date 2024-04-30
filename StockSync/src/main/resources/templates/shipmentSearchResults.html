@@ -1,10 +1,39 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Search Results</title>
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 </head>
 <body>
-
+    <div th:insert="navbar :: navbar"></div> <!-- Include the navbar -->
+    <div class="container">
+        <h1>StockSync</h1>
+        <div id="results">
+            <table>
+                <tr>
+                    <th>Shipment ID</th>
+                    <th>Shipment Dest.</th>
+                    <th>Shipment Origin</th>
+                </tr>
+                <tr th:each="shipment : ${shipments}" th:id="${shipment.shipmentId}">
+                    <td th:text="${shipment.shipmentId}"></td>
+                    <td th:text="${shipment.warehouseToId}"></td>
+                    <td th:text="${shipment.warehouseFromId}"></td>
+                </tr>                
+            </table>
+        </div>
+        <ul class="pagination">
+        <span>Jump to:</span>
+            <li th:each="page : ${pagesArray}">
+                <a th:href="@{shipmentSearchResults(page=${page})}" th:text="${page}" th:class="${currentPage} == ${page}? 'active'"></a>
+            </li>
+            <span th:text="|of ${totalNumPages}|"></span>
+        </ul>
+        <span th:text="|Showing ${pageStartingNum} - ${pageEndingNum} of ${totalNumEntries} total shipments|"></span>
+    <script src="js/script.js"></script>
 </body>
 </html>
