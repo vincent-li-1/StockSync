@@ -43,7 +43,7 @@ public class SecurityConfiguration {
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer
-                            //.loginPage("/login")
+                            .loginPage("/login")
                             .successHandler(new AuthenticationHandler())
                             .permitAll();
                 })
