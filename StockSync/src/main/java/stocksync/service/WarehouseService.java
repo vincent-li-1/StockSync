@@ -41,8 +41,14 @@ public class WarehouseService implements IWarehouseService {
         this.whMapper.insertWarehouse(newWh);
     }
 
+    /*
+     * Method for getting a singular warehouse given the id
+     * @param id is the id of the warehouse to get
+     * @return the warehouse that matches given id
+     */
     public Warehouse getWarehouseById(int warehouseId) {
         Warehouse warehouse = whMapper.findWarehouseById(warehouseId);
+        // Make sure the warehouse exists
         if (warehouse == null) {
             throw new IllegalArgumentException("No warehouse found with ID: " + warehouseId);
         }

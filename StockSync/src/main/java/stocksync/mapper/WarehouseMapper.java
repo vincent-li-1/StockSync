@@ -24,6 +24,9 @@ public interface WarehouseMapper {
                             @Param("searchKeyAsColumnName") String searchKeyAsColumnName,
                             @Param("searchValueWithWildcard") String searchValueWithWildcard);
 
+    /*
+     * Use sql to get a warehouse from the database given the id
+     */
     @Select("SELECT * FROM StockSync.Warehouse WHERE warehouse_id = #{id}")
     @Results({
         @Result(property = "warehouseId", column = "warehouse_id"),

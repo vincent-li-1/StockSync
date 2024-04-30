@@ -8,7 +8,6 @@ import stocksync.service.WarehouseService;
 import stocksync.model.WarehouseItem;
 import stocksync.service.WarehouseItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +32,14 @@ public class WarehouseController {
         this.warehouseItemService = warehouseItemService;
     }
 
+    /*
+     * GET endpoint for the warehouse info page 
+     * It returns the name of the view to be rendered for the warehuoseInfo url
+     */
     @GetMapping("/warehouseInfo")
     public String getWarehouseInfo(Model model, @RequestParam(value = "WarehouseId") int id) {
         Warehouse warehouse = warehouseService.getWarehouseById(id);
+        // Add attributes to the model so it can be rendered in the view
         model.addAttribute("warehouse", warehouse);
         List<ItemDetailsDTO> warehouseItems = warehouseItemService.getItemDetailsByWarehouseId(id);
         model.addAttribute("warehouseItems", warehouseItems);
@@ -93,9 +97,14 @@ public class WarehouseController {
         return "addEntity";
     }
 
+    /*
+     * GET endpoint for the edit warehouse page
+     * It returns the name of the view to be rendered for the editWarehouse url
+     */
     @GetMapping("/editWarehouse")
     public String getEditWarehousePage(Model model, @RequestParam(value = "WarehouseId") int id) {
         Warehouse warehouse = warehouseService.getWarehouseById(id);
+        // Add attributes to the model so it can be rendered in the view
         model.addAttribute("warehouse", warehouse);
         model.addAttribute("isWarehouse", true);
         return "editEntity";

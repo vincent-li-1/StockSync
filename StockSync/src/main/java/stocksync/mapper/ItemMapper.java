@@ -36,6 +36,9 @@ public interface ItemMapper {
                         @Param("sortByAsColumnName") String sortByAsColumnName,
                         @Param("sortMethod") String sortMethod);
 
+    /*
+     * Use sql to get an Item from the database given the id
+     */
     @Select("SELECT * FROM StockSync.Item WHERE item_id = #{id}")
     @Results({
         @Result(property = "itemId", column = "item_id"),

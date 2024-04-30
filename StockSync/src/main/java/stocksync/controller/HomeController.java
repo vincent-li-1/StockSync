@@ -19,11 +19,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.lang.Math;
 
+/*
+ * GET endpoint for the root URL. This is the entry point for the web application.
+ */
 @Controller
 public class HomeController {
 
     @GetMapping("/")
     public String home() {
+        // Return the name of the view to be rendered for the homepage
         return "homepage"; 
     }
 }
