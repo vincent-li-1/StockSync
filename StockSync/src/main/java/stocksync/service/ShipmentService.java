@@ -161,6 +161,29 @@ public class ShipmentService {
     }
 
     /**
+     * Method to get a count of the total number of pages for a get request
+     * @param searchKey is the column/attribute that the get is searched by
+     * @param searchValue is the value that the get searched for
+     * @return number of pages based on the parameters (if any)
+     */
+    public int getTotalNumPages(String searchKey, String searchValue) {
+        int numEntries;
+        if (searchKey.equals("") || searchValue.equals("")) {
+            numEntries = shipmentMapper.getTotalNumEntries();
+        } 
+        else {
+             // Get the right table column name for searchKey
+            String searchKeyAsColumnName = convertKeyToSqlColumn(searchKey);
+             // Convert searchValue to have search wildcard if the search is by name or address (we don't want to wildcard for long/lat)
+            String searchValueWithWildcard = searchKey.equals("name") ? "%" + searchValue + "%" : searchValue;
+
+            numEntries = shipmentMapper.getSearchNumEntries(searchKeyAsColumnName, searchValueWithWildcard);
+        }
+        double numEntriesDouble = numEntries;
+        return (int) Math.ceil(numEntriesDouble/10.0);
+    }
+
+    /**
      * Method to get an array of the 5 page numbers to display across the bottom
      * of the page depending on which current page the user is on. The user's page
      * should be "centered" between the 5 options, unless there are fewer than 2 other

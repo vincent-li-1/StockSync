@@ -44,10 +44,12 @@ public class ShipmentController {
         String searchValueExist = searchValue.isPresent() ? searchValue.get() : "";
 
         int totalNumEntries = this.shipmentService.getTotalNumEntries(searchKeyExist, searchValueExist);
+        int totalNumPages = this.shipmentService.getTotalNumPages(searchKeyExist, searchValueExist);
 
         model.addAttribute("shipments", this.shipmentService.getShipments(page, sortByExist, sortMethodExist, searchKeyExist, searchValueExist));
         model.addAttribute("pagesArray", this.shipmentService.getPagesArray(page, totalNumEntries));
         model.addAttribute("totalNumEntries", totalNumEntries);
+        model.addAttribute("totalNumPages", totalNumPages);
         model.addAttribute("currentPage", page);
 
         // Pass sort params back to frontend for page links to use
